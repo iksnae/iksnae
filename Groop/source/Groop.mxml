@@ -1,4 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:WindowedApplication xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute">
+<mx:WindowedApplication xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" xmlns:ns1="components.*" horizontalScrollPolicy="off" verticalScrollPolicy="off"
+	 maxWidth="800" maxHeight="600" width="800" height="600" applicationComplete="init()">
+	<mx:Style source="styles/groopStyle.css"/>
+	<ns1:MainView x="0" y="0">
+	</ns1:MainView>
+	<mx:Script>
+		<![CDATA[
+			import com.kloke.model.ApplicationData;
+			import com.iksnae.groop.model.GroopServiceHub;
+			public var hub:GroopServiceHub;
+			public var appData:ApplicationData;
+			/**
+			 * 
+			 * */
+			private function init():void{
+				appData = ApplicationData.getInstance();
+				hub     = GroopServiceHub.getInstance();
+			}
+		]]>
+	</mx:Script>
 	
 </mx:WindowedApplication>
