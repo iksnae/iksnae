@@ -3,4 +3,68 @@
 Canvas.MainViewCanvasStyle
 {
 	backgroundColor: #000000;
+	color: #FFFFFF;
+	fontFamily: A;
+}
+Button.SideNavButtonStyle
+{
+	color: #B0B0B0;
+	cornerRadius: 0;
+	fillAlphas: 1.0, 1.0;
+	fillColors: #000000, #000000;
+	fontFamily: Arial;
+	themeColor: #000000;
+	fontSize: 16;
+	fontWeight: bold;
+	textAlign: left;
+	borderColor: #000000;
+	textRollOverColor: #FFFFFF;
+}
+Label.SelectedViewTitle
+{
+	color: #FFFFFF;
+	fontFamily: Arial;
+	fontSize: 20;
+	fontWeight: bold;
+}
+@font-face
+{
+	fontFamily: Arial;
+	fontWeight: bold;
+	fontStyle: normal;
+	src: local("Arial");
+}
+Label.SectionHeader
+{
+	color: #818181;
+	fontFamily: Arial;
+	fontSize: 14;
+}
+Text.SelectedDescriptionText
+{
+	color: #BEBEBE;
+	fontFamily: Arial;
+}
+DateChooser
+{
+	borderColor: #000000;
+	cornerRadius: 0;
+	fillAlphas: 1.0, 1.0;
+	fillColors: #000000, #000000;
+	fontFamily: Arial;
+	fontSize: 12;
+	themeColor: #000000;
+	headerColors: #000000, #000000;
+	color: #FFFFFF;
+	backgroundColor: #B1B1B1;
+}
+Label.FooterLabel
+{
+	color: #FFFFFF;
+	fontSize: 9;
+	fontFamily: Arial;
+}
+RichTextEditor
+{
+	cornerRadius: 0;
 }
