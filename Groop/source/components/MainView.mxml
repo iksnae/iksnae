@@ -23,6 +23,7 @@
 			<mx:SetStyle target="{vbox2}" name="backgroundColor" value="#4D4D4D"/>
 			<mx:SetProperty name="height" value="100%"/>
 			<mx:SetProperty name="width" value="100%"/>
+			<mx:SetProperty target="{calendar_btn}" name="enabled" value="false"/>
 		</mx:State>
 		<mx:State name="mail">
 			<mx:AddChild relativeTo="{vbox1}" position="lastChild">
@@ -30,8 +31,8 @@
 			</mx:AddChild>
 			<mx:AddChild relativeTo="{vbox1}" position="lastChild">
 				<mx:VDividedBox width="100%" height="100%" verticalScrollPolicy="off" horizontalScrollPolicy="off" id="vdividedbox1">
-					<mx:HTML width="100%" id="html1" height="150"/>
-					<mx:DataGrid width="100%" height="97" id="datagrid1">
+					<mx:HTML width="100%" id="html1" height="50%"/>
+					<mx:DataGrid width="100%" height="50%" id="datagrid1">
 						
 					</mx:DataGrid>
 					
@@ -49,6 +50,7 @@
 			<mx:AddChild relativeTo="{vbox2}" position="lastChild">
 				<mx:Button label="folders" width="100%" styleName="SideNavButtonStyle" id="button1"/>
 			</mx:AddChild>
+			<mx:SetProperty target="{mail_btn}" name="enabled" value="false"/>
 		</mx:State>
 		<mx:State name="compose" basedOn="mail">
 			<mx:RemoveChild target="{html1}"/>
@@ -71,14 +73,32 @@
 			</mx:AddChild>
 			<mx:SetProperty target="{label1}" name="text" value="mail.compose"/>
 		</mx:State>
+		<mx:State name="messages">
+			<mx:SetProperty target="{message_btn}" name="enabled" value="false"/>
+			<mx:AddChild relativeTo="{vbox1}" position="lastChild">
+				<mx:Label text="messages" styleName="SectionHeader"/>
+			</mx:AddChild>
+		</mx:State>
+		<mx:State name="tasks">
+			<mx:SetProperty target="{tasks_btn}" name="enabled" value="false"/>
+			<mx:AddChild relativeTo="{vbox1}" position="lastChild">
+				<mx:Label text="tasks" styleName="SectionHeader"/>
+			</mx:AddChild>
+		</mx:State>
+		<mx:State name="files">
+			<mx:SetProperty target="{files_btn}" name="enabled" value="false"/>
+			<mx:AddChild relativeTo="{vbox1}" position="lastChild">
+				<mx:Label text="files" styleName="SectionHeader"/>
+			</mx:AddChild>
+		</mx:State>
 	</mx:states>
 	<mx:Label text="groop" fontFamily="Arial" color="#787878" fontSize="22" top="10" left="10"/>
 	<mx:VBox width="150" left="10" bottom="10" top="49" verticalGap="0">
 		<mx:Button label="calendar" width="150" styleName="SideNavButtonStyle" id="calendar_btn" click="showCalendar()"/>
 		<mx:Button label="mail" width="150" styleName="SideNavButtonStyle" id="mail_btn" click="showMail()"/>
-		<mx:Button label="messages" styleName="SideNavButtonStyle" width="150" id="message_btn"/>
-		<mx:Button label="tasks" styleName="SideNavButtonStyle" width="150" id="tasks_btn"/>
-		<mx:Button label="files" styleName="SideNavButtonStyle" width="150" id="files_btn"/>
+		<mx:Button label="messages" styleName="SideNavButtonStyle" width="150" id="message_btn" click="showMessages()"/>
+		<mx:Button label="tasks" styleName="SideNavButtonStyle" width="150" id="tasks_btn" click="showTasks()"/>
+		<mx:Button label="files" styleName="SideNavButtonStyle" width="150" id="files_btn" click="showFiles()"/>
 	</mx:VBox>
 	<mx:Canvas top="10" left="166" right="168" bottom="10" id="canvas1">
 	<mx:VBox left="0" right="0" bottom="0" top="0" id="vbox1">
@@ -96,6 +116,15 @@
             }
             private function showCompose():void{
                 currentState = 'compose';
+            }
+            private function showFiles():void{
+                currentState = 'files';
+            }
+            private function showTasks():void{
+                currentState = 'tasks';
+            }
+            private function showMessages():void{
+                currentState = 'messages';
             }
 		]]>
 	</mx:Script>
