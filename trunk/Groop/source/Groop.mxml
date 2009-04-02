@@ -6,6 +6,7 @@
 	</ns1:MainView>
 	<mx:Script>
 		<![CDATA[
+			import components.GroopLogin;
 			import com.kloke.model.ApplicationData;
 			import com.iksnae.groop.model.GroopServiceHub;
 			public var hub:GroopServiceHub;
@@ -16,6 +17,7 @@
 			private function init():void{
 				appData = ApplicationData.getInstance();
 				hub     = GroopServiceHub.getInstance();
+				
 			}
 		]]>
 	</mx:Script>

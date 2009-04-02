@@ -84,6 +84,14 @@
 			<mx:AddChild relativeTo="{vbox1}" position="lastChild">
 				<mx:Label text="tasks" styleName="SectionHeader"/>
 			</mx:AddChild>
+			<mx:SetStyle target="{vbox3}" name="bottom" value="30"/>
+			<mx:SetStyle target="{canvas1}" name="bottom" value="30"/>
+			<mx:SetStyle target="{vbox2}" name="bottom" value="30"/>
+			<mx:AddChild position="lastChild">
+				<mx:HBox height="30" bottom="0" right="10" left="10" id="status_bar" verticalScrollPolicy="off" horizontalScrollPolicy="off">
+					<mx:Text text="Text" styleName="FooterText"/>
+				</mx:HBox>
+			</mx:AddChild>
 		</mx:State>
 		<mx:State name="files">
 			<mx:SetProperty target="{files_btn}" name="enabled" value="false"/>
@@ -93,7 +101,7 @@
 		</mx:State>
 	</mx:states>
 	<mx:Label text="groop" fontFamily="Arial" color="#787878" fontSize="22" top="10" left="10"/>
-	<mx:VBox width="150" left="10" bottom="10" top="49" verticalGap="0">
+	<mx:VBox width="150" left="10" bottom="10" top="49" verticalGap="0" id="vbox3">
 		<mx:Button label="calendar" width="150" styleName="SideNavButtonStyle" id="calendar_btn" click="showCalendar()"/>
 		<mx:Button label="mail" width="150" styleName="SideNavButtonStyle" id="mail_btn" click="showMail()"/>
 		<mx:Button label="messages" styleName="SideNavButtonStyle" width="150" id="message_btn" click="showMessages()"/>
