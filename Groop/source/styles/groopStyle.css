@@ -68,3 +68,8 @@ RichTextEditor
 {
 	cornerRadius: 0;
 }
+Text.FooterText
+{
+	color: #FFFFFF;
+	fontFamily: Arial;
+}
