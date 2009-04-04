@@ -65,7 +65,7 @@ package com.iksnae.groop.model
 		}
 		private function onLoginResponse(e:Event):void{
 		    var raw:String = String(URLLoader(e.target).data)
-            trace('onLoginResponse:'raw)
+            trace('onLoginResponse:'+raw)
             _SID = raw.substr(raw.search('SID=')+4,187);
             _LSID= raw.substr(raw.search('LSID=')+5,187);
             _AUTH= raw.substr(raw.search('Auth=')+5,187);
