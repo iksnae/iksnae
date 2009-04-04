@@ -6,7 +6,7 @@
 	</ns1:MainView>
 	<mx:Script>
 		<![CDATA[
-			import components.GroopLogin;
+
 			import com.kloke.model.ApplicationData;
 			import com.iksnae.groop.model.GroopServiceHub;
 			public var hub:GroopServiceHub;
