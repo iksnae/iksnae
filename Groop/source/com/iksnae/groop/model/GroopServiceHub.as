@@ -15,7 +15,10 @@ package com.iksnae.groop.model
 	 */
 	public class GroopServiceHub extends EventDispatcher
 	{
-		
+		private var _SID:String;
+		private var _LSID:String;
+        private var _AUTH:String;
+        
 		static private var _instance:GroopServiceHub=null;
 		static public function getInstance():GroopServiceHub{
 			if(_instance==null) _instance = new GroopServiceHub(new se());
@@ -31,6 +34,10 @@ package com.iksnae.groop.model
         public const UpgradeToken:String    = 'AuthGetRequestToken'
         public const ClientLogin:String     = 'ClientLogin'
         
+        protected var password:String       = 'flashydev@gmail.com';
+        protected var username:String       = 'passw0rd';
+        
+        
         		
 		public function GroopServiceHub(e:se)
 		{
@@ -39,7 +46,7 @@ package com.iksnae.groop.model
 		}
 		private function init():void{
 			Debug.log('GroopServiceHub.init')
-			login('flashydev@gmail.com','passw0rd')
+			login(username,password)
 		}
 		
 		
@@ -58,17 +65,16 @@ package com.iksnae.groop.model
 		}
 		private function onLoginResponse(e:Event):void{
 		    var raw:String = String(URLLoader(e.target).data)
-            trace(raw)
-            var sid:String = raw.substr(raw.search('SID=')+4,187);
-            var lsid:String = raw.substr(raw.search('LSID=')+5,187);
-            var auth:String = raw.substr(raw.search('Auth=')+5,187);
-		    trace("SID:"+sid)
-            trace("LSID:"+lsid)
-            trace("AUTH:"+auth)
+            trace('onLoginResponse:'raw)
+            _SID = raw.substr(raw.search('SID=')+4,187);
+            _LSID= raw.substr(raw.search('LSID=')+5,187);
+            _AUTH= raw.substr(raw.search('Auth=')+5,187);
+		    trace("SID:"+_SID)
+            trace("LSID:"+_LSID)
+            trace("AUTH:"+_AUTH)
             
 		}
 		private function onCal(e:Event):void{
-		      
 		      var raw:String = String(URLLoader(e.target).data)
 		      trace('onCal:'+raw)
 		      
