@@ -57,7 +57,22 @@ package com.iksnae.groop.model
 			l.load(r)
 		}
 		private function onLoginResponse(e:Event):void{
-		    trace(URLLoader(e.target).data)
+		    var raw:String = String(URLLoader(e.target).data)
+            trace(raw)
+            var sid:String = raw.substr(raw.search('SID=')+4,187);
+            var lsid:String = raw.substr(raw.search('LSID=')+5,187);
+            var auth:String = raw.substr(raw.search('Auth=')+5,187);
+		    trace("SID:"+sid)
+            trace("LSID:"+lsid)
+            trace("AUTH:"+auth)
+            
+		}
+		private function onCal(e:Event):void{
+		      
+		      var raw:String = String(URLLoader(e.target).data)
+		      trace('onCal:'+raw)
+		      
+              
 		}
 	}
 }
