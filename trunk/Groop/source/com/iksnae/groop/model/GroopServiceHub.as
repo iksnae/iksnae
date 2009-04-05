@@ -92,11 +92,24 @@ package com.iksnae.groop.model
             trace("AUTH:"+_AUTH)
             
 		}
+		////
+		
+		public function get SID():String{
+			return _SID;
+		}
+		public function get LSID():String{
+            return _LSID;
+        }
+        public function get Auth():String{
+            return _AUTH;
+        }
+		
+		
+		
+		//// EVENT HANDLERS
 		private function onCal(e:Event):void{
 		      var raw:String = String(URLLoader(e.target).data)
 		      trace('onCal:'+raw)
-		      
-              
 		}
 		private function onEvent(e:Event):void{
 		      trace('onEvent: '+e.type)
