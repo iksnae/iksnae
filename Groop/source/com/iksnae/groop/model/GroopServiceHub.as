@@ -38,8 +38,8 @@ package com.iksnae.groop.model
         public const UpgradeToken:String    = 'AuthGetRequestToken'
         public const ClientLogin:String     = 'ClientLogin'
         
-        private var _password:String       = 'flashydev@gmail.com';
-        private var _username:String       = 'passw0rd';
+        private var _username:String       = 'flashydev@gmail.com';
+        private var _password:String       = 'passw0rd';
         
         
         		
