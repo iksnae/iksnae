@@ -1,11 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:WindowedApplication xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" xmlns:ns1="components.*" horizontalScrollPolicy="off" verticalScrollPolicy="off"
-	  minHeight="350" minWidth="700" applicationComplete="init()">
+	  minHeight="350" minWidth="700" applicationComplete="init()" currentState="login" styleName="MainViewCanvasStyle">
+	<mx:states>
+		<mx:State name="login">
+			<mx:AddChild position="lastChild">
+				<ns1:LoginView x="192" y="10">
+				</ns1:LoginView>
+			</mx:AddChild>
+			<mx:SetProperty name="styleName" value="MainViewCanvasStyle"/>
+			<mx:SetStyle name="borderColor" value="#000000"/>
+			<mx:SetProperty target="{mainview1}" name="enabled" value="false"/>
+		</mx:State>
+		<mx:State name="loggedin"/>
+	</mx:states>
 	<mx:Style source="styles/groopStyle.css"/>
-	<ns1:MainView x="0" y="0" width="100%" height="100%">
+	<ns1:MainView x="0" y="0" width="100%" height="100%" id="mainview1">
 	</ns1:MainView>
 	<mx:Script>
 		<![CDATA[
+			import com.iksnae.groop.model.services.GroopServiceEvent;
 
 			import com.kloke.model.ApplicationData;
 			import com.iksnae.groop.model.GroopServiceHub;
@@ -17,7 +30,19 @@
 			private function init():void{
 				appData = ApplicationData.getInstance();
 				hub     = GroopServiceHub.getInstance();
+				hub.addEventListener(GroopServiceEvent.CONNECTION_SUCCESS,onGroopHubEvent)
 				
+			}
+			private function onGroopHubEvent(e:Event):void{
+				switch(e.type){
+					case GroopServiceEvent.CONNECTION_SUCCESS:
+					currentState = 'loggedin'
+					break;
+					case GroopServiceEvent.CONNECTION_FAIL:
+					currentState = 'login'
+                    break;
+                    
+				}
 			}
 		]]>
 	</mx:Script>

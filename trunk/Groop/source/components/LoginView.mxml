@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="400" height="300" styleName="MainViewCanvasStyle" initialize="init()">
+	<mx:Form label="Groop Login" top="40" left="10" bottom="10" right="10">
+		<mx:FormItem label="gmail address:" styleName="GroopFormItem" width="100%" id="username">
+			<mx:TextInput styleName="LoginInput" width="100%" id="usename_txt" text="flashydev@gmail.com"/>
+		</mx:FormItem>
+		<mx:FormItem label="password:" styleName="GroopFormItem" width="100%" id="password">
+			<mx:TextInput width="100%" id="password_txt" styleName="LoginInput" text="passw0rd" displayAsPassword="true"/>
+		</mx:FormItem>
+		<mx:FormItem styleName="GroopFormItem" id="remember">
+			<mx:CheckBox label="remember me" id="remeber_cb" styleName="SideNavButtonStyle"/>
+		</mx:FormItem>
+		<mx:FormItem styleName="GroopFormItem" id="optin">
+			<mx:Button label="login" id="login_btn" styleName="SideNavButtonStyle" click="checkForm()"/>
+		</mx:FormItem>
+	</mx:Form>
+	<mx:Script>
+		<![CDATA[
+			import com.iksnae.groop.model.services.GroopServiceEvent;
+			import com.iksnae.groop.model.GroopServiceHub;
+		    private var _gHub:GroopServiceHub;
+			private function init():void{
+				_gHub = GroopServiceHub.getInstance();
+				_gHub.addEventListener(GroopServiceEvent.CONNECTION_SUCCESS,onLoginSuccess)
+				_gHub.addEventListener(GroopServiceEvent.CONNECTION_FAIL,onLoginFailed)
+                
+			}
+			private function checkForm():void{
+				attemptLogin()
+			}
+			private function attemptLogin():void{
+				_gHub.login(usename_txt.text,password_txt.text)
+			}
+			private function onLoginSuccess(e:Event):void{
+				
+			}
+			private function onLoginFailed():void{
+                
+            }
+			private function clearForm():void{
+				
+			}
+		]]>
+	</mx:Script>
+	
+</mx:Canvas>

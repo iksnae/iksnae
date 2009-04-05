@@ -100,7 +100,7 @@
 			</mx:AddChild>
 		</mx:State>
 	</mx:states>
-	<mx:Label text="groop" fontFamily="Arial" color="#787878" fontSize="22" top="10" left="10"/>
+	<mx:Label text="groop" top="10" left="10" styleName="HeaderLabel"/>
 	<mx:VBox width="150" left="10" bottom="10" top="49" verticalGap="0" id="vbox3">
 		<mx:Button label="calendar" width="150" styleName="SideNavButtonStyle" id="calendar_btn" click="showCalendar()"/>
 		<mx:Button label="mail" width="150" styleName="SideNavButtonStyle" id="mail_btn" click="showMail()"/>

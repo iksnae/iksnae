@@ -1,5 +1,6 @@
 package com.iksnae.groop.model
 {
+	import com.iksnae.groop.model.services.GroopServiceEvent;
 	import com.kloke.util.debug.Debug;
 	
 	import flash.events.Event;
@@ -41,6 +42,9 @@ package com.iksnae.groop.model
         private var _username:String       = 'flashydev@gmail.com';
         private var _password:String       = 'passw0rd';
         
+   
+        
+        
         
         		
 		public function GroopServiceHub(e:se)
@@ -50,16 +54,17 @@ package com.iksnae.groop.model
 		}
 		private function init():void{
 			Debug.log('GroopServiceHub.init')
-			login(_username,_password)
 		}
 		
 		
 		public function login(username:String,password:String):void{
 			trace('logging into google services..')
+			_username = username;
+			_password = password;
 			var urlVars:URLVariables = new URLVariables()
 			urlVars['accountType']='HOSTED_OR_GOOGLE';
-			urlVars['Email']     = username;
-			urlVars['Passwd']    = password;
+			urlVars['Email']     = _username;
+			urlVars['Passwd']    = _password;
 			urlVars['service']   = 'cl';
 			var l:URLLoader = new URLLoader()
 			var r:URLRequest= new URLRequest(BaseURL+ClientLogin)
@@ -115,7 +120,12 @@ package com.iksnae.groop.model
 		      trace('onEvent: '+e.type)
 		}
 		private function onHttpStatus(e:HTTPStatusEvent):void{
-		      trace('onHttpStatus: '+e.type)
+		      trace('onHttpStatus: '+e.status)
+		      switch(e.status){
+		      	case 200:
+		      	   dispatchEvent(new Event(GroopServiceEvent.CONNECTION_SUCCESS));
+		      	break;
+		      }
 		}
 		private function onIOError(e:IOErrorEvent):void{
 		      trace('onIOError: '+e.type)

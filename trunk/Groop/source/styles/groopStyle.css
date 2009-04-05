@@ -73,3 +73,22 @@ Text.FooterText
 	color: #FFFFFF;
 	fontFamily: Arial;
 }
+TextInput.LoginInput
+{
+	color: #000000;
+	fontFamily: Arial;
+	fontSize: 14;
+}
+Label.HeaderLabel
+{
+	color: #787878;
+	fontFamily: Arial;
+	fontSize: 22;
+	fontWeight: bold;
+}
+FormItem.GroopFormItem
+{
+	color: #FFFFFF;
+	fontFamily: Arial;
+	fontSize: 12;
+}
