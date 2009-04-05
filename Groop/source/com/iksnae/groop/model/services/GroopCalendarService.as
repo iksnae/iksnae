@@ -92,8 +92,8 @@ package com.iksnae.groop.model.services
 			calenderLoader.load(r)
 		}
 		public function getAllCallendarEvents(str:String):void{
-			trace('getAllCallendarEvents: '+BASE_URL+CALENDAR_EVENTS+str)
-            var r:URLRequest = new URLRequest(BASE_URL+CALENDAR_EVENTS+str)
+			trace('getAllCallendarEvents: '+str)
+            var r:URLRequest = new URLRequest(str)
             calenderLoader.addEventListener(Event.COMPLETE,onEventsLoaded)
             calenderLoader.load(r)
         }
@@ -108,7 +108,7 @@ package com.iksnae.groop.model.services
 		}
 		public function onChangeCalendar(e:*):void{
 		      trace('onChangeCalendar:'+DataGrid(e).selectedItem.title)	
-		      getAllCallendarEvents(DataGrid(e).selectedItem.title)
+		      getAllCallendarEvents(DataGrid(e).selectedItem.id)
 		}
 		private function parseCalendarEvents(data:String):void{
             if(!XMLUtil.isValidXML(data))
@@ -116,7 +116,7 @@ package com.iksnae.groop.model.services
                 trace("Feed does not contain valid XML.");
                 return;
             }else{
-                trace("XML Validated.");
+                trace("XML Validated: "+data);
             }
             events.removeAll()
             var atom:Atom10 = new Atom10()
@@ -125,7 +125,8 @@ package com.iksnae.groop.model.services
             for each(var entry:Entry in items)
             {
                 //print out the title of each item
-                trace(entry.title);
+               
+                trace(entry.id);
                 events.addItem(entry)
             }
         }
@@ -146,7 +147,8 @@ package com.iksnae.groop.model.services
 	        {
 	            //print out the title of each item
 	            trace(entry.title);
-	            dates.addItem({title:entry.title,description: entry.content.value, date: entry.published})
+	            trace(entry.content.src);
+	            dates.addItem({title:entry.title,description: entry.content.value, date: entry.published, id:entry.content.src})
 	        }
 		}
 		
