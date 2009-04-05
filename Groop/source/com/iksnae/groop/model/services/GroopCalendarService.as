@@ -2,11 +2,16 @@ package com.iksnae.groop.model.services
 {
 	import com.kloke.model.interfaces.IService;
 	
-	import flash.events.Event;
 	import flash.events.EventDispatcher;
 
 	public class GroopCalendarService extends EventDispatcher implements IService
 	{
+		
+		private const BaseURL:String = 'http://www.google.com/calendar/'
+	
+		
+		
+		
 		public function GroopCalendarService()
 		{
 			//TODO: implement function
