@@ -4,7 +4,7 @@
 	<mx:states>
 		<mx:State name="login">
 			<mx:AddChild position="lastChild">
-				<ns1:LoginView x="192" y="10">
+				<ns1:LoginView horizontalCenter="0" verticalCenter="0">
 				</ns1:LoginView>
 			</mx:AddChild>
 			<mx:SetProperty name="styleName" value="MainViewCanvasStyle"/>
