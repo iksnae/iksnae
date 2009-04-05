@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:DateChooser xmlns:mx="http://www.adobe.com/2006/mxml">
+	<mx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			public function populate(arr:ArrayCollection):void{
+				trace("CALENDAR UPDATE: "+arr)
+				
+			}
+		]]>
+	</mx:Script>
+</mx:DateChooser>

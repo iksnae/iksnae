@@ -1,5 +1,6 @@
 package com.iksnae.groop.model
 {
+	import com.iksnae.groop.model.services.GroopCalendarService;
 	import com.iksnae.groop.model.services.GroopServiceEvent;
 	import com.kloke.util.debug.Debug;
 	
@@ -124,6 +125,7 @@ package com.iksnae.groop.model
 		      switch(e.status){
 		      	case 200:
 		      	   dispatchEvent(new Event(GroopServiceEvent.CONNECTION_SUCCESS));
+		           
 		      	break;
 		      }
 		}
@@ -136,6 +138,9 @@ package com.iksnae.groop.model
 		private function onSecurityError(e:SecurityErrorEvent):void{
 		      trace('onSecurityError: '+e.type)
 		}
+		
+		
+		
 	}
 }
 class se{}
