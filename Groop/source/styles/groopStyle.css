@@ -8,10 +8,10 @@ Canvas.MainViewCanvasStyle
 }
 Button.SideNavButtonStyle
 {
-	color: #B0B0B0;
+	color: #828282;
 	cornerRadius: 0;
 	fillAlphas: 1.0, 1.0;
-	fillColors: #000000, #000000;
+	fillColors: 0.0, 0.0;
 	fontFamily: Arial;
 	themeColor: #000000;
 	fontSize: 16;
@@ -19,6 +19,15 @@ Button.SideNavButtonStyle
 	textAlign: left;
 	borderColor: #000000;
 	textRollOverColor: #FFFFFF;
+	textSelectedColor: #FFFFFF;
+}
+CheckBox
+{
+	themeColor: #A4A4A4;
+	color: #FFFFFF;
+	textRollOverColor: #A3A3A3;
+	textSelectedColor: #AEAEAE;
+	disabledColor: #777777;
 }
 Label.SelectedViewTitle
 {
@@ -67,6 +76,9 @@ Label.FooterLabel
 RichTextEditor
 {
 	cornerRadius: 0;
+	color: #B6B6B6;
+	borderColor: #000000;
+	borderAlpha: 1.0;
 }
 Text.FooterText
 {
@@ -91,4 +103,52 @@ FormItem.GroopFormItem
 	color: #FFFFFF;
 	fontFamily: Arial;
 	fontSize: 12;
+}
+LinkButton.TextLink
+{
+	fontFamily: Arial;
+	rollOverColor: #ABABAB;
+	selectionColor: #626262;
+	color: #FFFFFF;
+	textRollOverColor: #FFFFFF;
+	textSelectedColor: #FFFFFF;
+	disabledColor: #909090;
+	themeColor: #B6B6B6;
+	cornerRadius: 0;
+}
+Text.TextMessage
+{
+	fontFamily: Arial;
+	color: #FFFFFF;
+	fontSize: 12;
+}
+DataGrid.CalenderList
+{
+	color: #FFFFFF;
+	fontFamily: Arial;
+	themeColor: #B5B5B5;
+	alternatingItemColors: #000000, #383838;
+	fontSize: 12;
+	borderColor: #000000;
+	borderThickness: 0;
+}
+ScrollBar
+{
+	cornerRadius: 0;
+	fillAlphas: 1.0, 1.0;
+	fillColors: #303030, #303030;
+	trackColors: #000000, #000000;
+	borderColor: #646464;
+}
+HTML
+{
+	backgroundColor: #000000;
+}
+TextArea
+{
+	backgroundColor: #000000;
+	borderColor: #000000;
+	color: #FFFFFF;
+	fontFamily: Arial;
+	fontSize: 13;
 }
