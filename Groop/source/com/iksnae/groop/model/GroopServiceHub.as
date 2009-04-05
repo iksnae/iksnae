@@ -4,6 +4,10 @@ package com.iksnae.groop.model
 	
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
+	import flash.events.HTTPStatusEvent;
+	import flash.events.IOErrorEvent;
+	import flash.events.ProgressEvent;
+	import flash.events.SecurityErrorEvent;
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
 	import flash.net.URLRequestMethod;
@@ -34,8 +38,8 @@ package com.iksnae.groop.model
         public const UpgradeToken:String    = 'AuthGetRequestToken'
         public const ClientLogin:String     = 'ClientLogin'
         
-        protected var password:String       = 'flashydev@gmail.com';
-        protected var username:String       = 'passw0rd';
+        private var _password:String       = 'flashydev@gmail.com';
+        private var _username:String       = 'passw0rd';
         
         
         		
@@ -46,19 +50,33 @@ package com.iksnae.groop.model
 		}
 		private function init():void{
 			Debug.log('GroopServiceHub.init')
-			login(username,password)
+			login(_username,_password)
 		}
 		
 		
 		public function login(username:String,password:String):void{
+			trace('logging into google services..')
 			var urlVars:URLVariables = new URLVariables()
 			urlVars['accountType']='HOSTED_OR_GOOGLE';
-			urlVars['Email']     = username 
-			urlVars['Passwd']    = password
+			urlVars['Email']     = username;
+			urlVars['Passwd']    = password;
 			urlVars['service']   = 'cl';
 			var l:URLLoader = new URLLoader()
 			var r:URLRequest= new URLRequest(BaseURL+ClientLogin)
+		
 			l.addEventListener(Event.COMPLETE,onLoginResponse)
+			
+			l.addEventListener(IOErrorEvent.IO_ERROR,onIOError)
+			l.addEventListener(HTTPStatusEvent.HTTP_RESPONSE_STATUS,onHttpStatus)
+			l.addEventListener(HTTPStatusEvent.HTTP_STATUS,onHttpStatus)
+			l.addEventListener(ProgressEvent.PROGRESS,onProgress)
+			l.addEventListener(SecurityErrorEvent.SECURITY_ERROR,onSecurityError)
+			l.addEventListener(Event.ACTIVATE,onEvent)
+			l.addEventListener(Event.COMPLETE,onEvent)
+			l.addEventListener(Event.DEACTIVATE,onEvent)
+			l.addEventListener(Event.OPEN,onEvent)
+		
+			
 			r.method = URLRequestMethod.POST;
 			r.data = urlVars;
 			l.load(r)
@@ -79,6 +97,21 @@ package com.iksnae.groop.model
 		      trace('onCal:'+raw)
 		      
               
+		}
+		private function onEvent(e:Event):void{
+		      trace('onEvent: '+e.type)
+		}
+		private function onHttpStatus(e:HTTPStatusEvent):void{
+		      trace('onHttpStatus: '+e.type)
+		}
+		private function onIOError(e:IOErrorEvent):void{
+		      trace('onIOError: '+e.type)
+		}
+		private function onProgress(e:ProgressEvent):void{
+		      trace('onProgress: '+e.type)
+		}
+		private function onSecurityError(e:SecurityErrorEvent):void{
+		      trace('onSecurityError: '+e.type)
 		}
 	}
 }
