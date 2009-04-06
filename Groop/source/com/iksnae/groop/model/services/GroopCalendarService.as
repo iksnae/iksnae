@@ -3,6 +3,7 @@ package com.iksnae.groop.model.services
 	import com.adobe.utils.XMLUtil;
 	import com.adobe.xml.syndication.atom.Atom10;
 	import com.adobe.xml.syndication.atom.Entry;
+	import com.adobe.xml.syndication.atom.Link;
 	import com.iksnae.groop.model.GroopServiceHub;
 	import com.kloke.model.interfaces.IService;
 	
@@ -10,6 +11,7 @@ package com.iksnae.groop.model.services
 	import flash.events.EventDispatcher;
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
+	import flash.net.URLRequestHeader;
 	
 	import mx.collections.ArrayCollection;
 	import mx.controls.DataGrid;
@@ -20,21 +22,7 @@ package com.iksnae.groop.model.services
 		public var dates:ArrayCollection = new ArrayCollection();
 		[Bindable]
 		public var events:ArrayCollection = new ArrayCollection();
-		[Bindable]
-		public var dateCollection:ArrayCollection = new ArrayCollection([
-
-            { date:"12/4/2008", data:"party value", label:"Party"},
-
-            { date:"1/5/2009", data:"meeting value", label:"Meeting"},
-
-            { date:"12/15/2008", data:"holiday value", label:"Holiday"},
-
-            { date:"12/15/2008", data:"dinner value", label:"Dinner"},
-
-            { date:"12/15/2008", data:"bedtime value", label:"Bedtime"}
-
-            ]);
-		
+	
 		private const BASE_URL:String = 'http://www.google.com/calendar/'
 		private const DEFAULT:String = 'feeds/default'
 		private const ALL:String = 'feeds/default/allcalendars/full'
@@ -46,8 +34,8 @@ package com.iksnae.groop.model.services
         private const openSearch:Namespace=new Namespace('http://a9.com/-/spec/opensearchrss/1.0/')
 		
 		private var calenderLoader:URLLoader;
-	
-	       
+		private var authHeader:URLRequestHeader;
+	    
 		
 		private var hub:GroopServiceHub = GroopServiceHub.getInstance()
 		static private var instance:GroopCalendarService=null;
@@ -93,7 +81,8 @@ package com.iksnae.groop.model.services
 		}
 		public function getAllCallendarEvents(str:String):void{
 			trace('getAllCallendarEvents: '+str)
-            var r:URLRequest = new URLRequest(str)
+            var r:URLRequest = new URLRequest(str+'?token='+hub.Auth)
+           
             calenderLoader.addEventListener(Event.COMPLETE,onEventsLoaded)
             calenderLoader.load(r)
         }
@@ -147,8 +136,8 @@ package com.iksnae.groop.model.services
 	        {
 	            //print out the title of each item
 	            trace(entry.title);
-	            trace(entry.content.src);
-	            dates.addItem({title:entry.title,description: entry.content.value, date: entry.published, id:entry.content.src})
+	            trace(entry.id);
+	            dates.addItem({title:entry.title,description: entry.content.value, date: entry.published, id: Link(entry.links[1]).href })
 	        }
 		}
 		

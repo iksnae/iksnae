@@ -1,6 +1,5 @@
 package com.iksnae.groop.model
 {
-	import com.iksnae.groop.model.services.GroopCalendarService;
 	import com.iksnae.groop.model.services.GroopServiceEvent;
 	import com.kloke.util.debug.Debug;
 	
@@ -12,6 +11,7 @@ package com.iksnae.groop.model
 	import flash.events.SecurityErrorEvent;
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
+	import flash.net.URLRequestHeader;
 	import flash.net.URLRequestMethod;
 	import flash.net.URLVariables;
 	/**
@@ -43,6 +43,10 @@ package com.iksnae.groop.model
         private var _username:String       = 'flashydev@gmail.com';
         private var _password:String       = 'passw0rd';
         
+        
+        public var authVars:URLVariables;
+       
+        
    
         
         
@@ -62,11 +66,13 @@ package com.iksnae.groop.model
 			trace('logging into google services..')
 			_username = username;
 			_password = password;
-			var urlVars:URLVariables = new URLVariables()
-			urlVars['accountType']='HOSTED_OR_GOOGLE';
-			urlVars['Email']     = _username;
-			urlVars['Passwd']    = _password;
-			urlVars['service']   = 'cl';
+			authVars = new URLVariables()
+			
+			authVars['accountType']='HOSTED_OR_GOOGLE';
+			authVars['Email']     = _username;
+			authVars['Passwd']    = _password;
+			authVars['service']   = 'cl';
+			authVars['session']   = 1;
 			var l:URLLoader = new URLLoader()
 			var r:URLRequest= new URLRequest(BaseURL+ClientLogin)
 		
@@ -84,7 +90,7 @@ package com.iksnae.groop.model
 		
 			
 			r.method = URLRequestMethod.POST;
-			r.data = urlVars;
+			r.data = authVars;
 			l.load(r)
 		}
 		private function onLoginResponse(e:Event):void{
