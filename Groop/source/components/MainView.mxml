@@ -119,6 +119,12 @@
 				<mx:Label text="files" styleName="SectionHeader"/>
 			</mx:AddChild>
 		</mx:State>
+		<mx:State name="buy">
+			<mx:SetProperty target="{files_btn}" name="enabled" value="false"/>
+			<mx:AddChild relativeTo="{vbox1}" position="lastChild">
+				<mx:Label text="buy" styleName="SectionHeader"/>
+			</mx:AddChild>
+		</mx:State>
 	</mx:states>
 	<mx:Label text="groop" top="10" left="10" styleName="HeaderLabel"/>
 	<mx:VBox width="150" left="10" bottom="10" top="49" verticalGap="0" id="vbox3">
@@ -127,6 +133,7 @@
 		<mx:Button label="messages" styleName="SideNavButtonStyle" width="150" id="message_btn" click="showMessages()"/>
 		<mx:Button label="tasks" styleName="SideNavButtonStyle" width="150" id="tasks_btn" click="showTasks()"/>
 		<mx:Button label="files" styleName="SideNavButtonStyle" width="150" id="files_btn" click="showFiles()"/>
+		<mx:Button label="buy" styleName="SideNavButtonStyle" width="150" id="buy_btn0" click="showBuy()"/>
 	</mx:VBox>
 	<mx:Canvas top="10" left="166" right="168" bottom="10" id="canvas1">
 	<mx:VBox left="0" right="0" bottom="0" top="0" id="vbox1">
@@ -140,12 +147,16 @@
 			import com.adobe.xml.syndication.Namespaces;
 			import mx.collections.ArrayCollection;
 			import com.iksnae.groop.model.services.GroopCalendarService;
+			import com.iksnae.groop.model.services.GroopCheckoutService;
 			import com.iksnae.groop.model.services.GroopServiceEvent;
 			import com.iksnae.groop.model.GroopServiceHub;
 			
 			
 		    private var hub:GroopServiceHub = GroopServiceHub.getInstance()
 		    private var cal:GroopCalendarService=GroopCalendarService.getInstance();
+		    // make room for our "Buy" component
+		    private var buyMe:GroopCheckoutService = GroopCheckoutService.getInstance();
+			
 			private function showCalendar():void{
 				currentState = 'calendar';
 			}
@@ -163,6 +174,11 @@
             }
             private function showMessages():void{
                 currentState = 'messages';
+            }
+             private function showBuy():void{
+             	trace("MainView = showBuy()");
+                currentState = 'buy';
+                buyMe.open();
             }
             private function init():void{
             	hub.addEventListener(GroopServiceEvent.CONNECTION_SUCCESS,onConnectionSuccess)
