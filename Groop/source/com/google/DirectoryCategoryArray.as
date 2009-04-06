@@ -1,0 +1,64 @@
+/**
+ * DirectoryCategoryArray.as
+ * This file was auto-generated from WSDL by the Apache Axis2 generator modified by Adobe
+ * Any change made to this file will be overwritten when the code is re-generated.
+ */
+package com.google
+{
+	import mx.utils.ObjectProxy;
+	import mx.collections.ArrayCollection;
+	import mx.collections.IList;
+	import mx.collections.ICollectionView;
+	import mx.rpc.soap.types.*;
+	/**
+	 * Typed array collection
+	 */
+
+	public class DirectoryCategoryArray extends ArrayCollection
+	{
+		/**
+		 * Constructor - initializes the array collection based on a source array
+		 */
+        
+		public function DirectoryCategoryArray(source:Array = null)
+		{
+			super(source);
+		}
+        
+        
+		public function addDirectoryCategoryAt(item:DirectoryCategory,index:int):void 
+		{
+			addItemAt(item,index);
+		}
+
+		public function addDirectoryCategory(item:DirectoryCategory):void 
+		{
+			addItem(item);
+		} 
+
+		public function getDirectoryCategoryAt(index:int):DirectoryCategory 
+		{
+			return getItemAt(index) as DirectoryCategory;
+		}
+
+		public function getDirectoryCategoryIndex(item:DirectoryCategory):int 
+		{
+			return getItemIndex(item);
+		}
+
+		public function setDirectoryCategoryAt(item:DirectoryCategory,index:int):void 
+		{
+			setItemAt(item,index);
+		}
+
+		public function asIList():IList 
+		{
+			return this as IList;
+		}
+        
+		public function asICollectionView():ICollectionView 
+		{
+			return this as ICollectionView;
+		}
+	}
+}

@@ -12,6 +12,8 @@ package com.iksnae.groop.model.services
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
 	import flash.net.URLRequestHeader;
+	import flash.net.URLRequestMethod;
+	import flash.net.URLVariables;
 	
 	import mx.collections.ArrayCollection;
 	import mx.controls.DataGrid;
@@ -81,8 +83,16 @@ package com.iksnae.groop.model.services
 		}
 		public function getAllCallendarEvents(str:String):void{
 			trace('getAllCallendarEvents: '+str)
-            var r:URLRequest = new URLRequest(str+'?token='+hub.Auth)
-           
+			var authVars:URLVariables = new URLVariables()
+            
+            authVars['accountType']='HOSTED_OR_GOOGLE';
+            authVars['Email']     = hub.userName;
+            authVars['Passwd']    = hub.passWord;
+            authVars['service']   = 'cl';
+            authVars['session']   = 1;
+            var r:URLRequest = new URLRequest(str)
+            r.data = authVars;
+            r.method = URLRequestMethod.POST;
             calenderLoader.addEventListener(Event.COMPLETE,onEventsLoaded)
             calenderLoader.load(r)
         }

@@ -11,7 +11,6 @@ package com.iksnae.groop.model
 	import flash.events.SecurityErrorEvent;
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
-	import flash.net.URLRequestHeader;
 	import flash.net.URLRequestMethod;
 	import flash.net.URLVariables;
 	/**
@@ -24,6 +23,8 @@ package com.iksnae.groop.model
 		private var _SID:String;
 		private var _LSID:String;
         private var _AUTH:String;
+        
+        public var app:Groop;
         
 		static private var _instance:GroopServiceHub=null;
 		static public function getInstance():GroopServiceHub{
@@ -144,6 +145,12 @@ package com.iksnae.groop.model
 		private function onSecurityError(e:SecurityErrorEvent):void{
 		      trace('onSecurityError: '+e.type)
 		}
+		public function get userName():String{
+			return _username
+		}
+		public function get passWord():String{
+            return _password
+        }
 		
 		
 		
