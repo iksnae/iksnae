@@ -147,7 +147,7 @@ package com.iksnae.groop.model.services
 	            //print out the title of each item
 	            trace(entry.title);
 	            trace(entry.id);
-	            dates.addItem({title:entry.title,description: entry.content.value, date: entry.published, id: Link(entry.links[1]).href })
+	            dates.addItem({title:entry.title,description: entry.content.value, date: entry.published, id: entry.content.src })
 	        }
 		}
 		
