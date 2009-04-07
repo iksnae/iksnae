@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="400" height="300" styleName="MainViewCanvasStyle">
 	<mx:Label x="10" y="10" text="Group CheckOut" width="195" styleName="GroopFormItem"/>
-	<mx:Image x="81" y="83" width="238" height="125" source="images/buyMe.png"/>
+	<mx:Image x="81" y="83" width="238" height="125" source="images/buyMe.png" click="time2Buy()" enabled="true" toolTip="Click to complete purchase!" buttonMode="true"/>
+	<mx:Script>
+		<![CDATA[
+				
+				public function time2Buy():void{
+					trace("Checkout Componnent -  Time 2 BUY, baby! ");
+					
+				}
+			]]>
+	</mx:Script>
 	
 </mx:Canvas>
