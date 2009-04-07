@@ -15,6 +15,7 @@
 			<mx:AddChild position="lastChild">
 				<mx:LinkButton label="sign out" styleName="TextLink" right="10" top="10"/>
 			</mx:AddChild>
+			<mx:RemoveChild target="{groopcheckoutcomponent1}"/>
 		</mx:State>
 	</mx:states>
 	<mx:Style source="styles/groopStyle.css"/>
@@ -63,5 +64,7 @@
 			}
 		]]>
 	</mx:Script>
+	<ns1:GroopCheckoutComponent x="209" y="72" id="groopcheckoutcomponent1">
+	</ns1:GroopCheckoutComponent>
 	
 </mx:WindowedApplication>
