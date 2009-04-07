@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-    <mx:Panel id="myPanel" title="Image Control Example" 
-        height="75%" width="75%" horizontalAlign="center"
-        paddingTop="10" paddingLeft="10">
-
-        <mx:Label color="blue" text="Image embedded in the application."/>
-        <mx:Image source="@Embed('images/buyMe.png')"/>
-
-    </mx:Panel>
-
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="400" height="300">
+	<mx:Label x="10" y="10" text="Group CheckOut" width="195"/>
+	<mx:Image x="89" y="86" width="238" height="125" source="../build/images/buyMe.png"/>
+	
+</mx:Canvas>
