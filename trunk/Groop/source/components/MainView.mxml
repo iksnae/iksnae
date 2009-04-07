@@ -124,6 +124,10 @@
 			<mx:AddChild relativeTo="{vbox1}" position="lastChild">
 				<mx:Label text="buy" styleName="SectionHeader"/>
 			</mx:AddChild>
+			<mx:AddChild relativeTo="{vbox1}" position="lastChild">
+				<ns1:GroopCheckoutComponent width="100%">
+				</ns1:GroopCheckoutComponent>
+			</mx:AddChild>
 		</mx:State>
 	</mx:states>
 	<mx:Label text="groop" top="10" left="10" styleName="HeaderLabel"/>
