@@ -20,7 +20,7 @@ package com.iksnae.groop.model.services
 			
 			//TODO: implement function
 			
-			trace("we have CHECKOUT!: " + byMe );
+			trace("we have CHECKOUT!: " + this );
 			buyLoader = new URLLoader();
 		}
 	
@@ -45,7 +45,7 @@ package com.iksnae.groop.model.services
 		public function open():void
 		{
 			//TODO: implement function
-			trace("open up our Checkout page!");
+			trace("GroopCheckoutService- open up our Checkout page!");
 		    openShop();
 		}
 		
@@ -62,8 +62,8 @@ package com.iksnae.groop.model.services
 		}
 		
 		private function onImageLoaded(e:Event):void {
-			trace("buyme image loaded: "+ e.target );
-			//buyLoader.removeEventListener(
+			trace("GroopCheckoutService - buyme image loaded: "+ e.target );
+			
 			
 		}
 	}// end class
