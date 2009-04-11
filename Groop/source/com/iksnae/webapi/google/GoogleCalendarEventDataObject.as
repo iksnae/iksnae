@@ -15,7 +15,7 @@ package com.iksnae.webapi.google
         public var start:String;
         public var end:String;
         public var byDate:String;
-        
+        public var until:String;
         
         
         
