@@ -9,13 +9,15 @@ package com.iksnae.webapi.google
 	 */	
 	public class GoogleCalendarAPI
 	{
-		static public const BASE_URL:String       = 'http://www.google.com/calendar/feeds/default/private/'
+		static public const BASE_URL:String       = 'http://www.google.com/calendar/feeds/';
         static public const SEARCH:String         = 'q';
-        static public const SCHEMA:String         = "http://schemas.google.com/g/2005#"
+        static public const SCHEMA:String         = "http://schemas.google.com/g/2005#";
         static public const EVENT_OPAQUE:String   = 'event.opaque';
         static public const EVENT_CONFIRMED:String= 'event.confirmed';
-        static public const KIND:String           = 'kind'
-        static public const EVENT:String          = 'event'
+        static public const KIND:String           = 'kind';
+        static public const EVENT:String          = 'event';
+        static public const ALL_CALENDARS:String  = 'default/allcalendars/full'
+        static public const USER_CALENDARS:String = 'default/owncalendars/full'
 		
 		
 		public function GoogleCalendarAPI()
@@ -33,6 +35,20 @@ package com.iksnae.webapi.google
          */        
         public function generateEventXML(o:GoogleCalendarEventDataObject):XML{
             var str:String = "<entry xmlns='http://www.w3.org/2005/Atom' xmlns:gd='http://schemas.google.com/g/2005'>";
+            str += categoryNode();
+            str += titleNode(o.title);
+            str += contentNode(o.content);
+            str += transparencyNode();
+            str += eventStatusNode();
+            str += transparencyNode();
+            str += whereNode()
+            str += recurrenceNode(o.start,o.end,o.frequency,o.byDate,o.until)
+            str += "</entry>"
+            return XML(str)
+        }
+        
+        public function generateCalendarXML(o:GoogleCalendarEventDataObject):XML{
+            var str:String = "<entry xmlns='http://www.w3.org/2005/Atom' xmlns:gd='http://schemas.google.com/g/2005' xmlns:gCal='http://schemas.google.com/gCal/2005'>";
             str += categoryNode();
             str += titleNode(o.title);
             str += contentNode(o.content);
