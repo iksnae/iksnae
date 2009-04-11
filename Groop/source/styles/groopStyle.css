@@ -9,7 +9,7 @@ Canvas.MainViewCanvasStyle
 Button.SideNavButtonStyle
 {
 	color: #828282;
-	cornerRadius: 0;
+	cornerRadius: 2;
 	fillAlphas: 1.0, 1.0;
 	fillColors: 0.0, 0.0;
 	fontFamily: Arial;
