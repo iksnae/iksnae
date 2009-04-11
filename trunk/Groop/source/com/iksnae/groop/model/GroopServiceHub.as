@@ -1,5 +1,6 @@
 package com.iksnae.groop.model
 {
+	import com.abdulqabiz.net.HTTPURLLoader;
 	import com.iksnae.groop.model.services.GroopServiceEvent;
 	import com.kloke.util.debug.Debug;
 	
@@ -13,6 +14,7 @@ package com.iksnae.groop.model
 	import flash.net.URLRequest;
 	import flash.net.URLRequestMethod;
 	import flash.net.URLVariables;
+
 	/**
 	 *  
 	 * @author iksnae
@@ -23,6 +25,8 @@ package com.iksnae.groop.model
 		private var _SID:String;
 		private var _LSID:String;
         private var _AUTH:String;
+        
+        private var gdata:HTTPURLLoader   = new HTTPURLLoader()
         
         public var app:Groop;
         
@@ -56,6 +60,7 @@ package com.iksnae.groop.model
 		public function GroopServiceHub(e:se)
 		{
 			super(null);
+			
 			init()
 		}
 		private function init():void{
@@ -92,7 +97,17 @@ package com.iksnae.groop.model
 			
 			r.method = URLRequestMethod.POST;
 			r.data = authVars;
-			l.load(r)
+			gdata.addEventListener("complete", onComplete);
+			gdata.addEventListener("httpStatus", onHTTPStatus);
+			gdata.addEventListener("progress", onProgress);
+
+        //for simplicity,not handling following three events.
+
+            gdata.addEventListener("close", onClose);
+            gdata.addEventListener("ioError", onIOError);
+
+        //loader.addEventListener("securityError",onSecurityError);
+			gdata.load(r)
 		}
 		private function onLoginResponse(e:Event):void{
 		    var raw:String = String(URLLoader(e.target).data)
@@ -151,6 +166,18 @@ package com.iksnae.groop.model
 		public function get passWord():String{
             return _password
         }
+        
+        
+        private function onComplete(o:Object):void{
+		      trace('onComplete');
+		}
+		private function onHTTPStatus(o:Object):void{
+		      trace('onHTTPStatus');
+		}
+		private function onClose(o:Object):void{
+		      trace('onClose');
+		}
+		
 		
 		
 		

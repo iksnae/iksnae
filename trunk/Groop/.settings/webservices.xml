@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectRoot>
+<url value="http://api.google.com/GoogleSearch.wsdl">
+<service name="GoogleSearchService">
+<port name="GoogleSearchPort">
+<operations>
+<operation name="doGetCachedPage(key: string, url: string): base64Binary"/>
+<operation name="doSpellingSuggestion(key: string, phrase: string): string"/>
+<operation name="doGoogleSearch(filter: boolean, key: string, restrict: string, start: int, ie: string, safeSearch: boolean, lr: string, maxResults: int, oe: string, q: string): GoogleSearchResult"/>
+</operations>
+</port>
+</service>
+<asPackage absPath="/Users/iksnae/Documents/DEV/Groop/source/com/google" name="com.google">
+<mainAsClass name="GoogleSearchService.as"/>
+<otherAsClass name="DoSpellingSuggestion_request.as"/>
+<otherAsClass name="ResultElement.as"/>
+<otherAsClass name="IGoogleSearchService.as"/>
+<otherAsClass name="BaseGoogleSearchService.as"/>
+<otherAsClass name="DoGoogleSearch_request.as"/>
+<otherAsClass name="DirectoryCategory.as"/>
+<otherAsClass name="ResultElementArray.as"/>
+<otherAsClass name="DoSpellingSuggestionResultEvent.as"/>
+<otherAsClass name="DoGetCachedPageResultEvent.as"/>
+<otherAsClass name="DoGetCachedPage_request.as"/>
+<otherAsClass name="BaseGoogleSearchServiceSchema.as"/>
+<otherAsClass name="GoogleSearchResult.as"/>
+<otherAsClass name="DoGoogleSearchResultEvent.as"/>
+<otherAsClass name="DirectoryCategoryArray.as"/>
+</asPackage>
+</url>
+</projectRoot>
