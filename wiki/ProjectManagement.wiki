@@ -1,4 +1,4 @@
-#summary One-sentence summary of this page.
+#summary flexible project management tool
 #labels Featured
 
 = Introduction =
