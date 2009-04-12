@@ -1,4 +1,4 @@
-package com.iksnae.webapi.google.gcal
+package com.iksnae.webapi.google.gcal.params
 {
 	public class GCalTimeZone
 	{
@@ -6,11 +6,15 @@ package com.iksnae.webapi.google.gcal
 		static public const PACIFIC_STANDARD:String   = 'America/Los_Angeles';
         
 		
-		public var value:String;
-		public function GCalTimeZone()
+		public var value:String = '';
+		public function GCalTimeZone(v:String)
 		{
+			value = v
 		}
 		public function xmlNode():String{
+			if(value==''){
+				throw new Error('You must set the "value" property before calling GCalTimeZone.xmlNode()')
+			}
             return String("<gCal:timezone value='"+value+"'></gCal:timezone>")
         }
 

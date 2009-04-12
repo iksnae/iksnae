@@ -1,4 +1,4 @@
-package com.iksnae.webapi.google.gcal
+package com.iksnae.webapi.google.gcal.objects
 {
 	public class GoogleCalendarEventDataObject
 	{
