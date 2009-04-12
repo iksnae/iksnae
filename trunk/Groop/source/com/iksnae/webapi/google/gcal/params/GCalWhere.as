@@ -1,4 +1,4 @@
-package com.iksnae.webapi.google.gcal
+package com.iksnae.webapi.google.gcal.params
 {
 	public class GCalWhere
 	{

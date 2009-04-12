@@ -1,8 +1,8 @@
-package com.iksnae.webapi.google.gcal
+package com.iksnae.webapi.google.gcal.params
 {
 	public class GCalColor
 	{
-		public var value:uint = null;
+		public var value:uint = undefined;
 		
 		
 		/**
@@ -21,7 +21,7 @@ package com.iksnae.webapi.google.gcal
 		 * 
 		 */		
 		public function xmlNode():String{
-			if(value==null){
+			if(value==undefined){
 				throw new Error('You must set the "value" property before calling GCalColor.xmlNode()')
 			}
             return String("<gCal:color value='"+value+"'></gCal:color")

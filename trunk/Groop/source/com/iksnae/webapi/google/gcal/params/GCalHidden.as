@@ -1,12 +1,14 @@
-package com.iksnae.webapi.google.gcal
+package com.iksnae.webapi.google.gcal.params
 {
 	public class GCalHidden
 	{
 		public var value:Boolean;
-		public function GCalHidden()
+		
+		public function GCalHidden(v:Boolean)
 		{
+			value = v
 		}
-		private function hiddenXMLNode():String{
+		public function xmlNode():String{
             return String("<gCal:hidden value='"+value+"'></gCal:hidden>")
         }
 
