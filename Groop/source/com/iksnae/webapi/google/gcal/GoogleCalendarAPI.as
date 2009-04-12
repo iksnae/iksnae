@@ -3,6 +3,10 @@ package com.iksnae.webapi.google.gcal
 	import com.iksnae.webapi.google.GoogleService;
 	import com.iksnae.webapi.google.gcal.objects.GoogleCalendarDataObject;
 	import com.iksnae.webapi.google.gcal.objects.GoogleCalendarEventDataObject;
+	import com.kloke.model.interfaces.IObserver;
+	import com.kloke.util.debug.Debug;
+	
+	import flash.utils.Dictionary;
 	
 	/**
 	 * This class is a refrection of the properties and requests of the Google Calendar API.
@@ -23,7 +27,7 @@ package com.iksnae.webapi.google.gcal
         static public const EVENT_CONFIRMED:String= 'event.confirmed';
         static public const KIND:String           = 'kind';
         static public const EVENT:String          = 'event';
-        static public const ALL_CALENDARS:String  = 'default/allcalendars/full';
+        static public const ALL_CALENDARS:String  = 'http://www.google.com/calendar/feeds/default/allcalendars/full';
         static public const USER_CALENDARS:String = 'default/owncalendars/full';
         
 		
@@ -47,13 +51,19 @@ package com.iksnae.webapi.google.gcal
         	if(_instance==null) _instance = new GoogleCalendarAPI()
         	return _instance
         }
-		
-		public var currentCalendar:GoogleCalendarDataObject;
+        public var currentCalendar:GoogleCalendarDataObject;
 		
 		public function GoogleCalendarAPI()
 		{
+			
 		}
 		
+		
+		public function getAllCalendars():void{
+			GoogleService.getInstance().method = "GET"
+			GoogleService.getInstance().makeApiCall(ALL_CALENDARS)
+			
+		}
 		
         
         
@@ -72,7 +82,7 @@ package com.iksnae.webapi.google.gcal
         }
         
         
-        public function genderateQuickEventXML(o:GoogleCalendarEventDataObject):XML{
+        public function generateQuickEventXML(o:GoogleCalendarEventDataObject):XML{
         	var str:String = "<entry xmlns='"+ GoogleService.NAMESPACE_ATOM+"' xmlns:gCal='"+ GoogleService.NAMESPACE_GCAL+"'>"+o.contentXML('html')+"<gCal:quickadd value='true'></entry>"
         	return XML(str)
         }
@@ -89,6 +99,81 @@ package com.iksnae.webapi.google.gcal
         	str += "</entry>"
         	return XML(str)
         	
+        }
+        /**
+         * dictionary for storing observers/retreiving listening for events 
+         */
+        private var observers:Dictionary=new Dictionary()
+        
+        /**
+         * this method is inherited from the ISubject interface.
+         * - checks to see if there's an event registered
+         * - if the event is registered, the observer is stored
+         * - else the event is registered, then the observer is stored
+         * @param eventName
+         * @param observer
+         * @see ISubject
+         */     
+        public function subscribe(eventName:String,observer:IObserver):void{
+            var obs:Array;
+            if(observers[eventName]!=null){
+                obs = observers[eventName];
+                Debug.log('Found ('+observers[eventName].length+') Observers for: '+ eventName,{eventName:eventName});
+            }else{
+                Debug.log('No Observers for: '+ eventName +' so a list was created.');
+                obs = new Array();
+                observers[eventName] = obs;
+            }
+            Debug.log('Storing '+observer+' for "'+eventName+'" event',{observer:observer,eventName:eventName})
+            obs.push(observer);
+        }
+        
+        
+        
+        /**
+         * this method is inherited from the ISubject interface.
+         * - checks for observer/eventName pair
+         * - if found, item is removed from array ( still needs to be removed from dictionary object )
+         * 
+         * @param eventName
+         * @param observer
+         */     
+        public function unSubscribe(eventName:String,observer:IObserver):void{
+            var obs:Array;
+            if(observers[eventName]!=null){
+                obs = observers[eventName];
+                Debug.log('Found ('+observers[eventName].length+') Observers for: '+ eventName);
+                for(var ob:int = 0; ob < obs.length; ob++){
+                    if(obs[ob]==observer){
+                        obs.splice(ob,1)
+                        break;
+                    }
+                }
+            }else{
+                Debug.log('No Observers for: '+ eventName);
+            }
+        }
+        
+        
+        
+        /**
+         * this method is inherited from the ISubject interface.
+         * - notifies all observers of the specified eventName
+         * @param event
+         * @param data
+         */     
+        public function notify(eventName:String, data:*=null):void{
+            var list:Array;
+            if(observers[eventName]!=null){
+                list = observers[eventName];
+                Debug.log('('+list.length+') Observers Found')
+                for(var ob:int = 0; ob < list.length; ob++){
+                //  Debug.log('('+ob+') Found: '+list[ob])
+                    list[ob].update(data)
+                }
+            }else{
+                Debug.log('No Observers for: '+ eventName,eventName);
+            }
         }
         
         

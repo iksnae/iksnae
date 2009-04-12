@@ -39,7 +39,8 @@ package com.iksnae.webapi.google
         static public const EVENT_PUB_DATE:String            = '/feed/entry/published';
         static public const EVENT_UPDATE_DATE:String         = '/feed/entry/updated';
       
-        
+        static public const ACCOUNTS_BASE_URL:String         = 'https://www.google.com/accounts';
+        static public const CLIENT_LOGIN_URL:String              = 'https://www.google.com/accounts/ClientLogin'
         
         
         

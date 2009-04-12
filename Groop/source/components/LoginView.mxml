@@ -16,20 +16,34 @@
 	</mx:Form>
 	<mx:Script>
 		<![CDATA[
+			import com.iksnae.webapi.google.gd.GDataClientLogin;
+			import com.iksnae.webapi.google.GoogleService;
 			import com.iksnae.groop.model.services.GroopServiceEvent;
 			import com.iksnae.groop.model.GroopServiceHub;
-		    private var _gHub:GroopServiceHub;
+		    private var _gService:GoogleService;
 			private function init():void{
-				_gHub = GroopServiceHub.getInstance();
-				_gHub.addEventListener(GroopServiceEvent.CONNECTION_SUCCESS,onLoginSuccess)
-				_gHub.addEventListener(GroopServiceEvent.CONNECTION_FAIL,onLoginFailed)
+				_gService = GoogleService.getInstance()
+				_gService.addEventListener('login_successful',onGoogleSeviceEvent)
+                _gService.addEventListener('login_failed',onGoogleSeviceEvent)
                 
-			}
+            
+                
+            }
+            private function onGoogleSeviceEvent(e:Event):void{
+                switch(e.type){
+                    case 'login_successful':
+                    
+                    break;
+                    case 'login_failed':
+                    usename_txt.errorString="check user login"
+                    break;
+                }
+            }
 			private function checkForm():void{
 				attemptLogin()
 			}
 			private function attemptLogin():void{
-				_gHub.login(usename_txt.text,password_txt.text)
+				_gService.gDataClientLogin.login(usename_txt.text,password_txt.text)
 			}
 			private function onLoginSuccess(e:Event):void{
 				
