@@ -35,7 +35,7 @@ package com.iksnae.webapi.google
 		
 		public var authToken:AsyncToken;
         public var connected:Boolean
-        
+        [Bindable]
         public var gCalAPI:GoogleCalendarAPI;
         public var gDataClientLogin:GDataClientLogin;
 		
@@ -74,7 +74,7 @@ package com.iksnae.webapi.google
 			if(params==null){
 				params = new URLVariables()
 			}
-			params['Email']= gDataClientLogin.username
+			params['Email']  = gDataClientLogin.username
 			params['Passwrd']= gDataClientLogin.password
             trace('making api call: '+request+' with'+params)
 			send(params)
@@ -84,7 +84,7 @@ package com.iksnae.webapi.google
 		private function onResult(e:ResultEvent):void{
 		    trace("onResult: ")
 		    authToken = AsyncToken(e.token)
-		   
+		 
 		    trace(e.token.message['url'])
 		    switch(e.token.message['url']){
 		    	case GDataAPI.CLIENT_LOGIN_URL:
@@ -94,11 +94,13 @@ package com.iksnae.webapi.google
 		    	break;
 		    	case GoogleCalendarAPI.ALL_CALENDARS:
 		    	dispatchEvent(new Event('calendars_loaded'))
+		    	gCalAPI.onCalendarResult(e)
 		    	
 		    	break;
 		    }
 		   
 		}
+		
 		private function onFault(e:FaultEvent):void{
 		  trace("onFault: "+e.fault.faultDetail)
 		}

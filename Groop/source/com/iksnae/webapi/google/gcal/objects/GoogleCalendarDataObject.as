@@ -1,5 +1,8 @@
 package  com.iksnae.webapi.google.gcal.objects
 {
+	import com.adobe.utils.XMLUtil;
+	import com.adobe.xml.syndication.atom.Atom10;
+	import com.adobe.xml.syndication.atom.Entry;
 	import com.iksnae.webapi.google.GoogleService;
 	import com.iksnae.webapi.google.gcal.params.GCalAccessLevel;
 	import com.iksnae.webapi.google.gcal.params.GCalColor;
@@ -8,6 +11,8 @@ package  com.iksnae.webapi.google.gcal.objects
 	import com.iksnae.webapi.google.gcal.params.GCalTimeZone;
 	import com.iksnae.webapi.google.gcal.params.GCalWhere;
 	import com.iksnae.webapi.google.gd.GDataTransparency;
+	
+	import mx.collections.ArrayCollection;
 	/**
 	 * this class is for storing and handling Google Calendar objects 
 	 * @author iksnae
@@ -34,6 +39,10 @@ package  com.iksnae.webapi.google.gcal.objects
         public var selected       :GCalSelected;
         public var transparency   :GDataTransparency;
         
+        [Bindable]
+        public var dates:ArrayCollection = new ArrayCollection();
+        [Bindable]
+        public var events:ArrayCollection = new ArrayCollection();
         
         
 		
@@ -51,7 +60,8 @@ package  com.iksnae.webapi.google.gcal.objects
 		 * 
 		 */		
 		private function init():void{
-
+			
+            dates          = new ArrayCollection()
 	        timezone       = new GCalTimeZone();
 	        hidden         = new GCalHidden();
 	        color          = new GCalColor();
@@ -84,7 +94,25 @@ package  com.iksnae.webapi.google.gcal.objects
 		
         
         public function parse(xml:XML):void{
-        	
+        	if(!XMLUtil.isValidXML(xml))
+            {
+                trace("Feed does not contain valid XML.");
+                return;
+            }else{
+                trace("XML Validated.");
+            }
+            dates.removeAll()
+            var atom:Atom10 = new Atom10()
+            atom.parse(xml)
+            
+            var items:Array = atom.entries;
+            for each(var entry:Entry in items)
+            {
+                //print out the title of each item
+                trace(entry.title);
+                trace(entry.id);
+                dates.addItem({label:entry.title, title:entry.title,description: entry.content.value, date: entry.published, id: entry.content.src })
+            }
         }
         
         
