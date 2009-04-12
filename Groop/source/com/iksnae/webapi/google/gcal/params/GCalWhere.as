@@ -3,12 +3,12 @@ package com.iksnae.webapi.google.gcal.params
 	public class GCalWhere
 	{
 		
-		public var valueString:String = "";
+		public var valueString:String;
 		public var rel:String         = "";
 		public var label:String       = "";
 		
 		
-		public function GCalWhere(v:String)
+		public function GCalWhere(v:String="")
 		{
 			valueString = v;
 		}

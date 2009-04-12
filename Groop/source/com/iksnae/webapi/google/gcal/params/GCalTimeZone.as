@@ -6,8 +6,8 @@ package com.iksnae.webapi.google.gcal.params
 		static public const PACIFIC_STANDARD:String   = 'America/Los_Angeles';
         
 		
-		public var value:String = '';
-		public function GCalTimeZone(v:String)
+		public var value:String;
+		public function GCalTimeZone(v:String='')
 		{
 			value = v
 		}
