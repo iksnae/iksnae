@@ -8,14 +8,14 @@ package com.iksnae.webapi.google
 	public class GoogleService extends HTTPService
 	{
 		
-		static public var API_KEY:String      =   "";
+		static public var API_KEY :String      =   "";
 		static public var BASE_URL:String;
 		static public var AUTH_URL:String =  'https://www.google.com/accounts/ClientLogin';
 		static public var SEARCH:String;
 		
 		
 		/// name space definitions
-        static public const NAMESPACE_GD:Namespace    = new Namespace("http://schemas.google.com/g/2005")
+        static public const NAMESPACE_GD  :Namespace  = new Namespace("http://schemas.google.com/g/2005")
         static public const NAMESPACE_GCAL:Namespace  = new Namespace("http://schemas.google.com/gCal/2005")
         static public const NAMESPACE_ATOM:Namespace  = new Namespace("http://www.w3.org/2005/Atom")
 		
