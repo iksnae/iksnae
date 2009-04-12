@@ -1,5 +1,6 @@
 package  com.iksnae.webapi.google.gcal.objects
 {
+	import com.iksnae.webapi.google.GoogleService;
 	import com.iksnae.webapi.google.gcal.params.GCalAccessLevel;
 	import com.iksnae.webapi.google.gcal.params.GCalColor;
 	import com.iksnae.webapi.google.gcal.params.GCalHidden;
@@ -12,7 +13,7 @@ package  com.iksnae.webapi.google.gcal.objects
 	 * @author iksnae
 	 * 
 	 */	
-	public class GoogleCalendarDataObject
+	public class GoogleCalendarDataObject extends GCalDataObject
 	{
 		
 		
@@ -20,7 +21,6 @@ package  com.iksnae.webapi.google.gcal.objects
 		
 		// public properties...
 		
-		public var title          :String;
 		public var summary        :String;
 		public var timezone       :GCalTimeZone;
 		public var hidden         :GCalHidden;
@@ -43,6 +43,7 @@ package  com.iksnae.webapi.google.gcal.objects
 		 */        
 		public function GoogleCalendarDataObject()
 		{
+			super()
 			init()
 		}
 		/**
@@ -66,8 +67,8 @@ package  com.iksnae.webapi.google.gcal.objects
 		 * @return 
 		 * 
 		 */		
-		public function generateCalenderXML():XML{
-			var str:String = "<entry xmlns='http://www.w3.org/2005/Atom' xmlns:gd='http://schemas.google.com/g/2005' xmlns:gCal='http://schemas.google.com/gCal/2005'>";
+		public function xmlNode():XML{
+			var str:String = "<entry xmlns='"+GoogleService.NAMESPACE_ATOM+"' xmlns:gd='"+GoogleService.NAMESPACE_GD+"' xmlns:gCal='"+GoogleService.NAMESPACE_GCAL+"'>";
 			str  += titleXMLNode()
             str  += summaryXMLNode()
             str  += timezone.xmlNode()
@@ -80,12 +81,7 @@ package  com.iksnae.webapi.google.gcal.objects
 		
 		
 		
-		private function titleXMLNode():String{
-			return String("<title type='text'>"+title+"</title>")
-		}
-		private function summaryXMLNode():String{
-            return String("<title type='text'>"+title+"</title>")
-        }
+		
         
         public function parse(xml:XML):void{
         	
