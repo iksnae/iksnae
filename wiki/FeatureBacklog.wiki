@@ -1,4 +1,4 @@
-#labels Phase-Requirements
+#labels Featured
 This is a list of desired features for the *Groop* application.
 
 =1) Google Calendar Management=
