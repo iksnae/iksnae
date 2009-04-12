@@ -26,6 +26,7 @@
 	</mx:HTTPService>
 	<mx:Script>
 		<![CDATA[
+			import com.iksnae.webapi.google.GoogleService;
 			import com.iksnae.groop.model.services.GroopCalendarService;
 			import com.iksnae.groop.model.services.GroopServiceEvent;
 			import com.kloke.model.ApplicationData;
@@ -35,6 +36,9 @@
 			public var hub:GroopServiceHub;
 			public var appData:ApplicationData;
 			public var cal:GroopCalendarService;
+			
+			
+			public var gService:GoogleService;
 			
 			
 			
@@ -47,7 +51,9 @@
 				hub     = GroopServiceHub.getInstance();
 				cal     = GroopCalendarService.getInstance();
 				
-				hub.app = this
+				gService= GoogleService.getInstance();
+				
+				hub.app = this;
 				
 				hub.addEventListener(GroopServiceEvent.CONNECTION_SUCCESS,onGroopHubEvent)
 				
