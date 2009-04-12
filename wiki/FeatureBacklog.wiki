@@ -1,7 +1,14 @@
-1) Google Calendar Management
+This is a list of desired features for the *Groop* application.
 
-2) Google Document Access
+=1) Google Calendar Management=
+*the ability to load the users calendars and events
+*create calendars and events
+*modify calendars and events
+*fully accessing the google calendar api
 
-3) Google Talk Capabilities
 
-4) Blogger Management
+=2) Google Document Access=
+
+=3) Google Talk Capabilities=
+
+=4) Blogger Management=
