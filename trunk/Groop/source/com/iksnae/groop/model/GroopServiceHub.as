@@ -68,8 +68,13 @@ package com.iksnae.groop.model
 		}
 		
 		
+		
+		
 		public function login(username:String,password:String):void{
 			trace('logging into google services..')
+			
+			
+			
 			_username = username;
 			_password = password;
 			authVars = new URLVariables()

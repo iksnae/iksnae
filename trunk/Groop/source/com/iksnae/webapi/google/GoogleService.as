@@ -1,12 +1,25 @@
 package com.iksnae.webapi.google
 {
 	import com.iksnae.webapi.google.gcal.GoogleCalendarAPI;
+	import com.iksnae.webapi.google.gd.GDataClientLogin;
+	import com.kloke.model.interfaces.IObserver;
+	import com.kloke.model.interfaces.ISubject;
 	import com.kloke.model.types.NameValuePair;
+	import com.kloke.util.debug.Debug;
 	
+	import flash.events.Event;
+	import flash.net.URLVariables;
+	import flash.utils.Dictionary;
+	
+	import mx.rpc.AsyncToken;
+	import mx.rpc.events.FaultEvent;
+	import mx.rpc.events.ResultEvent;
 	import mx.rpc.http.HTTPService;
 
-	public class GoogleService extends HTTPService
+	public class GoogleService extends HTTPService implements ISubject
 	{
+		
+		
 		
 		static public var API_KEY :String      =   "";
 		static public var BASE_URL:String;
@@ -20,11 +33,11 @@ package com.iksnae.webapi.google
         static public const NAMESPACE_ATOM:Namespace  = new Namespace("http://www.w3.org/2005/Atom")
 		
 		
-		public var authToken:Object;
+		public var authToken:AsyncToken;
+        public var connected:Boolean
         
-        
-        public var gCalAPI:GoogleCalendarAPI = GoogleCalendarAPI.getInstance();
-        
+        public var gCalAPI:GoogleCalendarAPI;
+        public var gDataClientLogin:GDataClientLogin;
 		
         
 		static private var _instance:GoogleService=null;	
@@ -36,14 +49,16 @@ package com.iksnae.webapi.google
 		public function GoogleService(rootURL:String=null)
 		{
 			super(rootURL);
+			init()
 		}
 		
 		
 		private function init():void{
-			if(API_KEY==""){
-				throw new Error("You must provide an API key!");
-			}
-			
+			gDataClientLogin = new GDataClientLogin()
+			gCalAPI= GoogleCalendarAPI.getInstance()
+			addEventListener(ResultEvent.RESULT, onResult)
+			addEventListener(FaultEvent.FAULT, onFault)
+			method = 'POST'
 	
 		}
 		
@@ -51,9 +66,117 @@ package com.iksnae.webapi.google
 			var params:Array = new Array()
 			params.push(new NameValuePair("api_key",API_KEY))
 		}
-		public function makeApiCall(req:String, prams:Array):void{
+		public function makeApiCall(request:String, params:URLVariables=null):void{
+			
+			url = request;
+			
+			
+			if(params==null){
+				params = new URLVariables()
+			}
+			params['Email']= gDataClientLogin.username
+			params['Passwrd']= gDataClientLogin.password
+            trace('making api call: '+request+' with'+params)
+			send(params)
+			
 			
 		}
+		private function onResult(e:ResultEvent):void{
+		    trace("onResult: ")
+		    authToken = AsyncToken(e.token)
+		   
+		    trace(e.token.message['url'])
+		    switch(e.token.message['url']){
+		    	case GDataAPI.CLIENT_LOGIN_URL:
+		    	trace("User Login Successful")
+		    	dispatchEvent(new Event('login_successful'))
+		    	gCalAPI.getAllCalendars()
+		    	break;
+		    	case GoogleCalendarAPI.ALL_CALENDARS:
+		    	dispatchEvent(new Event('calendars_loaded'))
+		    	
+		    	break;
+		    }
+		   
+		}
+		private function onFault(e:FaultEvent):void{
+		  trace("onFault: "+e.fault.faultDetail)
+		}
+		/**
+         * dictionary for storing observers/retreiving listening for events 
+         */
+        private var observers:Dictionary=new Dictionary()
+        
+        /**
+         * this method is inherited from the ISubject interface.
+         * - checks to see if there's an event registered
+         * - if the event is registered, the observer is stored
+         * - else the event is registered, then the observer is stored
+         * @param eventName
+         * @param observer
+         * @see ISubject
+         */     
+        public function subscribe(eventName:String,observer:IObserver):void{
+            var obs:Array;
+            if(observers[eventName]!=null){
+                obs = observers[eventName];
+                Debug.log('Found ('+observers[eventName].length+') Observers for: '+ eventName,{eventName:eventName});
+            }else{
+                Debug.log('No Observers for: '+ eventName +' so a list was created.');
+                obs = new Array();
+                observers[eventName] = obs;
+            }
+            Debug.log('Storing '+observer+' for "'+eventName+'" event',{observer:observer,eventName:eventName})
+            obs.push(observer);
+        }
+        
+        
+        
+        /**
+         * this method is inherited from the ISubject interface.
+         * - checks for observer/eventName pair
+         * - if found, item is removed from array ( still needs to be removed from dictionary object )
+         * 
+         * @param eventName
+         * @param observer
+         */     
+        public function unSubscribe(eventName:String,observer:IObserver):void{
+            var obs:Array;
+            if(observers[eventName]!=null){
+                obs = observers[eventName];
+                Debug.log('Found ('+observers[eventName].length+') Observers for: '+ eventName);
+                for(var ob:int = 0; ob < obs.length; ob++){
+                    if(obs[ob]==observer){
+                        obs.splice(ob,1)
+                        break;
+                    }
+                }
+            }else{
+                Debug.log('No Observers for: '+ eventName);
+            }
+        }
+        
+        
+        
+        /**
+         * this method is inherited from the ISubject interface.
+         * - notifies all observers of the specified eventName
+         * @param event
+         * @param data
+         */     
+        public function notify(eventName:String, data:*=null):void{
+            var list:Array;
+            if(observers[eventName]!=null){
+                list = observers[eventName];
+                Debug.log('('+list.length+') Observers Found')
+                for(var ob:int = 0; ob < list.length; ob++){
+                //  Debug.log('('+ob+') Found: '+list[ob])
+                    list[ob].update(data)
+                }
+            }else{
+                Debug.log('No Observers for: '+ eventName,eventName);
+            }
+        }
 		
 		
 	}
