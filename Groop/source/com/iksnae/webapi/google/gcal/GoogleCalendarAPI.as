@@ -1,4 +1,4 @@
-package com.iksnae.webapi.google
+package com.iksnae.webapi.google.gcal
 {
 	/**
 	 * This class is a refrection of the properties and requests of the Google Calendar API.

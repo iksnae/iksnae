@@ -1,4 +1,4 @@
-package com.iksnae.webapi.google
+package com.iksnae.webapi.google.gcal
 {
 	import flash.events.Event;
 

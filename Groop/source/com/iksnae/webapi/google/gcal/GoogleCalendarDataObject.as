@@ -1,4 +1,4 @@
-package com.iksnae.webapi.google
+package  com.iksnae.webapi.google.gcal
 {
 	import com.iksnae.webapi.google.gcal.GCalColor;
 	import com.iksnae.webapi.google.gcal.GCalHidden;
@@ -39,7 +39,9 @@ package com.iksnae.webapi.google
             return String("<title type='text'>"+title+"</title>")
         }
         
-        
+        public function parseCalendarXML(xml:XML):void{
+        	
+        }
         
         
 
