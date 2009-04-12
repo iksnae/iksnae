@@ -27,7 +27,7 @@
 			<mx:SetProperty name="width" value="100%"/>
 			<mx:SetProperty target="{calendar_btn}" name="enabled" value="false"/>
 			<mx:AddChild relativeTo="{vbox2}" position="lastChild">
-				<mx:DataGrid id="leftList" width="100%" height="100%" dataProvider="{ cal.dates }" styleName="CalenderList" showHeaders="false" change="{cal.onChangeCalendar(leftList)}">
+				<mx:DataGrid id="leftList" width="100%" height="100%" dataProvider="{ google.gCalAPI.calendars.dates }" styleName="CalenderList" showHeaders="false" change="{onCalendarSelected()}">
 				<mx:columns>
 					<mx:DataGridColumn dataField="title" width="200"/>
 				</mx:columns>
@@ -37,7 +37,7 @@
 			<mx:SetStyle target="{canvas1}" name="right" value="180"/>
 			<mx:SetProperty target="{vbox2}" name="width" value="165"/>
 			<mx:AddChild relativeTo="{vbox1}" position="lastChild">
-				<mx:DataGrid id="bottomList" width="100%" height="100%" dataProvider="{ cal.events }" styleName="CalenderList" showHeaders="false" updateComplete="{ myCalendar.populate(new ArrayCollection(bottomList.dataProvider as Array))}" change="onEventSelected()">
+				<mx:DataGrid id="bottomList" width="100%" height="100%" dataProvider="{ google.gCalAPI.calendars.events }" styleName="CalenderList" showHeaders="false" updateComplete="{ myCalendar.populate(new ArrayCollection(bottomList.dataProvider as Array))}" change="onEventSelected()">
 				<mx:columns>
 					<mx:DataGridColumn dataField="title" width="200"/>
 				</mx:columns>
@@ -52,7 +52,7 @@
 			<mx:AddChild relativeTo="{vbox1}" position="lastChild">
 				<mx:VDividedBox width="100%" height="100%" verticalScrollPolicy="off" horizontalScrollPolicy="off" id="vdividedbox1">
 					<mx:HTML width="100%" id="html1" height="50%" styleName="CalenderList"/>
-					<mx:DataGrid width="100%" height="50%" id="datagrid1" styleName="CalenderList" dataProvider="{cal.events}">
+					<mx:DataGrid width="100%" height="50%" id="datagrid1" styleName="CalenderList" dataProvider="{google.gCalAPI.calendars.events}">
 						
 					</mx:DataGrid>
 					
@@ -147,17 +147,19 @@
 	</mx:VBox>
 	<mx:Script>
 		<![CDATA[
+			import com.iksnae.webapi.google.gcal.GoogleCalendarAPI;
+			import com.iksnae.webapi.google.GoogleService;
 			import com.adobe.xml.syndication.atom.Entry;
 			import com.adobe.xml.syndication.Namespaces;
 			import mx.collections.ArrayCollection;
 			import com.iksnae.groop.model.services.GroopCalendarService;
 			import com.iksnae.groop.model.services.GroopCheckoutService;
 			import com.iksnae.groop.model.services.GroopServiceEvent;
-			import com.iksnae.groop.model.GroopServiceHub;
+		
 			
-			
-		    private var hub:GroopServiceHub = GroopServiceHub.getInstance()
-		    private var cal:GroopCalendarService=GroopCalendarService.getInstance();
+			[Bindable]
+		    public var google:GoogleService = GoogleService.getInstance();
+		    
 		    // make room for our "Buy" component
 		    private var buyMe:GroopCheckoutService = GroopCheckoutService.getInstance();
 			
@@ -185,11 +187,14 @@
                 buyMe.open();
             }
             private function init():void{
-            	hub.addEventListener(GroopServiceEvent.CONNECTION_SUCCESS,onConnectionSuccess)
+            	
             }
-            private function onConnectionSuccess(e:Event):void{
-            	cal.open()
+            
+            
+            private function onCalendarSelected():void{
+            	
             }
+           
             private function onEventSelected():void{
             	
             	current_event_title.text = bottomList.selectedItem.title;

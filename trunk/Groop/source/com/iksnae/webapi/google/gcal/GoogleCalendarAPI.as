@@ -8,6 +8,8 @@ package com.iksnae.webapi.google.gcal
 	
 	import flash.utils.Dictionary;
 	
+	import mx.rpc.events.ResultEvent;
+	
 	/**
 	 * This class is a refrection of the properties and requests of the Google Calendar API.
 	 * It's designed to help in communicating with the Google Calendar Service, by providing local references of the values used by the webservice.
@@ -15,6 +17,7 @@ package com.iksnae.webapi.google.gcal
 	 * @author iksnae
 	 * 
 	 */	
+	
 	public class GoogleCalendarAPI
 	{
 		static public const BASE_URL:String       = 'http://www.google.com/calendar/feeds/';
@@ -46,12 +49,18 @@ package com.iksnae.webapi.google.gcal
         static public const CTX:String                            = "ctx";
         
         
+        
+        
         static private var _instance:GoogleCalendarAPI=null;
         static public function getInstance():GoogleCalendarAPI{
         	if(_instance==null) _instance = new GoogleCalendarAPI()
         	return _instance
         }
         public var currentCalendar:GoogleCalendarDataObject;
+        
+        public var resultsObject:Object
+        [Bindable]
+        public var calendars:GoogleCalendarDataObject
 		
 		public function GoogleCalendarAPI()
 		{
@@ -175,7 +184,14 @@ package com.iksnae.webapi.google.gcal
                 Debug.log('No Observers for: '+ eventName,eventName);
             }
         }
-        
+       
+        public function onCalendarResult(data:Object=null,type:String=null):void{
+        	trace(this+'onCalendarResult: '+ ResultEvent(data).message.body)
+        	var xml:XML = XML(ResultEvent(data).message.body)
+        	calendars = new GoogleCalendarDataObject()
+        	calendars.parse(xml)
+            resultsObject = GoogleService.getInstance().lastResult;
+        }
         
         
         
