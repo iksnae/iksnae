@@ -1,13 +1,11 @@
-#Users can access, manage and share their Google Calenders with other Groop users in an easy to use integrated user interface. Users can also log and track their time spent on projects and even break their time into tasks. Optional notifications remind users when specific events are coming up.
 
 = Introduction =
 
-Add your content here.
+Users can access, manage and share their Google Calenders with other Groop users in an easy to use integrated user interface. Users can also log and track their time spent on projects and even break their time into tasks. Optional notifications remind users when specific events are coming up.
 
 
 = Details =
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+Features:
+  * Log Time spent on Projects with simple Time Clock interface
+  * Track, modify and export your hours
