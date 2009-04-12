@@ -1,4 +1,4 @@
-#summary One-sentence summary of this page.
+#Users can access, manage and share their Google Calenders with other Groop users in an easy to use integrated user interface. Users can also log and track their time spent on projects and even break their time into tasks. Optional notifications remind users when specific events are coming up.
 
 = Introduction =
 
