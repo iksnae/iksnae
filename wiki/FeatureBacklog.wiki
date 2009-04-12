@@ -1,4 +1,7 @@
 1) Google Calendar Management
+
 2) Google Document Access
+
 3) Google Talk Capabilities
+
 4) Blogger Management
