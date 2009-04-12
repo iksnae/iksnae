@@ -1,10 +1,10 @@
 This is a list of desired features for the *Groop* application.
 
 =1) Google Calendar Management=
-*the ability to load the users calendars and events
-*create calendars and events
-*modify calendars and events
-*fully accessing the google calendar api
+  *the ability to load the users calendars and events
+  *create calendars and events
+  *modify calendars and events
+  *fully accessing the google calendar api
 
 
 =2) Google Document Access=
