@@ -1,5 +1,6 @@
 package com.iksnae.webapi.google.gcal
 {
+	import com.iksnae.webapi.google.GoogleService;
 	import com.iksnae.webapi.google.gcal.objects.GoogleCalendarDataObject;
 	import com.iksnae.webapi.google.gcal.objects.GoogleCalendarEventDataObject;
 	import com.iksnae.webapi.google.gcal.params.GCalWhere;
@@ -16,7 +17,10 @@ package com.iksnae.webapi.google.gcal
 	{
 		static public const BASE_URL:String       = 'http://www.google.com/calendar/feeds/';
         static public const SEARCH:String         = 'q';
-        static public const SCHEMA:String         = "http://schemas.google.com/g/2005";
+        
+        
+        
+        
         static public const EVENT_OPAQUE:String   = 'event.opaque';
         static public const EVENT_CONFIRMED:String= 'event.confirmed';
         static public const KIND:String           = 'kind';
@@ -62,59 +66,79 @@ package com.iksnae.webapi.google.gcal
          * 
          */        
         public function generateEventXML(o:GoogleCalendarEventDataObject):XML{
-            var str:String = "<entry xmlns='http://www.w3.org/2005/Atom' xmlns:gd='http://schemas.google.com/g/2005'>";
+            var str:String = "<entry xmlns='"+GoogleService.NAMESPACE_ATOM+"' xmlns:gd='"+ GoogleService.NAMESPACE_GD+"'>";
             str += categoryNode();
             str += titleNode(o.title);
             str += contentNode(o.content);
-            str += transparencyNode();
-            str += eventStatusNode();
-            str += transparencyNode();
-            str += whereNode()
+            str += transparencyNode(o.transparency);
+            str += eventStatusNode(o.eventStatus);
+            str += whereNode(o.where)
             str += recurrenceNode(o.start,o.end,o.frequency,o.byDate,o.until)
             str += "</entry>"
             return XML(str)
         }
         
         public function generateCalendarXML(o:GoogleCalendarDataObject):XML{
-            var str:String = "<entry xmlns='http://www.w3.org/2005/Atom' xmlns:gd='http://schemas.google.com/g/2005' xmlns:gCal='http://schemas.google.com/gCal/2005'>";
+            var str:String = "<entry xmlns='"+ GoogleService.NAMESPACE_ATOM+"' xmlns:gd='"+ GoogleService.NAMESPACE_GD+"' xmlns:gCal='"+ GoogleService.NAMESPACE_GCAL+"'>";
             str += categoryNode();
             str += titleNode(o.title);
-       
-            str += transparencyNode();
-            str += eventStatusNode();
-            str += transparencyNode();
-
-    
+            str += transparencyNode(o.transparency);
             str += "</entry>"
             return XML(str);
         }
         
         
+        public function genderateQuickEventXML(o:GoogleCalendarEventDataObject):XML{
+        	var str:String = "<entry xmlns='"+ GoogleService.NAMESPACE_ATOM+"' xmlns:gCal='"+ GoogleService.NAMESPACE_GCAL+"'>"+contentNode(o.content,"html")+"<gCal:quickadd value='true'></entry>"
+        	return XML(str)
+        }
+        
+        public function generateSingleOccurenceEventXML(o:GoogleCalendarEventDataObject):XML{
+        	var str:String = "<entry xmlns='"+GoogleService.NAMESPACE_ATOM+"' xmlns:gd='"+GoogleService.NAMESPACE_GD+"'>"
+        	str += categoryNode()
+        	str += titleNode(o.title)
+        	str += contentNode(o.content)
+        	str += transparencyNode(o.transparency)
+        	str += eventStatusNode(o.eventStatus)
+        	str += whereNode(o.where)
+        	str += whenNode(o.start,o.end)
+        	return XML(str)
+        	
+        }
         
         
         
         
-        private function categoryNode(scheme:String=KIND,term:String = EVENT ):String{
-           return String("<category scheme='"+SCHEMA+scheme+"' term='"+SCHEMA+term+"'></category>")
+        
+        
+        
+        
+        
+        
+        
+        
+        private function categoryNode():String{
+           return String("<category scheme='"+ GoogleService.NAMESPACE_GD+"#kind"+"' term='"+GoogleService.NAMESPACE_GD+"#event'/>")
         }
-        private function titleNode(t:String):String{
-           return String("<title type='text'>"+t+"</title>")
+        private function titleNode(text:String):String{
+           return String("<title type='text'>"+text+"</title>")
         }
-        private function contentNode(content:String):String{
-            return "<content type='text'>"+content+"</content>"
+        private function contentNode(content:String,type:String='text'):String{
+            return "<content type='"+type+"'>"+content+"</content>"
         }
-        private function transparencyNode(value:String='',type:String=''):String{
-        	var tn:GDataTransparency = new GDataTransparency(value,type)
-            return tn.xmlNode()
+        private function transparencyNode(value:GDataTransparency):String{
+        	return value.xmlNode()
         }
-        private function eventStatusNode(value:String = EVENT_CONFIRMED):String{
-            return "<gd:eventStatus value='"+SCHEMA+value+"'> </gd:eventStatus>"
+        private function eventStatusNode(value:String):String{
+            return "<gd:eventStatus value='"+GoogleService.NAMESPACE_GD+'#'+value+"'> </gd:eventStatus>"
         }
-        private function whereNode(v:String = ''):String{
-        	var w:GCalWhere = new GCalWhere(v);
-        	return w.xmlNode()
+        private function whereNode(v:GCalWhere):String{
+        	return v.xmlNode()
         }
-        private function recurrenceNode(startDate:String, endDate:String, frequency:String, byDate:String, until:String):String{
+        private function whenNode(start:Date,end:Date):String{
+            return "<gd:when startTime='"+start+"' endTime='"+end+"'/>"
+        }
+        private function recurrenceNode(startDate:Date, endDate:Date, frequency:String, byDate:String, until:String):String{
             return "<gd:recurrence>DTSTART;VALUE=DATE:"+startDate+" DTEND;VALUE=DATE:"+endDate+" RRULE:FREQ="+frequency+";BYDAY="+byDate+";UNTIL="+until+"</gd:recurrence>"
         }
         

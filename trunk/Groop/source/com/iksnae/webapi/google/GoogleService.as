@@ -14,7 +14,13 @@ package com.iksnae.webapi.google
 		static public var BASE_URL:String;
 		static public var AUTH_URL:String;
 		static public var SEARCH:String;
-		static public const SCHEMA:String       = "http://schemes.google.com/g/2005"
+		
+		
+		/// name space definitions
+        static public const NAMESPACE_GD:Namespace    = new Namespace("http://schemas.google.com/g/2005")
+        static public const NAMESPACE_GCAL:Namespace  = new Namespace("http://schemas.google.com/gCal/2005")
+        static public const NAMESPACE_ATOM:Namespace  = new Namespace("http://www.w3.org/2005/Atom")
+		
 		
 		public var authToken:Object;
         

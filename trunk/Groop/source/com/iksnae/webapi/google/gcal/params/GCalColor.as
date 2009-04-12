@@ -2,7 +2,9 @@ package com.iksnae.webapi.google.gcal.params
 {
 	public class GCalColor
 	{
-		public var value:uint = undefined;
+		
+		
+		public var value:uint;
 		
 		
 		/**
@@ -10,7 +12,7 @@ package com.iksnae.webapi.google.gcal.params
 		 * @param c
 		 * 
 		 */		
-		public function GCalColor(c:uint)
+		public function GCalColor(c:uint=0xff0000)
 		{
 			value = c
 		}
@@ -21,10 +23,7 @@ package com.iksnae.webapi.google.gcal.params
 		 * 
 		 */		
 		public function xmlNode():String{
-			if(value==undefined){
-				throw new Error('You must set the "value" property before calling GCalColor.xmlNode()')
-			}
-            return String("<gCal:color value='"+value+"'></gCal:color")
+			return String("<gCal:color value='"+value+"'></gCal:color")
         }
 
 	}

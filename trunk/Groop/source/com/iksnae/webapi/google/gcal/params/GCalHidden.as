@@ -4,7 +4,7 @@ package com.iksnae.webapi.google.gcal.params
 	{
 		public var value:Boolean;
 		
-		public function GCalHidden(v:Boolean)
+		public function GCalHidden(v:Boolean=false)
 		{
 			value = v
 		}
