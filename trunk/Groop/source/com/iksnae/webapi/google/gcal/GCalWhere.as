@@ -2,23 +2,27 @@ package com.iksnae.webapi.google.gcal
 {
 	public class GCalWhere
 	{
-		public var valueString:String="";
-		public var rel:String="";
-		public var label:String="";
+		
+		public var valueString:String = "";
+		public var rel:String         = "";
+		public var label:String       = "";
+		
+		
 		public function GCalWhere(v:String)
 		{
 			valueString = v;
 		}
 		/**
 		 * this method creates and xml-formatted string with values provided. 
-		 * @return 
+		 * requires "valueString" to be set
+		 * @return String
 		 * 
 		 */		
 		public function xmlNode():String{
+			// check if "valueString" property is set, else throw error
 			if(valueString==""){
 				throw new Error('You must set the "valueString" property before calling GCalWhere.xmlNode()')
 			}
-			
 			var str:String;
 			// with only "label" property available    
 			if(label!="" && rel==""){
@@ -39,8 +43,6 @@ package com.iksnae.webapi.google.gcal
 			if (rel=="" && label==""){
                 str= String("<gd:where valueString='"+valueString+"'></gd:where>")
             }
-            
-            
 		    return str;
         }
 
