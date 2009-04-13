@@ -8,6 +8,7 @@ package com.iksnae.webapi.google
 	import com.kloke.util.debug.Debug;
 	
 	import flash.events.Event;
+	import flash.filesystem.File;
 	import flash.net.URLVariables;
 	import flash.utils.Dictionary;
 	
@@ -93,6 +94,15 @@ package com.iksnae.webapi.google
 		    	trace("User Login Successful")
 		    	dispatchEvent(new Event('login_successful'))
 		    	gCalAPI.getAllCalendars()
+//		    	var vars:URLVariables = new URLVariables()
+//		    	var apps:File = File.applicationDirectory;
+//		    	vars['scope'] = "http://www.google.com/calendar/feeds"
+//		    	vars['next'] = "http://iksnae.com"
+//                vars['session'] = "1"
+//		    	vars['secure'] = "1"
+//		    	method = "POST"
+//                makeApiCall('https://www.google.com/accounts/AuthSubRequest',vars)
+//		    	
 		    	break;
 		    	case GoogleCalendarAPI.ALL_CALENDARS:
 		    	dispatchEvent(new Event('calendars_loaded'))
@@ -115,7 +125,7 @@ package com.iksnae.webapi.google
 		}
 		
 		private function onFault(e:FaultEvent):void{
-		  trace("onFault: "+e.fault.faultDetail)
+		  trace("onFault: "+e.message)
 		}
 		/**
          * dictionary for storing observers/retreiving listening for events 

@@ -23,7 +23,7 @@ package  com.iksnae.webapi.google.gcal.objects
 		
 		
 		// public properties...
-		
+		[Bindable] public var feed           :String 
 		[Bindable] public var summary        :String;
 		[Bindable] public var timezone       :GCalTimeZone;
 		[Bindable] public var hidden         :GCalHidden;
@@ -103,7 +103,7 @@ package  com.iksnae.webapi.google.gcal.objects
         public function parse(entry:Entry):void{
         	
         	var xml:XML = entry.xml[0]
-        	
+        	feed                = entry.id
         	title               = entry.title;
             content             = entry.content.src;
             published           = entry.published;
@@ -118,7 +118,7 @@ package  com.iksnae.webapi.google.gcal.objects
             
             
             trace(xml.gCal::accesslevel[0].@value)
-            trace('title: '+ title+' & '+xml.gCal::color[0].@value)
+            trace('title: '+ title+' & '+feed)
      
         	
         	
