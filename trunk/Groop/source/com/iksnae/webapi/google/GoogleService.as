@@ -94,7 +94,7 @@ package com.iksnae.webapi.google
 		    	trace("User Login Successful")
 		    	dispatchEvent(new Event('login_successful'))
 		    	gCalAPI.getAllCalendars()
-//		    	var vars:URLVariables = new URLVariables()
+		    	var vars:URLVariables = new URLVariables()
 //		    	var apps:File = File.applicationDirectory;
 //		    	vars['scope'] = "http://www.google.com/calendar/feeds"
 //		    	vars['next'] = "http://iksnae.com"
