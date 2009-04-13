@@ -59,15 +59,15 @@ package com.iksnae.webapi.google
 	
 		}
 		
-		public function getFeed(str:String):void{
+		public function getCalendarFeed(str:String):void{
 			var req:URLRequest = new URLRequest(str)
 			req.method = URLRequestMethod.GET;
 			var loader:URLLoader=new URLLoader()
-			loader.addEventListener(Event.COMPLETE,onFeedLoaded)
+			loader.addEventListener(Event.COMPLETE,onCalenderFeedLoaded)
 			loader.load(req)
 		}
-		private function onFeedLoaded(e:Event):void{
-		  trace(URLLoader(e.target).data)
+		private function onCalenderFeedLoaded(e:Event):void{
+ 		    trace(URLLoader(e.target).data)
 		}
 		public function makeApiCall(request:String, params:URLVariables=null):void{
 			
