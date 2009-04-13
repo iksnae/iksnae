@@ -1,5 +1,6 @@
 package com.iksnae.webapi.google.gcal.params
 {
+	[Bindable]
 	public class GCalSelected
 	{
 		public var value:Boolean;

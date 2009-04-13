@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="400" height="300" styleName="MainViewCanvasStyle" initialize="init()">
-	<mx:Form label="Groop Login" top="40" left="10" bottom="10" right="10">
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="400" height="400" styleName="MainViewCanvasStyle" initialize="init()">
+	<mx:Form label="Groop Login" top="8" left="10" bottom="134" right="10" id="loginform">
 		<mx:FormItem label="gmail address:" styleName="GroopFormItem" width="100%" id="username">
 			<mx:TextInput styleName="LoginInput" width="100%" id="usename_txt" text="flashydev@gmail.com"/>
 		</mx:FormItem>
@@ -16,23 +16,47 @@
 	</mx:Form>
 	<mx:Script>
 		<![CDATA[
+			import com.iksnae.webapi.google.GDataAuthenticationHost;
 			import com.iksnae.webapi.google.gd.GDataClientLogin;
 			import com.iksnae.webapi.google.GoogleService;
 			import com.iksnae.groop.model.services.GroopServiceEvent;
 			import com.iksnae.groop.model.GroopServiceHub;
+			
+			
+			
 		    private var _gService:GoogleService;
 			private function init():void{
 				_gService = GoogleService.getInstance()
 				_gService.addEventListener('login_successful',onGoogleSeviceEvent)
                 _gService.addEventListener('login_failed',onGoogleSeviceEvent)
-                
+                auth_html.visible = false
             
                 
             }
             private function onGoogleSeviceEvent(e:Event):void{
                 switch(e.type){
                     case 'login_successful':
+                   // loginform.enabled = false;
+                    var vars:URLVariables = new URLVariables()
                     
+                    
+//              var apps:File = File.applicationDirectory;
+//              vars['scope'] = "http://www.google.com/calendar/feeds"
+//              vars['next'] = "http://iksnae.com"
+//                vars['session'] = "1"
+//              vars['secure'] = "1"
+//              method = "POST"
+
+                   // auth_html.location = 'https://www.google.com/accounts/AuthSubRequest?next=http://iksnae.com&session=1&scope=http://www.google.com/calendar/feeds'
+                    //auth_html.visible = true
+                    auth_html.horizontalScrollPolicy = 'off';
+                    var initOpt:NativeWindowInitOptions = new NativeWindowInitOptions()
+                   
+                    var win:GoogleAuthView = new GoogleAuthView(initOpt)
+                    win.activate()
+                    
+                    var feed:String ='https://www.google.com/accounts/AuthSubRequest?next=http://iksnae.com&session=1&scope=http://www.google.com/calendar/feeds'
+                 
                     break;
                     case 'login_failed':
                     usename_txt.errorString="check user login"
@@ -56,5 +80,6 @@
 			}
 		]]>
 	</mx:Script>
+	<mx:HTML x="10" y="10" height="380" width="380" id="auth_html"/>
 	
 </mx:Canvas>
