@@ -11,8 +11,8 @@
 			}
 			private function clickHandler(e:MouseEvent):void{
 				trace('clicked: '+this.data.title)
-				GoogleService.getInstance().method = "POST"
-				GoogleService.getInstance().makeApiCall(this.data.feed);
+				GoogleService.getInstance().method = "GET"
+				GoogleService.getInstance().getFeed(this.data.id);
 			}
 			public function set selected(bool:Boolean):void{
 				

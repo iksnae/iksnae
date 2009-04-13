@@ -4,11 +4,12 @@ package com.iksnae.webapi.google
 	import com.iksnae.webapi.google.gd.GDataClientLogin;
 	import com.kloke.model.interfaces.IObserver;
 	import com.kloke.model.interfaces.ISubject;
-	import com.kloke.model.types.NameValuePair;
 	import com.kloke.util.debug.Debug;
 	
 	import flash.events.Event;
-	import flash.filesystem.File;
+	import flash.net.URLLoader;
+	import flash.net.URLRequest;
+	import flash.net.URLRequestMethod;
 	import flash.net.URLVariables;
 	import flash.utils.Dictionary;
 	
@@ -21,23 +22,16 @@ package com.iksnae.webapi.google
 	{
 		
 		
-		
-		static public var API_KEY :String      =   "";
-		static public var BASE_URL:String;
-		static public var AUTH_URL:String =  'https://www.google.com/accounts/ClientLogin';
-		static public var SEARCH:String;
-		
-		
-		/// name space definitions
-        static public const NAMESPACE_GD  :Namespace  = new Namespace("http://schemas.google.com/g/2005")
-        static public const NAMESPACE_GCAL:Namespace  = new Namespace("http://schemas.google.com/gCal/2005")
-        static public const NAMESPACE_ATOM:Namespace  = new Namespace("http://www.w3.org/2005/Atom")
+		private var _SID:String;
+        private var _LSID:String;
+        private var _AUTH:String;
 		
 		
 		public var authToken:AsyncToken;
         public var connected:Boolean
         [Bindable]
         public var gCalAPI:GoogleCalendarAPI;
+        [Bindable]
         public var gDataClientLogin:GDataClientLogin;
         [Bindable]
         public var status:String
@@ -45,7 +39,7 @@ package com.iksnae.webapi.google
         
 		static private var _instance:GoogleService=null;	
 		static public function getInstance():GoogleService{
-			if(_instance==null) _instance = new GoogleService(BASE_URL)
+			if(_instance==null) _instance = new GoogleService()
 			return _instance
 		}
 		
@@ -65,9 +59,15 @@ package com.iksnae.webapi.google
 	
 		}
 		
-		public function getToken():void{
-			var params:Array = new Array()
-			params.push(new NameValuePair("api_key",API_KEY))
+		public function getFeed(str:String):void{
+			var req:URLRequest = new URLRequest(str)
+			req.method = URLRequestMethod.GET;
+			var loader:URLLoader=new URLLoader()
+			loader.addEventListener(Event.COMPLETE,onFeedLoaded)
+			loader.load(req)
+		}
+		private function onFeedLoaded(e:Event):void{
+		  trace(URLLoader(e.target).data)
 		}
 		public function makeApiCall(request:String, params:URLVariables=null):void{
 			
@@ -77,36 +77,54 @@ package com.iksnae.webapi.google
 			if(params==null){
 				params = new URLVariables()
 			}
-			params['Email']  = gDataClientLogin.username
-			params['Passwrd']= gDataClientLogin.password
+			
             trace('making api call: '+request+' with'+params)
 			send(params)
 			
 			
 		}
 		private function onResult(e:ResultEvent):void{
-		    trace("onResult: ")
-		    authToken = AsyncToken(e.token)
-		 
-		    trace(e.token.message['url'])
-		    switch(e.token.message['url']){
+			trace("==================================================================")
+			trace("onResult: "+e.token.message['url'])
+			trace("==================================================================")
+		    trace("MESSAGE: "+e.message)
+		    trace("..................................................................")
+            switch(e.token.message['url']){
+		    	
 		    	case GDataAPI.CLIENT_LOGIN_URL:
-		    	trace("User Login Successful")
-		    	dispatchEvent(new Event('login_successful'))
-		    	gCalAPI.getAllCalendars()
-		    	var vars:URLVariables = new URLVariables()
-//		    	var apps:File = File.applicationDirectory;
-//		    	vars['scope'] = "http://www.google.com/calendar/feeds"
-//		    	vars['next'] = "http://iksnae.com"
-//                vars['session'] = "1"
-//		    	vars['secure'] = "1"
-//		    	method = "POST"
-//                makeApiCall('https://www.google.com/accounts/AuthSubRequest',vars)
-//		    	
+			    	trace("User Login Successful")
+			    	
+			    	var raw:String = e.message.body.toString();
+	                authToken = AsyncToken(e.token)
+	                
+	                
+	                _SID = raw.substr(raw.search('SID=')+4,187);
+	                _LSID= raw.substr(raw.search('LSID=')+5,187);
+	                _AUTH= raw.substr(raw.search('Auth=')+5,187);
+	                trace("TOKEN: "+authToken.message)
+	                
+			    	//headers[]
+			    	dispatchEvent(new Event('login_successful'))
+			    	gCalAPI.getAllCalendars()
+			    	headers['Authorization'] = authToken;
+			    	
+			    	
+			    	var vars:URLVariables = new URLVariables()
+	//		    	var apps:File = File.applicationDirectory;
+	//		    	vars['scope'] = "http://www.google.com/calendar/feeds"
+	//		    	vars['next'] = "http://iksnae.com"
+	//                vars['session'] = "1"
+	//		    	vars['secure'] = "1"
+	//		    	method = "POST"
+	//                makeApiCall('https://www.google.com/accounts/AuthSubRequest',vars)
+	//		    	
+	                trace("..................................................................")
 		    	break;
-		    	case GoogleCalendarAPI.ALL_CALENDARS:
-		    	dispatchEvent(new Event('calendars_loaded'))
-		    	gCalAPI.onCalendarResult(e)
+		    	case GDataAPI.FEED_ALL_CALENDARS:
+			    	trace("..................................................................")
+			    	dispatchEvent(new Event('calendars_loaded'))
+			    	gCalAPI.onCalendarResult(e)
+			    	trace("..................................................................")
 		    	
 		    	break;
 		    }
@@ -114,10 +132,10 @@ package com.iksnae.webapi.google
 		}
 		private function updateStatus(call:String):void{
 		  switch(call){
-		  	case GoogleCalendarAPI.ALL_CALENDARS:
+		  	case GDataAPI.FEED_ALL_CALENDARS:
 		  	status = 'loading calendars...'
 		  	break;
-		  	case GoogleService.AUTH_URL:
+		  	case GDataAPI.URL_CLIENT_LOGIN:
             status = 'authenticating user...'
             break
             

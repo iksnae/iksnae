@@ -3,6 +3,7 @@ package com.iksnae.webapi.google.gcal
 	import com.adobe.utils.XMLUtil;
 	import com.adobe.xml.syndication.atom.Atom10;
 	import com.adobe.xml.syndication.atom.Entry;
+	import com.iksnae.webapi.google.GDataAPI;
 	import com.iksnae.webapi.google.GoogleService;
 	import com.iksnae.webapi.google.gcal.objects.GoogleCalendarDataObject;
 	import com.iksnae.webapi.google.gcal.objects.GoogleCalendarEventDataObject;
@@ -21,22 +22,10 @@ package com.iksnae.webapi.google.gcal
 	 * @author iksnae
 	 * 
 	 */	
-	
+	[Bindable]
 	public class GoogleCalendarAPI
 	{
-		static public const BASE_URL:String       = 'http://www.google.com/calendar/feeds/';
-        static public const SEARCH:String         = 'q';
-        
-        
-        
-        
-        static public const EVENT_OPAQUE:String   = 'event.opaque';
-        static public const EVENT_CONFIRMED:String= 'event.confirmed';
-        static public const KIND:String           = 'kind';
-        static public const EVENT:String          = 'event';
-        static public const ALL_CALENDARS:String  = 'http://www.google.com/calendar/feeds/default/allcalendars/full';
-        static public const USER_CALENDARS:String = 'default/owncalendars/full';
-        
+	
 		
 		/**
 		 * Query Parameters 
@@ -61,15 +50,10 @@ package com.iksnae.webapi.google.gcal
         	return _instance
         }
        
-        
         public var resultsObject:Object
-        [Bindable]
         public var calendars:ArrayCollection=new ArrayCollection();
-        [Bindable]
         public var dates:ArrayCollection=new ArrayCollection();
-        [Bindable]
         public var currentCalendar:GoogleCalendarDataObject;
-        [Bindable]
         public var currentCalenderDate:GoogleCalendarDataObject;
         
         
@@ -82,8 +66,11 @@ package com.iksnae.webapi.google.gcal
 		
 		public function getAllCalendars():void{
 			GoogleService.getInstance().method = "GET"
-			GoogleService.getInstance().makeApiCall(ALL_CALENDARS)
-			
+			GoogleService.getInstance().makeApiCall(GDataAPI.FEED_ALL_CALENDARS)
+		}
+		public function getCalendar(feed:String):void{
+			GoogleService.getInstance().method = "GET"
+			GoogleService.getInstance().makeApiCall(feed);
 		}
 		
         
@@ -104,12 +91,12 @@ package com.iksnae.webapi.google.gcal
         
         
         public function generateQuickEventXML(o:GoogleCalendarEventDataObject):XML{
-        	var str:String = "<entry xmlns='"+ GoogleService.NAMESPACE_ATOM+"' xmlns:gCal='"+ GoogleService.NAMESPACE_GCAL+"'>"+o.contentXML('html')+"<gCal:quickadd value='true'></entry>"
+        	var str:String = "<entry xmlns='"+ GDataAPI.NAMESPACE_ATOM.uri+"' xmlns:gCal='"+ GDataAPI.NAMESPACE_GCAL.uri+"'>"+o.contentXML('html')+"<gCal:quickadd value='true'></entry>"
         	return XML(str)
         }
         
         public function generateSingleOccurenceEventXML(o:GoogleCalendarEventDataObject):XML{
-        	var str:String = "<entry xmlns='"+GoogleService.NAMESPACE_ATOM+"' xmlns:gd='"+GoogleService.NAMESPACE_GD+"'>"
+        	var str:String = "<entry xmlns='"+GDataAPI.NAMESPACE_ATOM.uri+"' xmlns:gd='"+GDataAPI.NAMESPACE_GD.uri+"'>"
         	str += o.categoryXML()
         	str += o.titleXML()
         	str += o.contentXML()
@@ -204,7 +191,7 @@ package com.iksnae.webapi.google.gcal
         }
         
         public function parse(xml:XML):void{
-        	trace("PARSING: "+xml)
+//        	trace("PARSING: "+xml)
             if(!XMLUtil.isValidXML(xml))
             {
                 trace("Feed does not contain valid XML.");

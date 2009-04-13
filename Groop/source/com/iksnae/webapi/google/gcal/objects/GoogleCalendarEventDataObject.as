@@ -1,7 +1,7 @@
 package  com.iksnae.webapi.google.gcal.objects
 {
 	import com.adobe.xml.syndication.atom.Entry;
-	import com.iksnae.webapi.google.GoogleService;
+	import com.iksnae.webapi.google.GDataAPI;
 	import com.iksnae.webapi.google.gcal.params.GCalAccessLevel;
 	import com.iksnae.webapi.google.gcal.params.GCalColor;
 	import com.iksnae.webapi.google.gcal.params.GCalHidden;
@@ -47,7 +47,7 @@ package  com.iksnae.webapi.google.gcal.objects
 		
 		
 		public function xmlNode():XML{
-            var str:String = "<entry xmlns='"+GoogleService.NAMESPACE_ATOM+"' xmlns:gd='"+ GoogleService.NAMESPACE_GD+"'>";
+            var str:String = "<entry xmlns='"+GDataAPI.NAMESPACE_ATOM.uri+"' xmlns:gd='"+ GDataAPI.NAMESPACE_GD.uri+"'>";
             str += categoryNode();
             str += titleNode(title);
             str += contentNode(content);

@@ -21,7 +21,7 @@ package com.iksnae.webapi.google.gd
 		private var _p_accountType:String = ACCOUNT_TYPE_HOHSTED_OR_GOOGLE;
 		private var _p_Email:String;
         private var _p_Password:String;
-        private var _p_source:String;
+        private var _p_source:String    = 'com.iksnae.groop';
         private var _p_service:String = 'cl';
         private var _p_session:int = 1;
         
@@ -58,6 +58,7 @@ package com.iksnae.webapi.google.gd
 			vars['Email'] = _p_Email;
             vars['Passwd'] = _p_Password;
             vars['session'] = _p_session;
+            vars['source']  = _p_source;
             trace('logging into google services...')
         
 			GoogleService.getInstance().makeApiCall(GDataAPI.CLIENT_LOGIN_URL,vars)
