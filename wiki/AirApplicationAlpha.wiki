@@ -1,0 +1,4 @@
+#summary official alpha of the Air Application
+= Introduction =
+
+Remember this is an early development package. This version just loads Google Calendars and displays them in their predefined colors. this no where near even beta state, so don't expect mush
