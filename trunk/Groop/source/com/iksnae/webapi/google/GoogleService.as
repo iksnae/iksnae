@@ -38,6 +38,8 @@ package com.iksnae.webapi.google
         [Bindable]
         public var gCalAPI:GoogleCalendarAPI;
         public var gDataClientLogin:GDataClientLogin;
+        [Bindable]
+        public var status:String
 		
         
 		static private var _instance:GoogleService=null;	
@@ -70,7 +72,7 @@ package com.iksnae.webapi.google
 			
 			url = request;
 			
-			
+			updateStatus(url)
 			if(params==null){
 				params = new URLVariables()
 			}
@@ -99,6 +101,17 @@ package com.iksnae.webapi.google
 		    	break;
 		    }
 		   
+		}
+		private function updateStatus(call:String):void{
+		  switch(call){
+		  	case GoogleCalendarAPI.ALL_CALENDARS:
+		  	status = 'loading calendars...'
+		  	break;
+		  	case GoogleService.AUTH_URL:
+            status = 'authenticating user...'
+            break
+            
+		  }
 		}
 		
 		private function onFault(e:FaultEvent):void{

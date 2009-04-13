@@ -6,8 +6,11 @@ package com.iksnae.webapi.google.gcal.objects
 	
 	public class GCalDataObject
 	{
-		public var title:String;
-		public var content:String;
+		
+		[Bindable] public var title:String;
+		[Bindable] public var content:String;
+        
+        
         
 		public function GCalDataObject()
 		{
@@ -23,7 +26,7 @@ package com.iksnae.webapi.google.gcal.objects
         }
 		
 		protected function categoryNode():String{
-           return String("<category scheme='"+ GoogleService.NAMESPACE_GD+"#kind"+"' term='"+GoogleService.NAMESPACE_GD+"#event'/>")
+           return String("<category scheme='"+ GoogleService.NAMESPACE_GD.uri+"#kind"+"' term='"+GoogleService.NAMESPACE_GD.uri+"#event'/>")
         }
         protected function titleNode(text:String):String{
            return String("<title type='text'>"+text+"</title>")
@@ -35,7 +38,7 @@ package com.iksnae.webapi.google.gcal.objects
             return value.xmlNode()
         }
         protected function eventStatusNode(value:String):String{
-            return "<gd:eventStatus value='"+ GoogleService.NAMESPACE_GD+'#'+value+"'> </gd:eventStatus>"
+            return "<gd:eventStatus value='"+ GoogleService.NAMESPACE_GD.uri+'#'+value+"'> </gd:eventStatus>"
         }
         protected function whereNode(v:GCalWhere):String{
             return v.xmlNode()

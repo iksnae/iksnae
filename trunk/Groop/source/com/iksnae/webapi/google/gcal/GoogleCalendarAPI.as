@@ -1,5 +1,8 @@
 package com.iksnae.webapi.google.gcal
 {
+	import com.adobe.utils.XMLUtil;
+	import com.adobe.xml.syndication.atom.Atom10;
+	import com.adobe.xml.syndication.atom.Entry;
 	import com.iksnae.webapi.google.GoogleService;
 	import com.iksnae.webapi.google.gcal.objects.GoogleCalendarDataObject;
 	import com.iksnae.webapi.google.gcal.objects.GoogleCalendarEventDataObject;
@@ -8,6 +11,7 @@ package com.iksnae.webapi.google.gcal
 	
 	import flash.utils.Dictionary;
 	
+	import mx.collections.ArrayCollection;
 	import mx.rpc.events.ResultEvent;
 	
 	/**
@@ -56,11 +60,19 @@ package com.iksnae.webapi.google.gcal
         	if(_instance==null) _instance = new GoogleCalendarAPI()
         	return _instance
         }
-        public var currentCalendar:GoogleCalendarDataObject;
+       
         
         public var resultsObject:Object
         [Bindable]
-        public var calendars:GoogleCalendarDataObject
+        public var calendars:ArrayCollection=new ArrayCollection();
+        [Bindable]
+        public var dates:ArrayCollection=new ArrayCollection();
+        [Bindable]
+        public var currentCalendar:GoogleCalendarDataObject;
+        [Bindable]
+        public var currentCalenderDate:GoogleCalendarDataObject;
+        
+        
 		
 		public function GoogleCalendarAPI()
 		{
@@ -188,9 +200,33 @@ package com.iksnae.webapi.google.gcal
         public function onCalendarResult(data:Object=null,type:String=null):void{
         	trace(this+'onCalendarResult: '+ ResultEvent(data).message.body)
         	var xml:XML = XML(ResultEvent(data).message.body)
-        	calendars = new GoogleCalendarDataObject()
-        	calendars.parse(xml)
-            resultsObject = GoogleService.getInstance().lastResult;
+        	parse(xml)
+        }
+        
+        public function parse(xml:XML):void{
+        	trace("PARSING: "+xml)
+            if(!XMLUtil.isValidXML(xml))
+            {
+                trace("Feed does not contain valid XML.");
+                return;
+            }else{
+                trace("XML Validated.");
+            }
+            dates.removeAll()
+            
+            var atom:Atom10 = new Atom10()
+            atom.parse(xml)
+            var items:Array = atom.entries;
+            trace(items.length)
+            for(var i:int=0;i<items.length;i++)
+            {
+                //print out the title of each item
+               
+                var newCal:GoogleCalendarDataObject = new GoogleCalendarDataObject()
+                newCal.parse(Entry(items[i]))
+                calendars.addItem(newCal)
+            }
+            GoogleService.getInstance().status = 'idle.'
         }
         
         

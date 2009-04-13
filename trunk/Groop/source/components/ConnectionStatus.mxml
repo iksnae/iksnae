@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="228" height="30" styleName="SectionHeader" backgroundAlpha="0.0" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+	<mx:Text id="status_txt" y="0" text="{g.status}" textAlign="left" width="192" height="20" color="#FFFFFF" fontSize="11" left="36" fontWeight="bold" enabled="true" selectable="false"/>
+	<mx:Script>
+		<![CDATA[
+			import com.iksnae.webapi.google.GoogleService;
+			[Bindable]
+			private var g:GoogleService = GoogleService.getInstance()
+			
+		]]>
+	</mx:Script>
+	<mx:Label text="status:" fontSize="11" color="#FFFFFF" top="0" left="0"/>
+</mx:Canvas>

@@ -1,7 +1,5 @@
 package  com.iksnae.webapi.google.gcal.objects
 {
-	import com.adobe.utils.XMLUtil;
-	import com.adobe.xml.syndication.atom.Atom10;
 	import com.adobe.xml.syndication.atom.Entry;
 	import com.iksnae.webapi.google.GoogleService;
 	import com.iksnae.webapi.google.gcal.params.GCalAccessLevel;
@@ -26,18 +24,27 @@ package  com.iksnae.webapi.google.gcal.objects
 		
 		// public properties...
 		
-		public var summary        :String;
-		public var timezone       :GCalTimeZone;
-		public var hidden         :GCalHidden;
-		public var color          :GCalColor;
-		public var where          :GCalWhere;
-		public var accesslevel    :GCalAccessLevel;
-		public var timesCleaned   :int;
-		public var uid            :String;
-		public var syncEvent      :Boolean;
-		public var sequence       :int;
-        public var selected       :GCalSelected;
-        public var transparency   :GDataTransparency;
+		[Bindable] public var summary        :String;
+		[Bindable] public var timezone       :GCalTimeZone;
+		[Bindable] public var hidden         :GCalHidden;
+		[Bindable] public var color          :GCalColor;
+		[Bindable] public var where          :GCalWhere;
+		[Bindable] public var accesslevel    :GCalAccessLevel;
+		[Bindable] public var timesCleaned   :int;
+		[Bindable] public var uid            :String;
+		[Bindable] public var syncEvent      :Boolean;
+		[Bindable] public var sequence       :int;
+        [Bindable] public var selected       :GCalSelected;
+        [Bindable] public var transparency   :GDataTransparency;
+        [Bindable] public var published      :Date;
+        [Bindable] public var updated        :Date;
+        
+
+        private var gCal:Namespace = GoogleService.NAMESPACE_GCAL;
+        private var gd:Namespace = GoogleService.NAMESPACE_GD;
+        private var atom:Namespace = GoogleService.NAMESPACE_ATOM;
+        
+        
         
         [Bindable]
         public var dates:ArrayCollection = new ArrayCollection();
@@ -93,28 +100,34 @@ package  com.iksnae.webapi.google.gcal.objects
 		
 		
         
-        public function parse(xml:XML):void{
-        	if(!XMLUtil.isValidXML(xml))
-            {
-                trace("Feed does not contain valid XML.");
-                return;
-            }else{
-                trace("XML Validated.");
-            }
-            dates.removeAll()
-            var atom:Atom10 = new Atom10()
-            atom.parse(xml)
+        public function parse(entry:Entry):void{
+        	
+        	var xml:XML = entry.xml[0]
+        	
+        	title               = entry.title;
+            content             = entry.content.src;
+            published           = entry.published;
+            updated             = entry.updated;
+            accesslevel.value   = xml.gCal::accesslevel[0].@value;
+            timezone.value      = xml.gCal::timezone[0].@value;
+            color.parse(xml.gCal::color[0].@value);
+            hidden.value        = xml.gCal::hidden[0].@value; 
+            selected.value      = xml.gCal::selected[0].@value; 
+            timesCleaned        = xml.gCal::timesCleaned[0].@value; 
+            timesCleaned        = xml.gCal::timesCleaned[0].@value; 
             
-            var items:Array = atom.entries;
-            for each(var entry:Entry in items)
-            {
-                //print out the title of each item
-                trace(entry.title);
-                trace(entry.id);
-                dates.addItem({label:entry.title, title:entry.title,description: entry.content.value, date: entry.published, id: entry.content.src })
-            }
+            
+            trace(xml.gCal::accesslevel[0].@value)
+            trace('title: '+ title+' & '+xml.gCal::color[0].@value)
+     
+        	
+        	
+            GoogleService.getInstance().status = 'idle.'
         }
-        
+    
+        public function get label():String{
+        	return title
+        }
         
 
 	}
