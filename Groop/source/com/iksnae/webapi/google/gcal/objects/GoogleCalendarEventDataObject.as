@@ -1,5 +1,6 @@
 package  com.iksnae.webapi.google.gcal.objects
 {
+	import com.adobe.xml.syndication.atom.Entry;
 	import com.iksnae.webapi.google.GoogleService;
 	import com.iksnae.webapi.google.gcal.params.GCalAccessLevel;
 	import com.iksnae.webapi.google.gcal.params.GCalColor;
@@ -33,6 +34,7 @@ package  com.iksnae.webapi.google.gcal.objects
         public var accesslevel:GCalAccessLevel;
         public var color:GCalColor;
         public var selected:GCalSelected;
+        public var entryData:Entry;
         
         
 		
@@ -94,6 +96,11 @@ package  com.iksnae.webapi.google.gcal.objects
             return XML(whereNode(where))
         }
         
+        
+        public function parse(data:Entry):void{
+        	entryData = data;
+        	trace(entryData)
+        }
         
         
         

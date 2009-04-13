@@ -4,7 +4,7 @@
 		<![CDATA[
 			import mx.collections.ArrayCollection;
 			public function populate(arr:ArrayCollection):void{
-				trace("CALENDAR UPDATE: "+arr)
+				//trace("CALENDAR UPDATE: "+arr)
 				
 			}
 		]]>

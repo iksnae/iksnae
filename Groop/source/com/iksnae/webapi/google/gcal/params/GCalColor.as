@@ -1,5 +1,6 @@
 package com.iksnae.webapi.google.gcal.params
 {
+	[Bindable]
 	public class GCalColor
 	{
 		
@@ -24,6 +25,11 @@ package com.iksnae.webapi.google.gcal.params
 		 */		
 		public function xmlNode():String{
 			return String("<gCal:color value='"+value+"'></gCal:color")
+        }
+        
+        public function parse(str:String):void{
+        	var start:int = str.search('#')+1;
+        	value = parseInt('0x'+str.substr(start,6))
         }
 
 	}

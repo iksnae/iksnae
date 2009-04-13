@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="50" backgroundColor="#000000" verticalScrollPolicy="off" horizontalScrollPolicy="off" xmlns:text="flash.text.*" initialize="init()">
+	<mx:Text x="5" y="0" text="{data.title}" fontSize="16" width="100%" height="32" selectable="false" color="{data.color.value}" mouseEnabled="false"/>
+	<mx:Text x="5" y="22" text="updated: +{data.updated}" color="#FFFFFF" fontSize="10" width="100%" height="32" selectable="false" mouseEnabled="false"/>
+	<mx:Script>
+		<![CDATA[
+			private function init():void{
+				buttonMode = true;
+				addEventListener(MouseEvent.CLICK,clickHandler)
+			}
+			private function clickHandler(e:MouseEvent):void{
+				trace('clicked: '+this.data.title)
+			}
+			public function set selected(bool:Boolean):void{
+				
+			}
+			
+		]]>
+	</mx:Script>
+
+	
+	
+</mx:Canvas>
