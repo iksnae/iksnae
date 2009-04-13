@@ -37,7 +37,7 @@
                 switch(e.type){
                     case 'login_successful':
                    // loginform.enabled = false;
-                    var vars:URLVariables = new URLVariables()
+//                    var vars:URLVariables = new URLVariables()
                     
                     
 //              var apps:File = File.applicationDirectory;
@@ -49,13 +49,13 @@
 
                    // auth_html.location = 'https://www.google.com/accounts/AuthSubRequest?next=http://iksnae.com&session=1&scope=http://www.google.com/calendar/feeds'
                     //auth_html.visible = true
-                    auth_html.horizontalScrollPolicy = 'off';
-                    var initOpt:NativeWindowInitOptions = new NativeWindowInitOptions()
-                   
-                    var win:GoogleAuthView = new GoogleAuthView(initOpt)
-                    win.activate()
-                    
-                    var feed:String ='https://www.google.com/accounts/AuthSubRequest?next=http://iksnae.com&session=1&scope=http://www.google.com/calendar/feeds'
+//                    auth_html.horizontalScrollPolicy = 'off';
+//                    var initOpt:NativeWindowInitOptions = new NativeWindowInitOptions()
+//                   
+//                    var win:GoogleAuthView = new GoogleAuthView(initOpt)
+//                    win.activate()
+//                    
+//                    var feed:String ='https://www.google.com/accounts/AuthSubRequest?next=http://iksnae.com&session=1&scope=http://www.google.com/calendar/feeds'
                  
                     break;
                     case 'login_failed':

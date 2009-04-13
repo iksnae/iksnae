@@ -90,14 +90,16 @@ package com.iksnae.groop.model.services
             authVars['Passwd']    = hub.passWord;
             authVars['service']   = 'cl';
             authVars['session']   = 1;
+            
             var r:URLRequest = new URLRequest(str)
             r.data = authVars;
             r.method = URLRequestMethod.POST;
+            
             calenderLoader.addEventListener(Event.COMPLETE,onEventsLoaded)
             calenderLoader.load(r)
         }
 		private function onCalendarLoaded(e:Event):void{
-			trace(URLLoader(e.target).data)
+		//	trace(URLLoader(e.target).data)
 			calenderLoader.removeEventListener(Event.COMPLETE, onCalendarLoaded)
 			parseCalendars(URLLoader(e.target).data)
 		}

@@ -1,6 +1,6 @@
 package com.iksnae.webapi.google.gcal.objects
 {
-	import com.iksnae.webapi.google.GoogleService;
+	import com.iksnae.webapi.google.GDataAPI;
 	import com.iksnae.webapi.google.gcal.params.GCalWhere;
 	import com.iksnae.webapi.google.gd.GDataTransparency;
 	
@@ -26,7 +26,7 @@ package com.iksnae.webapi.google.gcal.objects
         }
 		
 		protected function categoryNode():String{
-           return String("<category scheme='"+ GoogleService.NAMESPACE_GD.uri+"#kind"+"' term='"+GoogleService.NAMESPACE_GD.uri+"#event'/>")
+           return String("<category scheme='"+ GDataAPI.NAMESPACE_GD.uri+"#kind"+"' term='"+GDataAPI.NAMESPACE_GD.uri+"#event'/>")
         }
         protected function titleNode(text:String):String{
            return String("<title type='text'>"+text+"</title>")
@@ -38,7 +38,7 @@ package com.iksnae.webapi.google.gcal.objects
             return value.xmlNode()
         }
         protected function eventStatusNode(value:String):String{
-            return "<gd:eventStatus value='"+ GoogleService.NAMESPACE_GD.uri+'#'+value+"'> </gd:eventStatus>"
+            return "<gd:eventStatus value='"+ GDataAPI.NAMESPACE_GD.uri+'#'+value+"'> </gd:eventStatus>"
         }
         protected function whereNode(v:GCalWhere):String{
             return v.xmlNode()
