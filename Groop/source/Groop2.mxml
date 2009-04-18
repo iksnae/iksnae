@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:WindowedApplication xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" xmlns:ns1="components.nav.*" initialize="init()" applicationComplete="onComplete()" showFlexChrome="false" height="{_defHeight}" alwaysInFront="true" xmlns:ns2="components.*">
+	<mx:states>
+		<mx:State name="default">
+		<mx:SetProperty name="y" value="0"/>
+		<mx:SetProperty name="height" value="{_defHeight}"/>
+        </mx:State>
+		<mx:State name="minimizedHorizontal">
+			<mx:SetProperty name="height" value="20"/>
+		</mx:State>
+		<mx:State name="minimizedVertical">
+			<mx:SetProperty name="width" value="20"/>
+		</mx:State>
+		<mx:State name="top" basedOn="minimizedHorizontal">
+		  <mx:SetProperty name="y" value="0"/>
+		  <mx:SetProperty name="height" value="20"/>
+		</mx:State>
+		<mx:State name="bottom" basedOn="minimizedHorizontal">
+    		<mx:SetProperty name="y" value="_bottomY"/>
+    		<mx:SetProperty name="height" value="20"/>
+        </mx:State>
+		<mx:State name="left" basedOn="minimizedVertical"/>
+		<mx:State name="right" basedOn="minimizedVertical"/>
+		
+	</mx:states>
+	<mx:Canvas top="0" right="0" bottom="0" left="0" label="mainCanvas">
+		<ns1:HNav bottom="0" left="0" right="0">
+		</ns1:HNav>
+		<ns2:MainView top="0" left="0" width="100%" bottom="20">
+		</ns2:MainView>
+	</mx:Canvas>
+	<mx:Style source="styles/GroopStyle2.css"/>
+	
+	<mx:Script>
+		<![CDATA[
+			import com.iksnae.groop.GroopModel;
+			private var _model:GroopModel;
+			private var _bottomY:Number;
+			[Bindable]
+			private var _defHeight:Number = 400;
+			private function init():void{
+				_bottomY=Capabilities.screenResolutionY-20;
+				_model = GroopModel.getInstance();
+				_model.app = this;
+				
+			}
+			private function onComplete():void{
+				width = Capabilities.screenResolutionX;
+				minimize()
+			}
+			
+			override public function minimize():void{
+				
+				if(!_model.minimized){
+					currentState = _model.userPreferredAlignment;
+					_model.minimized = true
+                }else{
+                    currentState = 'default'
+                    _model.minimized = false
+                }
+				
+				
+			}
+			
+			
+		]]>
+	</mx:Script>
+	
+</mx:WindowedApplication>

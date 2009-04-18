@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="20" styleName="NavHBox" initialize="init()">
+	<mx:LinkButton id="minimize_btn0" label="-" click="_model.app.minimize()"/>
+
+	<mx:Text id="status_txt" text="status..." width="100%"/>
+	<mx:LinkButton id="settings_btn" label="settings"/>
+	<mx:LinkButton id="signin_btn" label="sign-in"/>
+	<mx:LinkButton id="minimize_btn" label="-" click="_model.app.minimize()"/>
+	
+	<mx:Script>
+		<![CDATA[
+			import com.iksnae.groop.GroopModel;
+			private var _loggedin:Boolean;
+			
+			private var _model:GroopModel;
+			private function init():void{
+				_model = GroopModel.getInstance()
+				_model.addEventListener('login_event',onLoginEvent);
+				_model.addEventListener('min_max_event',onMinMax);
+                
+			}
+			private function onLoginEvent(e:Event):void{
+				if(_model.loggedIn){
+					signin_btn.label = 'sign-out'
+				}else{
+					signin_btn.label = 'sign-in'
+				}
+			}
+			private function onMinMax(e:Event):void{
+				if(_model.minimized){
+					minimize_btn.label = '+'
+					minimize_btn0.label = '+'
+				}else{
+					minimize_btn.label = '-'
+					minimize_btn0.label = '-'
+				}
+			}
+			
+		]]>
+	</mx:Script>
+	
+</mx:HBox>

@@ -12,6 +12,7 @@
 </compiler>
 <applications>
 <application path="Groop.mxml"/>
+<application path="Groop2.mxml"/>
 </applications>
 <modules/>
 <buildCSSFiles/>
