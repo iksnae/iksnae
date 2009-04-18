@@ -205,7 +205,7 @@
             }
 		]]>
 	</mx:Script>
-	<ns1:ConnectionStatus left="10" width="622" height="17" bottom="10">
+	<ns1:ConnectionStatus left="10" width="622" height="17" bottom="0" fontSize="11">
 	</ns1:ConnectionStatus>
 	<mx:transitions>
     <!-- Play for a change to the login view state from any view state. -->

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<mx:Application xmlns:mx="http://www.macromedia.com/2006/mxml" xmlns="*" verticalGap="10"
+    initialize="initialize()">
+
+    <mx:Panel title="Employee Data" height="90%" width="90%">
+
+        <mx:TabNavigator id="tn" height="90%" width="90%" creationPolicy="all">
+            <mx:VBox id="viewBox" label="View" height="100%" width="100%">
+                <!-- A datagrid for viewing or editing employee data.  The datagrid changes -->
+                <!-- in transferHandler() if the user is a manager.  -->
+                <mx:DataGrid id="datagrid" height="100%" width="100%" dataProvider="{empList}">
+                    <mx:columns>
+                        <mx:Array>
+                            <mx:DataGridColumn columnName="name" headerText="Name"/>
+                            <mx:DataGridColumn columnName="phone" headerText="Phone"/>
+                            <mx:DataGridColumn columnName="email" headerText="Email"/>
+                            <!-- we add another column via addColumn in actionscript if the user is a manager -->
+                        </mx:Array>
+                    </mx:columns>
+                </mx:DataGrid>
+
+                <mx:Spacer height="5"/>
+                <mx:HBox>
+                    <mx:Spacer width="5" />
+                    <mx:Button id="submitBut" label="submit changes" click="changeClick()" visible="false"/>
+                </mx:HBox>
+                <mx:Spacer height="5"/>
+            </mx:VBox>
+            <!-- we add anotion tab via createTab in actionscript if the user is a manager -->
+
+        </mx:TabNavigator>
+
+        <mx:Label id="roleInfo" />
+    </mx:Panel>
+
+    <CustomAuthenticationHandler id="auth" dataService="{employee}"
+        dataServiceCall="{employee.getTransferObject}"/>
+
+    <mx:RemoteObject id="employee" named="EmployeeAccess"
+        result="transferHandler(event)" fault="auth.faultHandler(event.fault)" />
+
+    <mx:RemoteObject id="manager" named="ManagerAccess"
+        result="managerHandler(event)" fault="auth.faultHandler(event.fault)" />
+
+    <mx:Script>
+<![CDATA[
+        import mx.controls.gridclasses.DataGridColumn;
+
+        // the dataProvider
+        var empList;
+
+        // application initialize
+        function initialize()
+        {
+            // register classes for RemoteObject
+            Object.registerClass("examples.BasicEmployee", Employee);
+            Object.registerClass("examples.Employee", Employee);
+            Object.registerClass("examples.TransferObject", TransferObject);
+
+
+            // get the data for the view.  Unless the user is already logged in
+            // for this session, then will cause the fault handler to be called,
+            // which in turn causes a login popup to be displayed
+            employee.getTransferObject();
+        }
+
+        // called when getTransferHandler returns
+        function transferHandler(event)
+        {
+            var transferObj:TransferObject = TransferObject(event.result);
+            if (transferObj.isManager)
+            {
+                // show the user info
+                roleInfo.text = "Manager " + transferObj.userName;
+
+                enableEdits();
+
+                // add a salary column
+                var column:DataGridColumn = new DataGridColumn("salary");
+                column.headerText = "Salary";
+                column.editable = true;
+                // addColumn is not used here on purpose.  This is because of an issue with
+                // columns not resizing with addColumn after a redraw
+                var columns:Array = datagrid.columns;
+                columns.push(column);
+                datagrid.columns = columns;
+
+                // set empList before creating ChartView
+                empList=transferObj.employees;
+
+                tn.createTab(ChartView);
+            }
+            else
+            {
+                // uncomment the line below to turn on data editing for non-managers.  Normally this would
+                // not be enabled on the client side for users not in the samplemanagers
+                // role, since it will not work in this case.  This can be enabled to
+                // show that the real security for submitting edits happens on the server
+                // side"
+                //enableEdits();
+
+                // show the user info
+                roleInfo.text = "User " + transferObj.userName;
+                empList=transferObj.employees;
+            }
+        }
+
+        function enableEdits()
+        {
+            // make the datagrid editable.
+            // setting datagrid.editable at this point doesn't seem to work
+            // so we get each column and set editable
+            datagrid.editable = true;
+            var i;
+            for (i = 0; i < datagrid.columnCount; i++)
+            {
+                datagrid.getColumnAt(i).editable = true;
+            }
+
+            submitBut.visible = true;
+            datagrid.height="90%";
+            viewBox.label = "View and Edit";
+        }
+
+        // called when "submit changes" button is clicked
+        function changeClick()
+        {
+            manager.setEmployees(empList);
+        }
+
+        // called when setEmployees call returns
+        function managerHandler(event)
+        {
+             //  Note that since this is a sample without a real data store
+             //  the data will revert back to its old state if the server is restarted.
+            alert("Data update successful");
+        }
+]]>
+    </mx:Script>
+
+</mx:Application>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<mx:TitleWindow xmlns:mx="http://www.macromedia.com/2006/mxml" title="Login">
+
+    <mx:Script>
+        function logonHandler() {
+            dispatchEvent({type: "logonWindowEvent", action: "authenticate", username: username.text, password: password.text});
+            this.deletePopUp();
+        }
+
+        function cancelHandler() {
+            dispatchEvent({type: "logonWindowEvent", action: "cancel"});
+            this.deletePopUp();
+        }
+
+    </mx:Script>
+
+    <mx:Form defaultButton="logonButton">
+
+        <mx:FormItem label="UserId" required="true">
+            <mx:TextInput id="username" text="sampleuser" width="150"/>
+        </mx:FormItem>
+
+        <mx:FormItem label="Password" required="true">
+            <mx:TextInput id="password" password="true" width="150"/>
+        </mx:FormItem>
+
+        <mx:FormItem>
+            <mx:HBox>
+                <mx:Button id="logonButton" label="Logon" click="logonHandler()" width="70"/>
+                <mx:Button label="Cancel" click="cancelHandler()" width="70"/>
+            </mx:HBox>
+        </mx:FormItem>
+
+    </mx:Form>
+
+</mx:TitleWindow>

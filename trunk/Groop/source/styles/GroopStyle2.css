@@ -1,0 +1,31 @@
+/* CSS file */
+
+LinkButton
+{
+	color: #FFFFFF;
+	fontFamily: Arial;
+	textRollOverColor: #000000;
+	rollOverColor: #ACACAC;
+	selectionColor: #D4D4D4;
+	cornerRadius: 0;
+	paddingLeft: 0;
+	paddingRight: 0;
+	paddingTop: 0;
+	paddingBottom: 0;
+	horizontalGap: 0;
+}
+HBox.NavHBox
+{
+	horizontalAlign: right;
+}
+Text
+{
+	textAlign: left;
+}
+Canvas
+{
+	borderColor: #B7BABC;
+	backgroundColor: #000000;
+	color: #FFFFFF;
+	fontFamily: Arial;
+}
