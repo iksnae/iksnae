@@ -95,7 +95,7 @@ package com.groop.gcal
 				var cal:GCalender = new GCalender()
 				cal.entry = entry;
 				calendars.addItem(cal)
-				status = cal.label;
+				//status = cal.label;
 				
 			
 			}
