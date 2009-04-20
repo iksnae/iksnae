@@ -20,10 +20,8 @@ package com.iksnae.groop.model.services
 
 	public class GroopCalendarService extends EventDispatcher implements IService
 	{
-		[Bindable]
-		public var dates:ArrayCollection = new ArrayCollection();
-		[Bindable]
-		public var events:ArrayCollection = new ArrayCollection();
+		[Bindable] public var dates:ArrayCollection = new ArrayCollection();
+		[Bindable] public var events:ArrayCollection = new ArrayCollection();
 	
 		private const BASE_URL:String = 'http://www.google.com/calendar/'
 		private const DEFAULT:String = 'feeds/default'
