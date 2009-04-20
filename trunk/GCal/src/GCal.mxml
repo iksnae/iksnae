@@ -26,9 +26,21 @@ Once this standalone applet is tested and complete, it will be integrated into t
 		<![CDATA[
 			import com.groop.gcal.GCalApplet;
 			private var gcalApp:GCalApplet;
+			
 			private function init():void{
 				gcalApp = new GCalApplet()
+				gcalApp.service.addEventListener('status_change',onStatus)
+				gcalApp.service.addEventListener('calenders_loaded',onCalendarsLoaded)
+				
+			}
+			private function onStatus(e:Event):void{
+				status_txt.text = gcalApp.service.status
+			}
+			private function onCalendarsLoaded(e:Event):void{
+				calenders_list.dataProvider = gcalApp.service.calendars;
 			}
 		]]>
 	</mx:Script>
+	<mx:Text id="status_txt" text="" width="314" bottom="10" right="10" textAlign="right"/>
+	<mx:List right="10" left="10" top="10" bottom="243" id="calenders_list"></mx:List>
 </mx:WindowedApplication>
