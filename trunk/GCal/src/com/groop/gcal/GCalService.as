@@ -27,6 +27,8 @@ package com.groop.gcal
 		public var authToken:AsyncToken;
 		[Bindable]
 		public var calendars:ArrayCollection;
+		[Bindable]
+        public var currentCalendar:ArrayCollection;
 		private var gdata:RemoteObject;
 		private var allCalsFeed:XML;
 		
@@ -84,7 +86,7 @@ package com.groop.gcal
 		public function getCalendar(url:String):void{
 			trace('getCalendar: '+url)
 			status =  'getting calendar';
-			try{
+		
 			var ll:URLLoader = new URLLoader()
 			ll.addEventListener(Event.COMPLETE,onCalendarLoaded)
 			ll.addEventListener(IOErrorEvent.IO_ERROR,onIOError)
@@ -92,20 +94,28 @@ package com.groop.gcal
 			var r:URLRequest = new URLRequest(url)
 			r.method = URLRequestMethod.GET;
 			ll.load(r)
-			}catch(err){}
+			
 		}
 		private function onCalendarLoaded(e:Event):void{
 		     var cal:XML = XML(URLLoader(e.target).data)
 		     var atom:Atom10 = new Atom10()
 		     atom.parse(cal)
 		     status = 'viewing: '+ atom.feedData.title.value;
+		     
+		     var atom:Atom10 = new Atom10()
+		     var entries:Array = atom.entries;
+		     currentCalendar = new ArrayCollection()
+		     for each(var date:Entry in entries){
+		     	currentCalendar.addItem(date)
+		     }
+		     dispatchEvent(new Event('calendar_loaded'))
 		     trace(cal)
 		}
 		
 		
 		private function parseCalendars():void{
 			status = 'parsing calendars..'
-			//trace(allCalsFeed)
+			trace(allCalsFeed)
 			var atom:Atom10 = new Atom10()
 			atom.parse(allCalsFeed)
 			var entries:Array = atom.entries;
