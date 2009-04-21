@@ -18,13 +18,18 @@ package com.groop.gcal
 			return _entryObj
 		}
 		public function get label():String{
-            return _title
+            return _entryObj.title
         }
 		public function set entry(e:Entry):void{
             _entryObj = e
             _title = _entryObj.title;
-            
+            trace(_entryObj.id)
         }
+        public function get title():String{
+        	return _title
+		}
+        
+        
 
 	}
 }

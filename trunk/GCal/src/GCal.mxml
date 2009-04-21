@@ -19,11 +19,13 @@ Once this standalone applet is tested and complete, it will be integrated into t
 
 
 -->
-<mx:WindowedApplication xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" initialize="init()">
+<mx:WindowedApplication xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" initialize="init()" horizontalScrollPolicy="off" verticalScrollPolicy="off">
     
 	
 	<mx:Script>
 		<![CDATA[
+			import com.adobe.xml.syndication.atom.Link;
+			import com.groop.gcal.GCalender;
 			import com.groop.gcal.GCalApplet;
 			private var gcalApp:GCalApplet;
 			
@@ -31,6 +33,7 @@ Once this standalone applet is tested and complete, it will be integrated into t
 				gcalApp = new GCalApplet()
 				gcalApp.service.addEventListener('status_change',onStatus)
 				gcalApp.service.addEventListener('calenders_loaded',onCalendarsLoaded)
+				calenders_list.addEventListener(Event.CHANGE,onCalendarChange)
 				
 			}
 			private function onStatus(e:Event):void{
@@ -39,8 +42,33 @@ Once this standalone applet is tested and complete, it will be integrated into t
 			private function onCalendarsLoaded(e:Event):void{
 				calenders_list.dataProvider = gcalApp.service.calendars;
 			}
+			private function onCalendarChange(e:Event):void{
+				var gc:GCalender= GCalender(calenders_list.selectedItem)
+				gcalApp.service.getCalendar(gc.entry.links[0])
+				trace(gc.entry.links)
+				var i:int = 0;
+				var chosen1:int = 0;
+				for each (var link:Link in gc.entry.links){
+					trace(link.href)
+					
+					if(i==chosen1){
+						gcalApp.service.getCalendar(link.href);
+					}
+					i++
+		            		
+				}
+				
+			}
 		]]>
 	</mx:Script>
 	<mx:Text id="status_txt" text="" width="314" bottom="10" right="10" textAlign="right"/>
-	<mx:List right="10" left="10" top="10" bottom="243" id="calenders_list"></mx:List>
+	<mx:List right="10" left="10" top="10" id="calenders_list" height="185"></mx:List>
+	<mx:DateChooser id="calender_view" left="10" top="203" width="188" height="189"/>
+	<mx:DataGrid right="10" top="203" bottom="30" left="206" id="messages_view">
+		<mx:columns>
+			<mx:DataGridColumn headerText="Column 1" dataField="col1"/>
+			<mx:DataGridColumn headerText="Column 2" dataField="col2"/>
+			<mx:DataGridColumn headerText="Column 3" dataField="col3"/>
+		</mx:columns>
+	</mx:DataGrid>
 </mx:WindowedApplication>
