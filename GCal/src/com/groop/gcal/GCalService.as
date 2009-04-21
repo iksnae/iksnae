@@ -4,6 +4,10 @@ package com.groop.gcal
 	import com.adobe.xml.syndication.atom.Entry;
 	
 	import flash.events.Event;
+	import flash.events.IOErrorEvent;
+	import flash.net.URLLoader;
+	import flash.net.URLRequest;
+	import flash.net.URLRequestMethod;
 	
 	import mx.collections.ArrayCollection;
 	import mx.rpc.AsyncToken;
@@ -39,11 +43,7 @@ package com.groop.gcal
 			
 		    authToken = result.token;
 		    trace(authToken.message['url'])
-//		    trace(authToken.message.clientId)
-//		    trace(authToken.message.destination)
-//		    trace(authToken.message.headers.valueOf())
-//		    trace(authToken.message.timeToLive)
-//		    trace(authToken.message.timestamp)
+
 		    
 		    switch(authToken.message['url']){
 		    	case AUTHENTICATION:
@@ -57,26 +57,49 @@ package com.groop.gcal
 		    }
 		}
 		private function onFault(fault:FaultEvent):void{
+			status = 'authentication failed'
 			trace(fault)
-		  
 		}
 		
 		public function makeCall():void{
-			
 		}
+	
+	   public function authenticateUser1():void{
+	   	
+	   }
+	
 		public function authenticateUser(email:String,password:String):void{
-		  trace('authenticating...')
+		  status = 'authenticating...'
 		  url = AUTHENTICATION;
-		  method = 'POST'
-		  var obj:Object={Email:email,Passwd:password,service:'cl'};
+		  method='POST'
+		  var obj:Object={Email:email,Passwd:password,service:'cl',source:'com.groop.GCal'};
 		  send(obj)
-        
-		}
+        }
 		
 		public function getAllCalendars():void{
 			url = ALL_CALENDARS;
 			method = 'GET'
 			send()
+		}
+		public function getCalendar(url:String):void{
+			trace('getCalendar: '+url)
+			status =  'getting calendar';
+			try{
+			var ll:URLLoader = new URLLoader()
+			ll.addEventListener(Event.COMPLETE,onCalendarLoaded)
+			ll.addEventListener(IOErrorEvent.IO_ERROR,onIOError)
+			
+			var r:URLRequest = new URLRequest(url)
+			r.method = URLRequestMethod.GET;
+			ll.load(r)
+			}catch(err){}
+		}
+		private function onCalendarLoaded(e:Event):void{
+		     var cal:XML = XML(URLLoader(e.target).data)
+		     var atom:Atom10 = new Atom10()
+		     atom.parse(cal)
+		     status = 'viewing: '+ atom.feedData.title.value;
+		     trace(cal)
 		}
 		
 		
@@ -122,9 +145,11 @@ package com.groop.gcal
 			super(null, null);
 			addEventListener(ResultEvent.RESULT, onResult)
 			addEventListener(FaultEvent.FAULT, onFault)
-            authenticateUser('flashydev@gmail.com','passw0rd')
+          //  authenticateUser('flashydev@gmail.com','passw0rd')
 		}
+		private function onIOError(err:IOErrorEvent):void{
 		
+		}
 		
 		
 	}
