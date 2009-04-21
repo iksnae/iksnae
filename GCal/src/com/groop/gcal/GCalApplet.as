@@ -8,6 +8,7 @@ package com.groop.gcal
 	{
 		public var service:GCalService = GCalService.getInstance()
 		
+		
 		public function GCalApplet()
 		{
 			super(null);
@@ -18,5 +19,6 @@ package com.groop.gcal
 			trace('USER AUTHENTICATED')
 			service.getAllCalendars()
 		}
+		
 	}
 }
