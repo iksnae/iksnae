@@ -31,7 +31,7 @@ package {
 		    _viewPort = new Viewport3D()
 		    _camera   = new Camera3D()
 		    _engine = new BasicRenderEngine()
-		    _camera.z = -300
+		   // _camera.z = -300
 		    addColl()
 		    
 		    addChild(_viewPort)
@@ -41,7 +41,7 @@ package {
 		      _engine.renderScene(_scene,_camera,_viewPort)
 		}
 		private function addColl():void{
-              _collada = new Collada("models/floorplan5.dae")
+              _collada = new Collada("models/floorplan0.dae")
               _scene.addChild(_collada)
         }
 	
