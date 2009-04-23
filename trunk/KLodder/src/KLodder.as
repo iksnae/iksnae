@@ -41,7 +41,7 @@ package {
 		      _engine.renderScene(_scene,_camera,_viewPort)
 		}
 		private function addColl():void{
-              _collada = new Collada("models/floorplan0.dae")
+              _collada = new Collada("models/floorplan6.dae")
               _scene.addChild(_collada)
         }
 	
