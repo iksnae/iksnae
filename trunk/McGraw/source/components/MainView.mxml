@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%">
+	<mx:states>
+		<mx:State name="fragrance">
+			<mx:SetProperty target="{label1}" name="text" value="fragrance"/>
+		</mx:State>
+		<mx:State name="media">
+			<mx:SetProperty target="{label1}" name="text" value="media"/>
+		</mx:State>
+		<mx:State name="store">
+			<mx:SetProperty target="{label1}" name="text" value="store locator"/>
+		</mx:State>
+		<mx:State name="mail">
+			<mx:SetProperty target="{label1}" name="text" value="mailing list"/>
+		</mx:State>
+	</mx:states>
+	<mx:Label x="10" y="10" text="welcome" id="label1"/>
+	
+</mx:Canvas>

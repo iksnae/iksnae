@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="150" height="25" initialize="init()">
+	<mx:Text id="status" right="4" top="3" selectable="false"/>
+	<mx:Script>
+		<![CDATA[
+		    private var on:String = 'sound on'
+		    private var off:String = 'sound off'
+            
+			private function init():void{
+				mouseChildren = false;
+				status.text = on;
+				addEventListener(MouseEvent.CLICK,toggle)
+				buttonMode = true;
+			}
+			private function toggle(e:MouseEvent):void{
+				if(status.text == on){
+					status.text = off
+				}else{
+					status.text = on;
+				}
+			}
+		]]>
+	</mx:Script>
+</mx:Canvas>

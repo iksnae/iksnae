@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" xmlns:ns1="com.*" xmlns:ns2="components.*" creationComplete=" facade.startup(this)">
+	<ns2:HeaderView left="0" right="0" y="0">
+	</ns2:HeaderView>
+	<ns2:MainView id="mainView" x="0" y="150">
+	</ns2:MainView>
+	<mx:Script>
+		<![CDATA[
+			import com.iris.mcgraw.McGrawSite;
+			import org.puremvc.as3.patterns.facade.Facade;
+			private var facade:McGrawSite = McGrawSite.getInstance()
+			
+			
+			
+		]]>
+	</mx:Script>
+
+	
+</mx:Application>
