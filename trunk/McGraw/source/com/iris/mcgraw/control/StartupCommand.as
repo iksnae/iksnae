@@ -6,12 +6,7 @@ package com.iris.mcgraw.control
 
 	public class StartupCommand extends MacroCommand
 	{
-		override public function execute(note:INotification):void{
-            var app:McGraw = note.getBody() as McGraw;
-            
-    
-        
-        }
+		
 	
 	}
 	
