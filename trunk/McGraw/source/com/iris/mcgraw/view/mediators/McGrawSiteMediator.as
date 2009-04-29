@@ -1,6 +1,10 @@
 package  com.iris.mcgraw.view.mediators
 {
+	import com.iris.mcgraw.McGrawSite;
 	import com.iris.mcgraw.model.McgrawConstants;
+	import com.iris.mcgraw.view.components.MainView;
+	
+	import flash.events.Event;
 	
 	import org.puremvc.as3.interfaces.IMediator;
 	import org.puremvc.as3.interfaces.INotification;
@@ -9,13 +13,10 @@ package  com.iris.mcgraw.view.mediators
 	public class McGrawSiteMediator extends Mediator implements IMediator
 	{
 		static public const NAME:String = 'McGrawSiteMediator';
-		
 		public function McGrawSiteMediator(viewComponent:Object=null):void{
 			trace(NAME)
 			super(NAME,viewComponent)
-			
 		}
-		
 		override public function listNotificationInterests():Array{
 			return [McgrawConstants.SECTION_CHANGE]
 		}
@@ -29,6 +30,5 @@ package  com.iris.mcgraw.view.mediators
 		public function get appView():McGraw{
 			return viewComponent as McGraw;
 		}
-		
 	}
 }

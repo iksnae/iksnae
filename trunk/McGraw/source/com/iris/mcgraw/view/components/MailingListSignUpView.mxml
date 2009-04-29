@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%" verticalScrollPolicy="off" horizontalScrollPolicy="off">
 	<mx:Form width="100%" height="100%" top="0" left="0" horizontalScrollPolicy="off" alpha="1.0" backgroundAlpha="0.0">
-		<mx:FormItem label="First Name" required="true">
+		<mx:FormItem label="First Name" required="true" errorString="First Name Required">
 			<mx:TextInput id="fname" change="allValid()"/>
 		</mx:FormItem>
 		<mx:FormItem label="Last Name" required="true">
-			<mx:TextInput id="lname" change="allValid()"/>
+			<mx:TextInput id="lname" change="allValid()" errorString="Last Name Required"/>
 		</mx:FormItem>
 		<mx:FormItem label="Country">
 			<mx:ComboBox id="country" dataProvider="['UNITED STATES']"></mx:ComboBox>
 		</mx:FormItem>
 		<mx:FormItem label="Address 1" required="true">
-			<mx:TextInput id="address1" change="allValid()"/>
+			<mx:TextInput id="address1" change="allValid()" errorString="Street Address Required"/>
 		</mx:FormItem>
 		<mx:FormItem label="Address 2">
 			<mx:TextInput id="address2"/>
 		</mx:FormItem>
-		<mx:FormItem label="City" required="true">
+		<mx:FormItem label="City" required="true"  errorString="City Required">
 			<mx:TextInput id="city" change="allValid()"/>
 		</mx:FormItem>
 		<mx:FormItem label="State" required="true">
 			<mx:ComboBox id="state" dataProvider="{McgrawConstants.US_STATES}" change="allValid()" width="162"></mx:ComboBox>
 		</mx:FormItem>
 		<mx:FormItem label="Zip" required="true">
-			<mx:TextInput id="zip" restrict="0-9" change="allValid()"/>
+			<mx:TextInput id="zip" restrict="0-9" change="allValid()"  errorString="Zip Code Required"/>
 		</mx:FormItem>
 		<mx:FormItem label="Email" required="true">
-			<mx:TextInput id="email" change="allValid()"/>
+			<mx:TextInput id="email" change="allValid()" errorString="Check Your Email Address"/>
 		</mx:FormItem>
 		<mx:FormItem label="Cell Phone">
 			<mx:TextInput id="phone" restrict="0-9" change="allValid()"/>
@@ -55,14 +55,28 @@
 			<mx:CheckBox label="Checkbox" id="optin2"/>
 		</mx:FormItem>
 		<mx:FormItem>
-			<mx:Button label="finish" id="submit" enabled="false"/>
+			<mx:Button label="finish" id="submit" enabled="false" click="checkForm()"/>
 		</mx:FormItem>
 		<mx:FormItem>
 			<mx:Label text="..." id="status"/>
 		</mx:FormItem>
 	</mx:Form>
+	
+	<mx:Array id="validators">
+		<mx:StringValidator id="fnameValidator" source="{this.fname}" property="text" required="true" />
+		<mx:StringValidator id="lnameValidator" source="{this.lname}" property="text" required="true"/>
+		<mx:StringValidator id="addressValidator" source="{this.address1}" property="text" required="true"/>
+		<mx:ZipCodeValidator id="zipValidator" source="{this.zip}" property="text" required="true"/>
+		<mx:EmailValidator source="{email}" property="text"/>
+		<mx:PhoneNumberValidator source="{phone}" property="text"/>
+	</mx:Array>
+	
+	
+	
 	<mx:Script>
 		<![CDATA[
+			import com.iris.mcgraw.McGrawSite;
+			import mx.validators.Validator;
 			import com.iris.mcgraw.model.McgrawConstants;
 			import com.iris.mcgraw.model.vo.MailRegistrantObject;
 			
@@ -84,18 +98,20 @@
 				if(phone.text.length <1) bool = false;
 				submit.enabled =  bool;
 			}
+			
+			
+			private function checkForm():void{
+				var v:int = Validator.validateAll([fnameValidator,lnameValidator,addressValidator,zipValidator]).length;
+				if(v ==0 ){
+					submitForm()
+				}
+			}
+			private function submitForm():void{
+				trace('sending subscriber info...')
+				dispatchEvent(new Event(McGrawSite.EMAIL_SUBSCRIBE))
+			}
+			
 		]]>
 	</mx:Script>
 
-	<!--
-	<mx:Binding destination="{registrantObject.firstName}" source="{fname.text}"/>
-	<mx:Binding destination="{registrantObject.lastName}" source="{lname.text}"/>
-	<mx:Binding destination="{registrantObject.address1}" source="{address1.text}"/>
-	<mx:Binding destination="{registrantObject.address2}" source="{address2.text}"/>
-	<mx:Binding destination="{registrantObject.city}" source="{city.text}"/>
-	<mx:Binding destination="{registrantObject.state}" source="{state.value}"/>
-	<mx:Binding destination="{registrantObject.country}" source="{country.text}"/>
-	<mx:Binding destination="{registrantObject.gender}" source="{gender.value}"/>
-	<mx:Binding destination="{registrantObject.maritalStatus}" source="{marital.value}"/>-->
-	
 </mx:Canvas>
