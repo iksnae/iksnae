@@ -7,14 +7,20 @@
 	<mx:LinkButton id="b4" label="timmcgraw.com"/>
 	<mx:Script>
 		<![CDATA[
+			import com.iris.mcgraw.model.McgrawConstants;
 			import mx.controls.LinkButton;
 		
 			private var buttons:Array;
+			private var _currentValue:String
 			private function init():void{
 				buttons = [b0,b1,b2,b3,b4]
+				for(var i:int=0;i<buttons.length;i++){
+					LinkButton(buttons[i]).addEventListener(MouseEvent.CLICK,clickHandler)
+				}
 			}
 			public function click(targ:String):void{
-				switch(targ){
+				_currentValue = targ;
+				switch(_currentValue){
 					case 'fragrance':
 					focus(b0)
 					break;
@@ -39,6 +45,14 @@
 					}
 				}
 			}
+			
+			public function get currentValue():String{
+				return 	_currentValue;
+			}
+			private function clickHandler(e:MouseEvent):void{
+				dispatchEvent(new Event(McgrawConstants.NAV_CLICK))
+			}
+			
 		]]>
 	</mx:Script>
 	

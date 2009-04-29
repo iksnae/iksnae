@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%">
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%" xmlns:ns1="com.iris.mcgraw.view.components.*">
 	<mx:states>
 		<mx:State name="fragrance">
 			<mx:SetProperty target="{label1}" name="text" value="fragrance"/>
@@ -12,6 +12,13 @@
 		</mx:State>
 		<mx:State name="mail">
 			<mx:SetProperty target="{label1}" name="text" value="mailing list"/>
+			<mx:AddChild position="lastChild">
+				<ns1:MailingListSignUpView x="10" y="86" width="757" height="579">
+				</ns1:MailingListSignUpView>
+			</mx:AddChild>
+			<mx:AddChild position="lastChild">
+				<mx:Text x="10" y="29" text="Sign up to receive the Tim McGraw Fragrances newsletter with up-to-the-minute information on the latest products &#xd;and promotions from Tim McGraw Fragrances.&#xd;* required fields " width="757" height="49"/>
+			</mx:AddChild>
 		</mx:State>
 	</mx:states>
 	<mx:Label x="10" y="10" text="welcome" id="label1"/>

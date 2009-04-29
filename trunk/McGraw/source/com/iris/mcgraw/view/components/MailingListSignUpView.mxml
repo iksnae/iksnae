@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="100%" verticalScrollPolicy="off" horizontalScrollPolicy="off">
+	<mx:Form width="100%" height="100%" top="0" left="0" horizontalScrollPolicy="off" alpha="1.0" backgroundAlpha="0.0">
+		<mx:FormItem label="First Name" required="true">
+			<mx:TextInput id="fname" change="allValid()"/>
+		</mx:FormItem>
+		<mx:FormItem label="Last Name" required="true">
+			<mx:TextInput id="lname" change="allValid()"/>
+		</mx:FormItem>
+		<mx:FormItem label="Country">
+			<mx:ComboBox id="country" dataProvider="['UNITED STATES']"></mx:ComboBox>
+		</mx:FormItem>
+		<mx:FormItem label="Address 1" required="true">
+			<mx:TextInput id="address1" change="allValid()"/>
+		</mx:FormItem>
+		<mx:FormItem label="Address 2">
+			<mx:TextInput id="address2"/>
+		</mx:FormItem>
+		<mx:FormItem label="City" required="true">
+			<mx:TextInput id="city" change="allValid()"/>
+		</mx:FormItem>
+		<mx:FormItem label="State" required="true">
+			<mx:ComboBox id="state" dataProvider="{McgrawConstants.US_STATES}" change="allValid()" width="162"></mx:ComboBox>
+		</mx:FormItem>
+		<mx:FormItem label="Zip" required="true">
+			<mx:TextInput id="zip" restrict="0-9" change="allValid()"/>
+		</mx:FormItem>
+		<mx:FormItem label="Email" required="true">
+			<mx:TextInput id="email" change="allValid()"/>
+		</mx:FormItem>
+		<mx:FormItem label="Cell Phone">
+			<mx:TextInput id="phone" restrict="0-9" change="allValid()"/>
+		</mx:FormItem>
+		<mx:FormItem label="Date of Birth" required="true" width="100%" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+			<mx:HBox width="100%" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+				<mx:ComboBox width="110" id="dob_month" dataProvider="{McgrawConstants.DATE_MONTHS}" change="allValid()"></mx:ComboBox>
+				<mx:ComboBox width="60" id="dob_day" dataProvider="{ McgrawConstants.DATE_DAYS( dob_month.value as String)}" change="allValid()"></mx:ComboBox>
+				<mx:ComboBox width="70" id="dob_year" dataProvider="{ McgrawConstants.DATE_YEARS()}" change="allValid()"></mx:ComboBox>
+				<mx:Label text="MM/DD/YYYY"/>
+			</mx:HBox>
+		</mx:FormItem>
+		<mx:FormItem label="Gender" required="true">
+			<mx:ComboBox id="gender" change="allValid()" dataProvider="['select gender...','MALE','FEMALE']"></mx:ComboBox>
+		</mx:FormItem>
+		<mx:FormItem label="Marital Status" required="true">
+			<mx:ComboBox id="marital" change="allValid()" dataProvider="['make selection...','MARRIED','SINGLE','DIVORCED']"></mx:ComboBox>
+		</mx:FormItem>
+		<mx:FormItem>
+			<mx:CheckBox label="Checkbox" id="optin0"/>
+		</mx:FormItem>
+		<mx:FormItem>
+			<mx:CheckBox label="Checkbox" id="optin1"/>
+		</mx:FormItem>
+		<mx:FormItem>
+			<mx:CheckBox label="Checkbox" id="optin2"/>
+		</mx:FormItem>
+		<mx:FormItem>
+			<mx:Button label="finish" id="submit" enabled="false"/>
+		</mx:FormItem>
+		<mx:FormItem>
+			<mx:Label text="..." id="status"/>
+		</mx:FormItem>
+	</mx:Form>
+	<mx:Script>
+		<![CDATA[
+			import com.iris.mcgraw.model.McgrawConstants;
+			import com.iris.mcgraw.model.vo.MailRegistrantObject;
+			
+			public var registrantObject:MailRegistrantObject;
+			private function init():void{
+				registrantObject = new MailRegistrantObject()
+			}
+			
+			
+			private function allValid():void{
+				var bool:Boolean = true
+				if(fname.text.length <1) bool = false;
+				if(lname.text.length <1) bool = false;
+				if(address1.text.length <1) bool = false;
+				if(city.text.length <1) bool = false;
+				if(zip.text.length <1) bool = false;
+				if(state.selectedIndex==0) bool = false;
+				if(gender.selectedIndex==0) bool = false;
+				if(phone.text.length <1) bool = false;
+				submit.enabled =  bool;
+			}
+		]]>
+	</mx:Script>
+
+	<!--
+	<mx:Binding destination="{registrantObject.firstName}" source="{fname.text}"/>
+	<mx:Binding destination="{registrantObject.lastName}" source="{lname.text}"/>
+	<mx:Binding destination="{registrantObject.address1}" source="{address1.text}"/>
+	<mx:Binding destination="{registrantObject.address2}" source="{address2.text}"/>
+	<mx:Binding destination="{registrantObject.city}" source="{city.text}"/>
+	<mx:Binding destination="{registrantObject.state}" source="{state.value}"/>
+	<mx:Binding destination="{registrantObject.country}" source="{country.text}"/>
+	<mx:Binding destination="{registrantObject.gender}" source="{gender.value}"/>
+	<mx:Binding destination="{registrantObject.maritalStatus}" source="{marital.value}"/>-->
+	
+</mx:Canvas>
