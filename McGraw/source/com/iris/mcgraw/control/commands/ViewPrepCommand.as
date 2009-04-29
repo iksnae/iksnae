@@ -1,6 +1,7 @@
 package com.iris.mcgraw.control.commands
 {
-	import com.iris.mcgraw.control.mediators.McGrawSiteMediator;
+	import com.iris.mcgraw.view.mediators.McGrawSiteMediator;
+	import com.iris.mcgraw.view.mediators.TopNavMediator;
 	
 	import org.puremvc.as3.interfaces.INotification;
 	import org.puremvc.as3.patterns.command.SimpleCommand;
@@ -9,7 +10,8 @@ package com.iris.mcgraw.control.commands
 	{
 		override public function execute(notification:INotification):void{
 			var app:McGraw = notification.getBody() as McGraw;
-			facade.removeMediator(new McGrawSiteMediator(app))
+			facade.registerMediator(new McGrawSiteMediator(app))
+			facade.registerMediator(new TopNavMediator(app.headerView.topNav));
 		}
 	}
-}
+} 
