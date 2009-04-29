@@ -1,6 +1,6 @@
 package com.iris.mcgraw
 {
-	import com.iris.mcgraw.control.StartupCommand;
+	import com.iris.mcgraw.control.commands.StartupCommand;
 	
 	import org.puremvc.as3.interfaces.IFacade;
 	import org.puremvc.as3.patterns.facade.Facade;
