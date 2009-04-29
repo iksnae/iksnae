@@ -7,6 +7,7 @@ package com.iris.mcgraw.control.commands
 		override protected function initializeMacroCommand():void{
 			addSubCommand(ModelPrepCommand)
 			addSubCommand(ViewPrepCommand)
+		
 		}
 	
 	}

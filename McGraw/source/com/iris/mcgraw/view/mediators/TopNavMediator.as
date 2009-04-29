@@ -33,7 +33,7 @@ package com.iris.mcgraw.view.mediators
 			return viewComponent as TopNav;
 		}
 		private function onNavClick(e:Event):void{
-		//	trace('onNavClick')
+
 			sendNotification(McgrawConstants.SECTION_CHANGE,navView.currentValue)
 		}
 	}

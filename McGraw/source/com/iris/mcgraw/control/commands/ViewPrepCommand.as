@@ -1,5 +1,6 @@
 package com.iris.mcgraw.control.commands
 {
+	import com.iris.mcgraw.view.mediators.MainViewMediator;
 	import com.iris.mcgraw.view.mediators.McGrawSiteMediator;
 	import com.iris.mcgraw.view.mediators.TopNavMediator;
 	
@@ -12,6 +13,7 @@ package com.iris.mcgraw.control.commands
 			var app:McGraw = notification.getBody() as McGraw;
 			facade.registerMediator(new McGrawSiteMediator(app))
 			facade.registerMediator(new TopNavMediator(app.headerView.topNav));
+			facade.registerMediator(new MainViewMediator(app.mainView));
 		}
 	}
 } 

@@ -13,7 +13,7 @@
 		<mx:State name="mail">
 			<mx:SetProperty target="{label1}" name="text" value="mailing list"/>
 			<mx:AddChild position="lastChild">
-				<ns1:MailingListSignUpView x="10" y="86" width="757" height="579">
+				<ns1:MailingListSignUpView id="mailingListSignupView" x="10" y="86" width="757" height="579">
 				</ns1:MailingListSignUpView>
 			</mx:AddChild>
 			<mx:AddChild position="lastChild">

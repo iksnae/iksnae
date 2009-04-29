@@ -1,5 +1,6 @@
 package com.iris.mcgraw
 {
+	import com.iris.mcgraw.control.commands.MailSubscribeCommand;
 	import com.iris.mcgraw.control.commands.StartupCommand;
 	
 	import org.puremvc.as3.interfaces.IFacade;
@@ -9,7 +10,8 @@ package com.iris.mcgraw
 	{
 		
 		
-		static public const STARTUP:String    = 'startup';
+		static public const STARTUP:String    		  = 'startup';
+		static public const EMAIL_SUBSCRIBE:String    = 'email_subscribe';
 	
         
         
@@ -23,6 +25,8 @@ package com.iris.mcgraw
 	    	super()
 	    }
 	    
+	    
+	    
         
 		
 		
@@ -31,6 +35,7 @@ package com.iris.mcgraw
 		override protected function initializeController():void{
 		      super.initializeController();
 		      registerCommand(STARTUP,StartupCommand)
+		      registerCommand(EMAIL_SUBSCRIBE,MailSubscribeCommand)
 		}
 		
 		public function startup(app:McGraw):void{
