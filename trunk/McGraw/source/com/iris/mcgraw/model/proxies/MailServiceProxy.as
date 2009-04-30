@@ -30,6 +30,9 @@ package com.iris.mcgraw.model.proxies
 			super(NAME, new MailRegistrantObject())
 			serviceLoader = new URLLoader()
 			serviceLoader.addEventListener(Event.COMPLETE,onServiceEvent)
+			serviceLoader.addEventListener(Event.ACTIVATE,onServiceEvent)
+			serviceLoader.addEventListener(Event.DEACTIVATE,onServiceEvent)
+			serviceLoader.addEventListener(Event.OPEN,onServiceEvent)
 			
 		}
 		/**
@@ -75,7 +78,7 @@ package com.iris.mcgraw.model.proxies
 			
 		}
 		private function onServiceEvent(e:Event):void{
-		
+		    trace(e.type)
 		}
 
 		

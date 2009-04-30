@@ -6,7 +6,12 @@ package com.iris.mcgraw.control.commands
 	
 	import org.puremvc.as3.interfaces.INotification;
 	import org.puremvc.as3.patterns.command.SimpleCommand;
-
+	/**
+	 * this command prepares the view by registering the Modifiers in the Facade with their ViewComponents
+	 * 
+	 * @author iksnae
+	 * 
+	 */
 	public class ViewPrepCommand extends SimpleCommand
 	{
 		override public function execute(notification:INotification):void{
