@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute" xmlns:ns2="com.iris.mcgraw.view.components.*" initialize="init()" historyManagementEnabled="true" >
-	<ns2:HeaderView id="headerView" left="0" right="0" y="0">
+	<ns2:HeaderView id="headerView" left="0" y="0" width="786">
 	</ns2:HeaderView>
-	<ns2:MainView id="mainView" x="0" y="150">
+	<ns2:MainView id="mainView" x="0" y="87" width="786">
 	</ns2:MainView>
 	<mx:Script>
 		<![CDATA[
@@ -21,6 +21,7 @@
 			
 		]]>
 	</mx:Script>
+	<mx:Style source="style1.css"/>
 
 	
 </mx:Application>
