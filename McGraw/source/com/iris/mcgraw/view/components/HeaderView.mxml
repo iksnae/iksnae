@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="150" xmlns:ns1="com.iris.mcgraw.view.components.*">
-	<ns1:TopNav id="topNav" bottom="3" right="10" left="10">
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="786" height="87" xmlns:ns1="com.iris.mcgraw.view.components.*"
+	 horizontalScrollPolicy="off"
+	 verticalScrollPolicy="off"
+	  backgroundColor="#000000" backgroundAlpha="0.4">
+	<ns1:headerLogo top="0" left="0">
+	</ns1:headerLogo>
+	<ns1:TopNav id="topNav" bottom="-1" right="0" left="20">
 	</ns1:TopNav>
 	<ns1:SoundControl id="soundControl" right="10" top="10">
 	</ns1:SoundControl>
+	
 	
 </mx:Canvas>

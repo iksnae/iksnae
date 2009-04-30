@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:HBox xmlns:mx="http://www.adobe.com/2006/mxml" width="100%" height="25" horizontalAlign="right" initialize="init()">
-	<mx:LinkButton id="b0" label="the fragrance" click="click('fragrance')"/>
-	<mx:LinkButton id="b1" label="media" click="click('media')"/>
-	<mx:LinkButton id="b2" label="mailing list" click="click('mail')"/>
-	<mx:LinkButton id="b3" label="store locator" click="click('store')"/>
-	<mx:LinkButton id="b4" label="timmcgraw.com"/>
+	<mx:LinkButton id="b0" label="the fragrance" click="click('fragrance')" styleName="HeaderLinkButton" alpha="0.0"/>
+	<mx:LinkButton id="b1" label="media" click="click('media')" styleName="HeaderLinkButton" alpha="0.0"/>
+	<mx:LinkButton id="b2" label="mailing list" click="click('mail')" styleName="HeaderLinkButton" alpha="0.0"/>
+	<mx:LinkButton id="b3" label="store locator" click="click('store')" styleName="HeaderLinkButton" alpha="0.0"/>
+	<mx:LinkButton id="b4" label="timmcgraw.com" styleName="HeaderLinkButton" alpha="0.0"/>
 	<mx:Script>
 		<![CDATA[
 			import com.iris.mcgraw.model.McgrawConstants;

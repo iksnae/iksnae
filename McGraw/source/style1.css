@@ -1,0 +1,24 @@
+/* CSS file */
+
+Canvas.Header
+{
+	backgroundColor: #FFFFFF;
+	backgroundSize: auto;
+	borderSkin: Embed(source="../assets/Untitled-2.png");
+}
+LinkButton.HeaderLinkButton
+{
+	color: #FFFFFF;
+	fontFamily: Arial;
+	textRollOverColor: #DEB939;
+	cornerRadius: 0;
+	textSelectedColor: #D5BB0D;
+}
+Button.HeaderButton
+{
+	cornerRadius: 0;
+	fillAlphas: 0.0, 0.0, 0.0, 0.0;
+	themeColor: #FFFFFF;
+	fillColors: #FFFFFF, #FFFFFF;
+	borderColor: #B7BABC;
+}

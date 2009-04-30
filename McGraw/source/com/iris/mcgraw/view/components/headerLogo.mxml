@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml" width="786" height="87">
+	<mx:backgroundImage>@Embed(source='../../../../../../assets/header_bg.png')</mx:backgroundImage>
+</mx:Canvas>
