@@ -21,7 +21,7 @@ package com.builder.control.commands
 		// root package name
 		private var rootPackage:String = 'com';
 		// base package name
-		private var basePackage:String = 'iris';
+		private var basePackage:String = 'builder';
         // project folder
 		private var projectDirectory:File;
 		// source folder
@@ -81,11 +81,17 @@ package com.builder.control.commands
                 trace('===== Initial Façade =====')
                 trace(projectConfig.baseFacadeString)
                 
+                trace('===== Initial MXML File =====')
+                trace(projectConfig.baseMXMLString())
+                
                 trace('===== .project File =====')
                 trace(projectConfig.projectFileString)
                 
                 trace('===== .actionScriptProperties File =====')
                 trace(projectConfig.actionScriptPropertiesString)
+                
+                
+                
                 
             }else{
                 AppMediator(facade.retrieveMediator( AppMediator.NAME)).onProjectAlreadyExists()

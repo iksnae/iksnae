@@ -116,6 +116,27 @@ package com.builder.model.types
 					'\t}\r' + 
 					'}')
 		}
+		public function baseMXMLString():XML{
+			var str:String = '<?xml version="1.0" encoding="utf-8"?>'
+            str += '<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" ' + 
+            		'layout="absolute" ' + 
+            		'initialize="init()"' + 
+            		'historyManagementEnabled="true" >'+
+            		'<mx:Script>' + 
+            		'<![CDATA[\r' + 
+            		'\timport '+ packagePath+'.'+appName+';\r' + 
+            		'\timport org.puremvc.as3.patterns.facade.Facade;\r' + 
+            		'\tprivate var facade:'+appName+';\r' + 
+            		'\tprivate function init():void{\r' + 
+            		'\t\tfacade = '+appName+'.getInstance();\r' + 
+            		'\t\tfacade.startup(this)\r' + 
+            		'\t}\r' + 
+            		']]>' + 
+            		'</mx:Script>' + 
+            		'</mx:Application>';
+            		return XML(str)
+			
+		}
 		
 	}
 }
