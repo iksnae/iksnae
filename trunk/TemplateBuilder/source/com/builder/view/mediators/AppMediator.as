@@ -39,6 +39,7 @@ package com.builder.view.mediators
 			  var config:ProjectConfigObject = new ProjectConfigObject()
 			  config.projectName = view.project_name_txt.text;
 			  config.packageName = removeSpacesAndCaps(config.projectName)
+			  config.appName     = removeSpacesOnly(config.projectName)
 			  sendNotification(FileProxy.CREATE_PROJECT,config)
 			  
 		  }else{
@@ -46,12 +47,19 @@ package com.builder.view.mediators
 		  }
 		}
 		private function removeSpacesAndCaps(str:String):String{
-			var newStr:String = str.replace(' ','_');
+			var newStr:String = str.replace(' ','');
 			for(var i:int=0;i<str.length;i++){
-				newStr = newStr.replace(' ','_')
+				newStr = newStr.replace(' ','')
 			}
 			return str.toLowerCase()
 		}
+		private function removeSpacesOnly(str:String):String{
+            var newStr:String = str.replace(' ','');
+            for(var i:int=0;i<str.length;i++){
+                newStr = newStr.replace(' ','')
+            }
+            return str
+        }
 		public function onProjectCompleted():void{
 			view.status_txt.text = 'project created'
 		}

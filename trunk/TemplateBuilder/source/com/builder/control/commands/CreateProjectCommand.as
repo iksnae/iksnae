@@ -6,8 +6,6 @@ package com.builder.control.commands
 	
 	import flash.filesystem.File;
 	
-	import mx.controls.Alert;
-	
 	import org.puremvc.as3.interfaces.ICommand;
 	import org.puremvc.as3.interfaces.INotification;
 	import org.puremvc.as3.patterns.command.SimpleCommand;
@@ -48,6 +46,7 @@ package com.builder.control.commands
 		override public function execute(notification:INotification):void{
 			trace('CreateProjectCommand')
 			projectConfig = ProjectConfigObject( notification.getBody())
+			projectConfig.packagePath = rootPackage+'.'+basePackage+'.'+projectConfig.packageName;
 		    checkForPureMVC()
 		}
 		public function checkForPureMVC():void{
@@ -68,15 +67,25 @@ package com.builder.control.commands
             var settings:File = File.documentsDirectory.resolvePath(flexDirName+'/'+projectConfig.projectName+'/.settings/')
             var projectFile:File = File.applicationStorageDirectory.resolvePath('files/project.xml')
             
-            trace('projectFile: '+projectFile.exists)
+            trace('does project already exist? '+projectFile.exists)
            
             if(!projectDirectory.exists){
+            	trace('create project: '+ projectConfig.projectName)
                 projectDirectory.createDirectory()
                 model.createDirectory()
                 view.createDirectory()
                 control.createDirectory()
                 settings.createDirectory()
                 AppMediator(facade.retrieveMediator( AppMediator.NAME)).onProjectCompleted()
+                
+                trace('===== Initial Façade =====')
+                trace(projectConfig.baseFacadeString)
+                
+                trace('===== .project File =====')
+                trace(projectConfig.projectFileString)
+                
+                trace('===== .actionScriptProperties File =====')
+                trace(projectConfig.actionScriptPropertiesString)
                 
             }else{
                 AppMediator(facade.retrieveMediator( AppMediator.NAME)).onProjectAlreadyExists()
