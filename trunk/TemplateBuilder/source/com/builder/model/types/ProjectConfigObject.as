@@ -45,7 +45,7 @@ package com.builder.model.types
         
 		public function ProjectConfigObject(){}
 		
-		public function get projectFileString():XML{
+		public function get projectFileString():String{
 			var str:String = '<?xml version="1.0" encoding="UTF-8"?><projectDescription>';
                             str+='<name>'+projectName+'</name>'
                             str+='<comment></comment>'
@@ -55,16 +55,16 @@ package com.builder.model.types
                             str+='</buildCommand></buildSpec>'
                             str+= printNatures()
                             str+='<linkedResources><link>'
-                            str+='<name>puremvc</name>'
+                            str+='<name>[source path] source</name>'
                             str+='<type>2</type>'
-                            str+='<locationURI>DOCUMENTS/PureMVC/trunk/src</locationURI></link>'
+                            str+='<locationURI>{DOCUMENTS}/PureMVC/trunk/src</locationURI></link>'
                             str+='<link>'
                             str+='<name>bin-debug</name>'
                             str+='<type>2</type>'
                             str+='<location>/Library/WebServer/Documents/'+packageName+'/</location>'
                             str+='</link>'
                             str+='</linkedResources></projectDescription>'
-              return XML(str)
+              return str
 		}
 		public function printNatures():String{
 			var str:String= '<natures>';
@@ -74,8 +74,18 @@ package com.builder.model.types
 			str += '</natures>'
 			return str;
 		}
-		public function get actionScriptPropertiesString():XML{
-			return XML( '<?xml version="1.0" encoding="UTF-8"?>' + 
+		public function get flexPropertiesString():String{
+			return '<?xml version="1.0" encoding="UTF-8"?>' + 
+					'<flexProperties ' + 
+					'flexServerType="16" ' + 
+					'serverContextRoot="" serverRoot="/Library/WebServer/Documents/'+packageName+'" ' + 
+					'serverRootURL="http://localhost/'+packageName+'" ' + 
+					'toolCompile="true" ' + 
+					'useServerFlexSDK="' + 
+					'false" version="1"/>'
+		}
+		public function get actionScriptPropertiesString():String{
+			return String( '<?xml version="1.0" encoding="UTF-8"?>' + 
 					'<actionScriptProperties mainApplicationPath="'+appName+'.mxml" version="3">' + 
 					'<compiler additionalCompilerArguments="-locale en_US" ' + 
 					'copyDependentFiles="true" ' + 
@@ -116,7 +126,7 @@ package com.builder.model.types
 					'\timport org.puremvc.as3.interfaces.IFacade;\r' + 
 					'\timport org.puremvc.as3.patterns.facade.Facade;\r' + 
 					'\r\r' + 
-					'\tpublic class '+appName+' extends Facade implements IFacade {\r' + 
+					'\tpublic class '+appName+'Faceade extends Facade implements IFacade {\r' + 
 					'\t\t/*\r' + 
 					'\t\tPLACE ADDITIONAL CONSTANTS HERE\r' + 
 					'\t\t*/\r' + 
@@ -142,7 +152,7 @@ package com.builder.model.types
 					'\t}\r' + 
 					'}')
 		}
-		public function baseMXMLString():XML{
+		public function get baseMXMLString():String{
 			var str:String = '<?xml version="1.0" encoding="utf-8"?>'
             str += '<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" ' + 
             		'layout="absolute" ' + 
@@ -160,7 +170,7 @@ package com.builder.model.types
             		']]>' + 
             		'</mx:Script>' + 
             		'</mx:Application>';
-            		return XML(str)
+            		return str
 			
 		}
 		private function get packagePath():String{
