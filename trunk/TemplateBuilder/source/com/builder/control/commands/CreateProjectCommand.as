@@ -18,10 +18,6 @@ package com.builder.control.commands
         
 		// name of defaul flex workspace folder
 		private var flexDirName:String = 'Flex Builder 3';
-		// root package name
-		private var rootPackage:String = 'com';
-		// base package name
-		private var basePackage:String = 'builder';
         // project folder
 		private var projectDirectory:File;
 		// source folder
@@ -46,8 +42,8 @@ package com.builder.control.commands
 		override public function execute(notification:INotification):void{
 			trace('CreateProjectCommand')
 			projectConfig = ProjectConfigObject( notification.getBody())
-			projectConfig.packagePath = rootPackage+'.'+basePackage+'.'+projectConfig.packageName;
-		    checkForPureMVC()
+			
+			checkForPureMVC()
 		}
 		public function checkForPureMVC():void{
 			pureMvcDirectory = File.documentsDirectory.resolvePath(flexDirName+'/PureMVC/trunk/src/');
@@ -60,10 +56,10 @@ package com.builder.control.commands
 		}
 		private function createProjectFiles():void{
 		    projectDirectory = File.documentsDirectory.resolvePath(flexDirName+'/'+projectConfig.projectName)
-            sourceDirectory = File.documentsDirectory.resolvePath(flexDirName+'/'+projectConfig.projectName+'/source/'+rootPackage+'/'+basePackage+'/'+projectConfig.packageName)
-            var model:File = File.documentsDirectory.resolvePath(flexDirName+'/'+projectConfig.projectName+'/source/'+rootPackage+'/'+basePackage+'/'+projectConfig.packageName+'/model')
-            var view:File = File.documentsDirectory.resolvePath(flexDirName+'/'+projectConfig.projectName+'/source/'+rootPackage+'/'+basePackage+'/'+projectConfig.packageName+'/view')
-            var control:File = File.documentsDirectory.resolvePath(flexDirName+'/'+projectConfig.projectName+'/source/'+rootPackage+'/'+basePackage+'/'+projectConfig.packageName+'/control')
+            sourceDirectory = File.documentsDirectory.resolvePath(flexDirName+'/'+projectConfig.projectName+'/source/'+ projectConfig.rootPackageName+'/'+ projectConfig.basePackageName+'/'+projectConfig.packageName)
+            var model:File = File.documentsDirectory.resolvePath(flexDirName+'/'+projectConfig.projectName+'/source/'+projectConfig.rootPackageName+'/'+projectConfig.basePackageName+'/'+projectConfig.packageName+'/model')
+            var view:File = File.documentsDirectory.resolvePath(flexDirName+'/'+projectConfig.projectName+'/source/'+projectConfig.rootPackageName+'/'+projectConfig.basePackageName+'/'+projectConfig.packageName+'/view')
+            var control:File = File.documentsDirectory.resolvePath(flexDirName+'/'+projectConfig.projectName+'/source/'+projectConfig.rootPackageName+'/'+projectConfig.basePackageName+'/'+projectConfig.packageName+'/control')
             var settings:File = File.documentsDirectory.resolvePath(flexDirName+'/'+projectConfig.projectName+'/.settings/')
             var projectFile:File = File.applicationStorageDirectory.resolvePath('files/project.xml')
             
