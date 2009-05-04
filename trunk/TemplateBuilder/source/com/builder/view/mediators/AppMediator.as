@@ -1,13 +1,13 @@
 package com.builder.view.mediators
 {
-	import com.builder.control.commands.CreateProjectCommand;
 	import com.builder.model.proxies.FileProxy;
 	import com.builder.model.types.ProjectConfigObject;
 	
 	import flash.events.Event;
 	
+	import mx.utils.StringUtil;
+	
 	import org.puremvc.as3.interfaces.IMediator;
-	import org.puremvc.as3.interfaces.INotification;
 	import org.puremvc.as3.patterns.mediator.Mediator;
 	/**
 	 *  
@@ -57,14 +57,14 @@ package com.builder.view.mediators
 			for(var i:int=0;i<str.length;i++){
 				newStr = newStr.replace(' ','')
 			}
-			return str.toLowerCase()
+			return newStr.toLowerCase()
 		}
 		private function removeSpacesOnly(str:String):String{
             var newStr:String = str.replace(' ','');
             for(var i:int=0;i<str.length;i++){
                 newStr = newStr.replace(' ','')
             }
-            return str
+            return newStr
         }
 		public function onProjectCompleted():void{
 			view.status_txt.text = 'project created'

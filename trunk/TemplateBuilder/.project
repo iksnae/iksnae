@@ -23,9 +23,19 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>[source path] src</name>
+			<name>[source path] GTweener</name>
 			<type>2</type>
-			<locationURI>DOCUMENTS/PureMVC/trunk/src</locationURI>
+			<location>/Users/iksnae/Documents/Flex Builder 3/GTweener/Source</location>
+		</link>
+		<link>
+			<name>[source path] CasaLib</name>
+			<type>2</type>
+			<location>/Users/iksnae/Documents/Flex Builder 3/CasaLib/code</location>
+		</link>
+		<link>
+			<name>[source path] PureMVC</name>
+			<type>2</type>
+			<location>/Users/iksnae/Documents/Flex Builder 3/PureMVC/trunk/src</location>
 		</link>
 	</linkedResources>
 </projectDescription>
