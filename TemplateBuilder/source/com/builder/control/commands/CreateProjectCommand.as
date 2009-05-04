@@ -5,6 +5,8 @@ package com.builder.control.commands
 	import com.builder.view.mediators.AppMediator;
 	
 	import flash.filesystem.File;
+	import flash.filesystem.FileMode;
+	import flash.filesystem.FileStream;
 	
 	import org.puremvc.as3.interfaces.ICommand;
 	import org.puremvc.as3.interfaces.INotification;
@@ -22,6 +24,8 @@ package com.builder.control.commands
 		private var projectDirectory:File;
 		// source folder
 		private var sourceDirectory:File;
+		// libs folder
+		private var libsDirectory:File;
 		// deploy folder
 		private var deployDirectory:File;
 		// template folder
@@ -30,6 +34,14 @@ package com.builder.control.commands
 		private var pureMvcDirectory:File;
 		// project configuration file
 		private var projectConfig:ProjectConfigObject;
+		
+		private var fileStream:FileStream=new FileStream()
+		private var asPropsFile:File;
+		private var propsFile:File;
+		private var flexPropsFile:File;
+		private var mxmlFile:File;
+		private var facadeFile:File;
+		private var prefsFile:File;
 		
 		
 		public function CreateProjectCommand()
@@ -42,7 +54,6 @@ package com.builder.control.commands
 		override public function execute(notification:INotification):void{
 			trace('CreateProjectCommand')
 			projectConfig = ProjectConfigObject( notification.getBody())
-			
 			checkForPureMVC()
 		}
 		public function checkForPureMVC():void{
@@ -54,9 +65,16 @@ package com.builder.control.commands
 			}
 			
 		}
+		/**
+		 * create the project folders 
+		 * 
+		 */		
 		private function createProjectFiles():void{
+			// declare location of 
 		    projectDirectory = File.documentsDirectory.resolvePath(flexDirName+'/'+projectConfig.projectName)
             sourceDirectory = File.documentsDirectory.resolvePath(flexDirName+'/'+projectConfig.projectName+'/source/'+ projectConfig.rootPackageName+'/'+ projectConfig.basePackageName+'/'+projectConfig.packageName)
+            libsDirectory = File.documentsDirectory.resolvePath(flexDirName+'/'+projectConfig.projectName+'/libs/')
+            
             var model:File = File.documentsDirectory.resolvePath(flexDirName+'/'+projectConfig.projectName+'/source/'+projectConfig.rootPackageName+'/'+projectConfig.basePackageName+'/'+projectConfig.packageName+'/model')
             var view:File = File.documentsDirectory.resolvePath(flexDirName+'/'+projectConfig.projectName+'/source/'+projectConfig.rootPackageName+'/'+projectConfig.basePackageName+'/'+projectConfig.packageName+'/view')
             var control:File = File.documentsDirectory.resolvePath(flexDirName+'/'+projectConfig.projectName+'/source/'+projectConfig.rootPackageName+'/'+projectConfig.basePackageName+'/'+projectConfig.packageName+'/control')
@@ -78,16 +96,56 @@ package com.builder.control.commands
                 trace(projectConfig.baseFacadeString)
                 
                 trace('===== Initial MXML File =====')
-                trace(projectConfig.baseMXMLString())
+                trace(projectConfig.baseMXMLString)
                 
                 trace('===== .project File =====')
                 trace(projectConfig.projectFileString)
                 
                 trace('===== .actionScriptProperties File =====')
                 trace(projectConfig.actionScriptPropertiesString)
+                var prefStr:String = '#Wed Apr 29 22:57:29 EDT 2009' + 
+                		'eclipse.preferences.version=1' + 
+                		'encoding/<project>=utf-8'
+                prefsFile = File.documentsDirectory.resolvePath(flexDirName+'/'+projectConfig.projectName+'/.settings/org.eclipse.core.resources.prefs')
+                fileStream = new FileStream()
+                fileStream.openAsync(prefsFile, FileMode.WRITE)
+                fileStream.writeUTFBytes(prefStr);
+                fileStream.close()
+                
+                asPropsFile = File.documentsDirectory.resolvePath(flexDirName+'/'+projectConfig.projectName+'/.actionScriptProperties')
+                fileStream = new FileStream()
+                fileStream.openAsync(asPropsFile, FileMode.WRITE)
+                fileStream.writeUTFBytes(projectConfig.actionScriptPropertiesString);
+                fileStream.close()
+                
+                propsFile = File.documentsDirectory.resolvePath(flexDirName+'/'+projectConfig.projectName+'/.project')
+                fileStream = new FileStream()
+                fileStream.openAsync(propsFile, FileMode.WRITE)
+                fileStream.writeUTFBytes(projectConfig.projectFileString);
+                fileStream.close()
+                
+                flexPropsFile = File.documentsDirectory.resolvePath(flexDirName+'/'+projectConfig.projectName+'/.flexProperties')
+                fileStream = new FileStream()
+                fileStream.openAsync(flexPropsFile, FileMode.WRITE)
+                fileStream.writeUTFBytes(projectConfig.flexPropertiesString);
+                fileStream.close()
+                
+                facadeFile = File.documentsDirectory.resolvePath(flexDirName+'/'+projectConfig.projectName+'/source/'+projectConfig.rootPackageName+'/'+projectConfig.basePackageName+'/'+projectConfig.packageName+'/view/facade/'+ projectConfig.appName+'Faceade.as')
+                fileStream = new FileStream()
+                fileStream.openAsync(facadeFile, FileMode.WRITE)
+                fileStream.writeUTFBytes(projectConfig.baseFacadeString);
+                fileStream.close()
+                
+                mxmlFile = File.documentsDirectory.resolvePath(flexDirName+'/'+projectConfig.projectName+'/source/'+ projectConfig.appName+'.mxml')
+                fileStream = new FileStream()
+                fileStream.openAsync(mxmlFile, FileMode.WRITE)
+                fileStream.writeUTFBytes(projectConfig.baseMXMLString);
+                fileStream.close()
                 
                 
                 
+                
+             	   
                 
             }else{
                 AppMediator(facade.retrieveMediator( AppMediator.NAME)).onProjectAlreadyExists()

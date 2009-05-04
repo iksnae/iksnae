@@ -1,5 +1,7 @@
 package com.builder.model.proxies
 {
+	import flash.filesystem.File;
+	
 	import org.puremvc.as3.interfaces.IProxy;
 	import org.puremvc.as3.patterns.proxy.Proxy;
 
