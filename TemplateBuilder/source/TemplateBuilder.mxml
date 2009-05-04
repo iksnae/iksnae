@@ -8,7 +8,7 @@
 	<mx:Button label="create" bottom="10" right="12" id="create_btn" click="onCreateProject()"/>
 	<mx:HBox top="45" left="10" right="10">
 		<mx:Label text="project name"/>
-		<mx:TextInput width="100%" id="project_name_txt"/>
+		<mx:TextInput  width="100%" id="project_name_txt"/>
 	</mx:HBox>
 	<mx:RadioButtonGroup id="location"/>
 	<mx:RadioButton id="flex_rb" x="10" y="75" label="default FlexBuilder Folder (recommended)" groupName="location" selected="true"/>
@@ -18,8 +18,10 @@
 	
 	<mx:Script>
 		<![CDATA[
+		
 			import com.builder.model.proxies.FileProxy;
 			import com.builder.view.facades.TemplateBuilderFacade;
+			
 		    private var facade:TemplateBuilderFacade
 			private function init():void{
                 facade = TemplateBuilderFacade.getInstance();
