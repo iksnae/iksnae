@@ -9,7 +9,11 @@ package com.builder.view.mediators
 	import org.puremvc.as3.interfaces.IMediator;
 	import org.puremvc.as3.interfaces.INotification;
 	import org.puremvc.as3.patterns.mediator.Mediator;
-
+	/**
+	 *  
+	 * @author iksnae
+	 * 
+	 */
 	public class AppMediator extends Mediator implements IMediator
 	{
 		static public const NAME:String = 'AppMediator'
@@ -37,6 +41,8 @@ package com.builder.view.mediators
 		  if(view.project_name_txt.text.length>1){
     		  view.status_txt.text = 'creating project...'
 			  var config:ProjectConfigObject = new ProjectConfigObject()
+			  config.rootPackageName='com'
+			  config.basePackageName='builder'
 			  config.projectName = view.project_name_txt.text;
 			  config.packageName = removeSpacesAndCaps(config.projectName)
 			  config.appName     = removeSpacesOnly(config.projectName)
