@@ -1,6 +1,32 @@
 package com.builder.model.types
 {
-	
+	/**
+	 * this is my local object for passing the project settings across the app.
+	 * prolly not the best approach, but i've put getter methods that generate string + xmls
+	 * for the project text files (class, mxml, xml, etc.) that need to be created.
+	 * 
+	 * *******************************
+	 * PUBLIC METHODS
+	 * *******************************
+	 * @see projectFileString():
+	 * - generates string for .project file
+	 * 
+	 * @see printNatures()
+	 * - generates xml nodes for the project nature
+	 * 
+	 * @see actionScriptPropertiesString()
+	 * - generates string for .actionScriptProperties file
+	 * 
+	 * @see baseFacadeString()
+	 * - generates actionscript class for initial application Façade as appName.as
+	 * 
+	 * @see baseMXMLString()
+	 * - generates base MXML Application file as appName.mxml
+	 *  
+	 * 
+	 * @author iksnae 
+	 * 
+	 */	
 	
 	public class ProjectConfigObject
 	{
@@ -8,13 +34,13 @@ package com.builder.model.types
 		static public const FLEX_NATURE:String = 'com.adobe.flexbuilder.project.flexnature'
         static public const ACTIONSCRIPT_NATURE:String = 'com.adobe.flexbuilder.project.actionscriptnature'
         
-        
-		public var projectName:String;
+        public var rootPackageName:String;
+        public var basePackageName:String;
+        public var projectName:String;
 		public var packageName:String;
 		public var appName:String;
-		public var packagePath:String;
 		public var arguments:String='';
-		public var natures:Array = [FLEX_NATURE,ACTIONSCRIPT_NATURE];
+		public var natures:Array = [ FLEX_NATURE, ACTIONSCRIPT_NATURE ];
 		
         
 		public function ProjectConfigObject(){}
@@ -137,6 +163,9 @@ package com.builder.model.types
             		return XML(str)
 			
 		}
+		private function get packagePath():String{
+			return rootPackageName+'.'+ basePackageName+'.'+packageName;
+		 }
 		
 	}
 }
