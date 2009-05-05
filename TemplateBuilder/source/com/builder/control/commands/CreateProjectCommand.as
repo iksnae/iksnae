@@ -85,11 +85,13 @@ package com.builder.control.commands
            
             if(!projectDirectory.exists){
             	trace('create project: '+ projectConfig.projectName)
+            	
                 projectDirectory.createDirectory()
                 model.createDirectory()
                 view.createDirectory()
                 control.createDirectory()
                 settings.createDirectory()
+            
                 AppMediator(facade.retrieveMediator( AppMediator.NAME)).onProjectCompleted()
                 
                 trace('===== Initial Façade =====')
