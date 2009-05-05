@@ -44,6 +44,7 @@ package com.builder.control.commands
 		private var prefsFile:File;
 		
 		
+		
 		public function CreateProjectCommand()
 		{
 			super();
@@ -91,6 +92,7 @@ package com.builder.control.commands
                 view.createDirectory()
                 control.createDirectory()
                 settings.createDirectory()
+                libsDirectory.createDirectory()
             
                 AppMediator(facade.retrieveMediator( AppMediator.NAME)).onProjectCompleted()
                 
@@ -140,7 +142,7 @@ package com.builder.control.commands
                 fileStream.writeUTFBytes(projectConfig.baseFacadeString);
                 fileStream.close()
                 
-                mxmlFile = File.documentsDirectory.resolvePath(flexDirName+'/'+projectConfig.projectName+'/source/'+ projectConfig.appName+'.mxml')
+                mxmlFile = File.documentsDirectory.resolvePath(flexDirName+'/'+projectConfig.projectName+'/source/main.mxml')
                 fileStream = new FileStream()
                 fileStream.openAsync(mxmlFile, FileMode.WRITE)
                 fileStream.writeUTFBytes(projectConfig.baseMXMLString);
