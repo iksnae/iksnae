@@ -21,7 +21,7 @@ package com.builder.model.types
 	 * - generates actionscript class for initial application Façade as appName.as
 	 * 
 	 * @see baseMXMLString()
-	 * - generates base MXML Application file as appName.mxml
+	 * - generates base MXML Application file as main.mxml
 	 *  
 	 * 
 	 * @author iksnae 
@@ -75,28 +75,21 @@ package com.builder.model.types
 			return str;
 		}
 		public function get flexPropertiesString():String{
-			return '<?xml version="1.0" encoding="UTF-8"?>' + 
-					'<flexProperties ' + 
-					'flexServerType="16" ' + 
-					'serverContextRoot="" serverRoot="/Library/WebServer/Documents/'+packageName+'" ' + 
-					'serverRootURL="http://localhost/'+packageName+'" ' + 
-					'toolCompile="true" ' + 
-					'useServerFlexSDK="' + 
-					'false" version="1"/>'
+			return '<?xml version="1.0" encoding="UTF-8"?><flexProperties flexServerType="0" toolCompile="true" useServerFlexSDK="false" version="1"/>'
 		}
 		public function get actionScriptPropertiesString():String{
 			return String( '<?xml version="1.0" encoding="UTF-8"?>' + 
-					'<actionScriptProperties mainApplicationPath="'+appName+'.mxml" version="3">' + 
+					'<actionScriptProperties mainApplicationPath="main.mxml" version="3">' + 
 					'<compiler additionalCompilerArguments="-locale en_US" ' + 
 					'copyDependentFiles="true" ' + 
 					'enableModuleDebug="true" ' + 
-					'generateAccessible="true" ' + 
+					'generateAccessible="false" ' + 
 					'htmlExpressInstall="true" ' + 
 					'htmlGenerate="true" ' + 
 					'htmlHistoryManagement="true" ' + 
 					'htmlPlayerVersion="9.0.124" ' + 
 					'htmlPlayerVersionCheck="true" ' + 
-					'outputFolderLocation="/Library/WebServer/Documents/'+packageName+'"' + 
+					'outputFolderLocation="/Library/WebServer/Documents/'+packageName+'" ' + 
 					'outputFolderPath="bin-debug" ' + 
 					'rootURL="http://localhost/'+packageName+'" ' + 
 					'sourceFolderPath="source" ' + 
@@ -112,13 +105,13 @@ package com.builder.model.types
 					'</libraryPath>' + 
 					'<sourceAttachmentPath/>' + 
 					'</compiler><applications>' + 
-					'<application path="'+appName+'.mxml"/>' + 
+					'<application path="main.mxml"/>' + 
 					'</applications><modules/><buildCSSFiles/>' + 
 					'</actionScriptProperties>')
 		}
 		
 		public function get baseFacadeString():String{
-			return String('package '+packagePath+'{\r\r' + 
+			return String('package '+packagePath+'.view.facade{\r\r' + 
 					'\t/*\r' + 
 					'\tThis project was created by TemplateBuilder, it employs the PureMVC framework and provides a starting point to developing a new application\r' + 
 					'\t*/\r\r' + 
@@ -134,19 +127,19 @@ package com.builder.model.types
 					'\t\t/*\r' + 
 					'\t\tInstantiation\r' + 
 					'\t\t*/\r' + 
-					'\t\tstatic private var instance:'+appName+' = null;\r' + 
-					'\t\tstatic public function getInstance(): '+appName+'{\r' + 
-					'\t\t\tif(instance==null) instance = new '+appName+'()\r' + 
+					'\t\tstatic private var instance:'+appName+'Faceade = null;\r' + 
+					'\t\tstatic public function getInstance(): '+appName+'Faceade{\r' + 
+					'\t\t\tif(instance==null) instance = new '+appName+'Faceade()\r' + 
 					'\t\t\treturn instance as '+appName+';\r' + 
 					'\t\t}\r' + 
-					'\t\tpublic function '+appName+'(){\r' + 
+					'\t\tpublic function '+appName+'Faceade(){\r' + 
 					'\t\t\tsuper()\r' + 
 					'\t\t}\r' + 
 					'\t\toverride protected function initializeController():void{\r' + 
 					'\t\t\tsuper.initializeController();\r' + 
 					'\t\t\tregisterCommand(STARTUP,StartupCommand)\r' + 
 					'\t\t}\r' + 
-					'\t\tpublic function startup(app: '+appName+'):void{\r' + 
+					'\t\tpublic function startup(app: '+appName+'Faceade):void{\r' + 
 					'\t\t\tsendNotification(STARTUP,app)\r' + 
 					'\t\t}\r' + 
 					'\t}\r' + 
@@ -156,15 +149,15 @@ package com.builder.model.types
 			var str:String = '<?xml version="1.0" encoding="utf-8"?>'
             str += '<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" ' + 
             		'layout="absolute" ' + 
-            		'initialize="init()"' + 
-            		'historyManagementEnabled="true" >'+
+            		'initialize="init()" ' + 
+            		'historyManagementEnabled="true">'+
             		'<mx:Script>' + 
             		'<![CDATA[\r' + 
-            		'\timport '+ packagePath+'.'+appName+';\r' + 
+            		'\timport '+ packagePath+'.view.facade.'+appName+'Faceade;\r' + 
             		'\timport org.puremvc.as3.patterns.facade.Facade;\r' + 
-            		'\tprivate var facade:'+appName+';\r' + 
+            		'\tprivate var facade:'+appName+'Faceade;\r' + 
             		'\tprivate function init():void{\r' + 
-            		'\t\tfacade = '+appName+'.getInstance();\r' + 
+            		'\t\tfacade = '+appName+'Faceade.getInstance();\r' + 
             		'\t\tfacade.startup(this)\r' + 
             		'\t}\r' + 
             		']]>' + 
