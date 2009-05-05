@@ -107,7 +107,9 @@ package com.builder.control.commands
                 trace(projectConfig.actionScriptPropertiesString)
                 var prefStr:String = '#Wed Apr 29 22:57:29 EDT 2009' + 
                 		'eclipse.preferences.version=1' + 
-                		'encoding/<project>=utf-8'
+                		'encoding/<project>=utf-8';
+                		
+                		
                 prefsFile = File.documentsDirectory.resolvePath(flexDirName+'/'+projectConfig.projectName+'/.settings/org.eclipse.core.resources.prefs')
                 fileStream = new FileStream()
                 fileStream.openAsync(prefsFile, FileMode.WRITE)
@@ -143,11 +145,6 @@ package com.builder.control.commands
                 fileStream.openAsync(mxmlFile, FileMode.WRITE)
                 fileStream.writeUTFBytes(projectConfig.baseMXMLString);
                 fileStream.close()
-                
-                
-                
-                
-             	   
                 
             }else{
                 AppMediator(facade.retrieveMediator( AppMediator.NAME)).onProjectAlreadyExists()
