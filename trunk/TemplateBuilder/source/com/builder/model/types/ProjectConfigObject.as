@@ -130,8 +130,8 @@ package com.builder.model.types
 					'\t\tstatic private var instance:'+appName+'Faceade = null;\r' + 
 					'\t\tstatic public function getInstance(): '+appName+'Faceade{\r' + 
 					'\t\t\tif(instance==null) instance = new '+appName+'Faceade()\r' + 
-					'\t\t\treturn instance as '+appName+';\r' + 
-					'\t\t}\r' + 
+					'\t\t\treturn instance as '+appName+'Faceade;\r' + 
+					'\t\t}\r' +
 					'\t\tpublic function '+appName+'Faceade(){\r' + 
 					'\t\t\tsuper()\r' + 
 					'\t\t}\r' + 
@@ -139,9 +139,91 @@ package com.builder.model.types
 					'\t\t\tsuper.initializeController();\r' + 
 					'\t\t\tregisterCommand(STARTUP,StartupCommand)\r' + 
 					'\t\t}\r' + 
-					'\t\tpublic function startup(app: '+appName+'Faceade):void{\r' + 
+					'\t\tpublic function startup(app:main):void{\r' + 
 					'\t\t\tsendNotification(STARTUP,app)\r' + 
 					'\t\t}\r' + 
+					'\t}\r' + 
+					'}')
+		}
+		
+		public function get baseStartupCommandString():String{
+			return String('package '+packagePath+'.control.commands{\r\r' + 
+					'\t/*\r' + 
+					'\tThis Command was created by TemplateBuilder, it employs the PureMVC framework and provides a starting point to developing a new application\r' + 
+					'\tIt is a called at at startupEvent\r' + 
+					'\tIt registers the ModelPrepCommand and ViewPrepCommand commands by overriding the initializeMacroCommand method.'+
+					'\t*/\r\r' + 
+					'\timport '+packagePath+'.control.commands.StartupCommand;\r' + 
+					'\timport org.puremvc.as3.patterns.command.MacroCommand;\r' + 
+					'\timport org.puremvc.as3.interfaces.ICommand;\r' + 
+					'\r\r' + 
+					'\tpublic class StartupCommand extends MacroCommand implements ICommand {\r' + 
+					
+					'\t\toverride protected function initializeMacroCommand():void{\r' + 
+					'\t\t\taddSubCommand(ModelPrepCommand)\r' + 
+					'\t\t\taddSubCommand(ViewPrepCommand)\r' + 
+					'\t\t}\r' + 
+					 
+					'\t}\r' + 
+					'}')
+		}
+		public function get baseModelPrepCommandString():String{
+			return String('package '+packagePath+'.control.commands{\r\r' + 
+					'\t/*\r' + 
+					'\tThis Command was created by TemplateBuilder, it employs the PureMVC framework and provides a starting point to developing a new application\r' + 
+					'\t*/\r\r' + 
+					'\timport org.puremvc.as3.interfaces.INotification;\r' + 
+					'\timport org.puremvc.as3.patterns.command.SimpleCommand;\r' + 
+					'\r\r' + 
+					'\tpublic class ModelPrepCommand extends SimpleCommand {\r' + 
+					
+					'\t\toverride public function execute(notification:INotification):void{\r' + 
+					'\t}\r' + 
+					'}')
+		}
+		public function get baseViewPrepCommandString():String{
+			return String('package '+packagePath+'.control.commands{\r\r' + 
+					'\t/*\r' + 
+					'\tThis Command was created by TemplateBuilder, it employs the PureMVC framework and provides a starting point to developing a new application\r' + 
+					'\t*/\r\r' + 
+					'\timport '+packagePath+'.view.mediators.AppMediator;\r' + 
+					'\timport org.puremvc.as3.interfaces.INotification;\r' + 
+					'\timport org.puremvc.as3.interfaces.ICommand;\r' + 
+					
+					'\timport org.puremvc.as3.patterns.command.SimpleCommand;\r' + 
+					'\r\r' + 
+					'\tpublic class ViewPrepCommand extends SimpleCommand {\r' + 
+					
+					'\t\toverride public function execute(notification:INotification):void{\r' + 
+					'\t\t\tvar app:main = notification.getBody() as main;\r' + 
+					'\t\t\tfacade.registerMediator(new AppMediator(app))\r' + 
+					'\t\t}\r' + 
+					 
+					'\t}\r' + 
+					'}')
+		}
+		
+		public function get baseAppMediatorString():String{
+			return String('package '+packagePath+'.view.mediators{\r\r' + 
+					'\t/*\r' + 
+					'\tThis Command was created by TemplateBuilder, it employs the PureMVC framework and provides a starting point to developing a new application\r' + 
+					'\t*/\r\r' + 
+					'\timport '+packagePath+'.view.mediators.AppMediator;\r' + 
+					'\timport org.puremvc.as3.interfaces.INotification;\r' + 
+					'\timport org.puremvc.as3.interfaces.IMediator;\r' + 
+					'\timport org.puremvc.as3.patterns.mediator.Mediator;\r' + 
+					
+					
+					'\timport org.puremvc.as3.patterns.command.SimpleCommand;\r' + 
+					'\r\r' + 
+					
+					'\tpublic class AppMediator extends Mediator implements IMediator {\r' + 
+					'\tstatic public const NAME:String = "AppMediator";\r'+
+					'\tpublic function AppMediator(viewComponent:Object=null){\r' + 
+					'\t\t\tsuper(NAME, viewComponent);\r' + 
+					'\t\t\t\r' + 
+					'\t\t}\r' + 
+					 
 					'\t}\r' + 
 					'}')
 		}
