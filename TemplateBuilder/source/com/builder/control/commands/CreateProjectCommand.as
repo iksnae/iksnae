@@ -42,6 +42,10 @@ package com.builder.control.commands
 		private var mxmlFile:File;
 		private var facadeFile:File;
 		private var prefsFile:File;
+		private var startUpCommandFile:File;
+		private var prepViewCommandFile:File;
+		private var prepModelCommandFile:File;
+		private var appMediatorFile:File;
 		
 		
 		
@@ -140,6 +144,30 @@ package com.builder.control.commands
                 fileStream = new FileStream()
                 fileStream.openAsync(facadeFile, FileMode.WRITE)
                 fileStream.writeUTFBytes(projectConfig.baseFacadeString);
+                fileStream.close()
+                
+                startUpCommandFile = File.documentsDirectory.resolvePath(flexDirName+'/'+projectConfig.projectName+'/source/'+projectConfig.rootPackageName+'/'+projectConfig.basePackageName+'/'+projectConfig.packageName+'/control/commands/StartupCommand.as')
+                fileStream = new FileStream()
+                fileStream.openAsync(startUpCommandFile, FileMode.WRITE)
+                fileStream.writeUTFBytes(projectConfig.baseStartupCommandString)
+                fileStream.close()
+                
+                prepViewCommandFile = File.documentsDirectory.resolvePath(flexDirName+'/'+projectConfig.projectName+'/source/'+projectConfig.rootPackageName+'/'+projectConfig.basePackageName+'/'+projectConfig.packageName+'/control/commands/ViewPrepCommand.as')
+                fileStream = new FileStream()
+                fileStream.openAsync(prepViewCommandFile, FileMode.WRITE)
+                fileStream.writeUTFBytes(projectConfig.baseViewPrepCommandString)
+                fileStream.close()
+                
+                appMediatorFile = File.documentsDirectory.resolvePath(flexDirName+'/'+projectConfig.projectName+'/source/'+projectConfig.rootPackageName+'/'+projectConfig.basePackageName+'/'+projectConfig.packageName+'/view/mediators/AppMediator.as')
+                fileStream = new FileStream()
+                fileStream.openAsync(appMediatorFile, FileMode.WRITE)
+                fileStream.writeUTFBytes(projectConfig.baseAppMediatorString)
+                fileStream.close()
+                
+                prepModelCommandFile = File.documentsDirectory.resolvePath(flexDirName+'/'+projectConfig.projectName+'/source/'+projectConfig.rootPackageName+'/'+projectConfig.basePackageName+'/'+projectConfig.packageName+'/control/commands/ModelPrepCommand.as')
+                fileStream = new FileStream()
+                fileStream.openAsync(prepModelCommandFile, FileMode.WRITE)
+                fileStream.writeUTFBytes(projectConfig.baseModelPrepCommandString)
                 fileStream.close()
                 
                 mxmlFile = File.documentsDirectory.resolvePath(flexDirName+'/'+projectConfig.projectName+'/source/main.mxml')
