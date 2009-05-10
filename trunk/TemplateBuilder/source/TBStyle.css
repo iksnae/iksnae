@@ -1,0 +1,72 @@
+/* CSS file */
+
+Canvas.background
+{
+	backgroundColor: #515151;
+	borderColor: #000000;
+	borderThickness: 2;
+}
+Label
+{
+	color: #FFFFFF;
+	fontFamily: Arial;
+}
+RadioButton
+{
+	color: #FF0000;
+	fontFamily: Arial;
+	themeColor: #FF0000;
+	horizontalGap: 1;
+	fillAlphas: 0.15, 0.15, 0.15, 0.15;
+}
+Alert
+{
+	cornerRadius: 0;
+	fontFamily: Arial;
+	color: #FFFFFF;
+	backgroundColor: #666666;
+	disabledColor: #FFFFFF;
+	borderColor: #444444;
+}
+Window
+{
+	cornerRadius: 0;
+	borderColor: #000000;
+	backgroundColor: #000000;
+	fontFamily: Arial;
+	color: #FFFFFF;
+	disabledColor: #FFFFFF;
+}
+CheckBox
+{
+	color: #FFFFFF;
+	fontFamily: Arial;
+	themeColor: #FF0000;
+	textSelectedColor: #FFFFFF;
+	horizontalGap: 1;
+	fillAlphas: 0.0, 0.15, 0.0, 0.15;
+}
+TextInput
+{
+	color: #000000;
+	fontFamily: Arial;
+}
+Button
+{
+	color: #FFFFFF;
+	fontFamily: Arial;
+	cornerRadius: 0;
+	themeColor: #FF0000;
+	fillAlphas: 0.0, 0.0, 0.0, 0.0;
+	fillColors: #000000, #000000;
+	textSelectedColor: #FFFFFF;
+	textRollOverColor: #FF0000;
+	disabledColor: #FFFFFF;
+}
+@font-face
+{
+	fontFamily: Arial;
+	fontWeight: normal;
+	fontStyle: normal;
+	src: local("Arial");
+}
