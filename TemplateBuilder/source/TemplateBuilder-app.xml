@@ -24,14 +24,14 @@
 	<name>TemplateBuilder</name>
 
 	<!-- An application version designator (such as "v1", "2.5", or "Alpha 1"). Required. -->
-	<version>v1</version>
+	<version>0.1b</version>
 
 	<!-- Description, displayed in the AIR application installer.
 	     May have multiple values for each language. See samples or xsd schema file. Optional. -->
-	<!-- <description></description> -->
+	<description>TemplateBuilder is a simple Project creator for Flex Applications. It creates a project skeleton, that implements and instantiates the PureMVC framework, creates a directory scructure for the source files.</description>
 
 	<!-- Copyright information. Optional -->
-	<!-- <copyright></copyright> -->
+	<copyright>iksnae 2009. All Rights Reserved.</copyright>
 
 	<!-- Settings for the application's initial window. Required. -->
 	<initialWindow>
@@ -83,7 +83,7 @@
 	<!-- <installFolder></installFolder> -->
 
 	<!-- The subpath of the Windows Start/Programs menu to use. Optional. -->
-	<!-- <programMenuFolder></programMenuFolder> -->
+	<programMenuFolder>FlexTools</programMenuFolder>
 
 	<!-- The icon the system uses for the application. For at least one resolution,
 		 specify the path to a PNG file included in the AIR package. Optional. -->

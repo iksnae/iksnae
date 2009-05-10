@@ -5,7 +5,7 @@ package com.builder.view.mediators
 	
 	import flash.events.Event;
 	
-	import mx.utils.StringUtil;
+	import mx.controls.Alert;
 	
 	import org.puremvc.as3.interfaces.IMediator;
 	import org.puremvc.as3.patterns.mediator.Mediator;
@@ -41,8 +41,8 @@ package com.builder.view.mediators
 		  if(view.project_name_txt.text.length>1){
     		  view.status_txt.text = 'creating project...'
 			  var config:ProjectConfigObject = new ProjectConfigObject()
-			  config.rootPackageName='com'
-			  config.basePackageName='builder'
+			  config.rootPackageName= view.root_txt.text;
+			  config.basePackageName= view.base_txt.text;
 			  config.projectName = view.project_name_txt.text;
 			  config.packageName = removeSpacesAndCaps(config.projectName)
 			  config.appName     = removeSpacesOnly(config.projectName)
@@ -50,6 +50,7 @@ package com.builder.view.mediators
 			  
 		  }else{
 		  	view.status_txt.text = 'check project name'
+		  	Alert.show('Check Project Name','Problem Creating Project')
 		  }
 		}
 		private function removeSpacesAndCaps(str:String):String{
@@ -68,6 +69,7 @@ package com.builder.view.mediators
         }
 		public function onProjectCompleted():void{
 			view.status_txt.text = 'project created'
+			Alert.show('Project Created','Success')
 		}
 		public function onNoPureMvcInstalled():void{
             view.status_txt.text = 'No PureMVC Installed!!!'
@@ -76,6 +78,7 @@ package com.builder.view.mediators
 		public function onProjectAlreadyExists():void{
            
             view.status_txt.text = 'project already exists!!!!'
+            Alert.show('Project Already Exists','Problem Creating Project')
         }
 	}
 }
