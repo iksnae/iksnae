@@ -177,7 +177,7 @@ package com.builder.model.types
 					'\r\r' + 
 					'\tpublic class ModelPrepCommand extends SimpleCommand {\r' + 
 					
-					'\t\toverride public function execute(notification:INotification):void{\r' + 
+					'\t\toverride public function execute(notification:INotification):void{}\r' + 
 					'\t}\r' + 
 					'}')
 		}

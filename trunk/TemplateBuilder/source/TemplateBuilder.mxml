@@ -3,21 +3,24 @@
 	 layout="absolute" 
 	 width="500" height="300" 
 	 initialize="init()"
-	 horizontalScrollPolicy="off" 
+	 horizontalScrollPolicy="off"
+	 minHeight="220"
+	 minWidth="450"
 	 verticalScrollPolicy="off">
 	<mx:Button label="create" bottom="10" right="12" id="create_btn" click="onCreateProject()"/>
-	<mx:HBox top="45" left="10" right="10">
+	<mx:HBox top="17" left="10" right="10">
 		<mx:Label text="project name"/>
-		<mx:TextInput  width="100%" id="project_name_txt"/>
+		<mx:TextInput  width="100%" id="project_name_txt" text="NewProject" maxChars="25" restrict="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0-9"/>
 	</mx:HBox>
 	<mx:RadioButtonGroup id="location"/>
-	<mx:RadioButton id="flex_rb" x="10" y="75" label="default FlexBuilder Folder (recommended)" groupName="location" selected="true"/>
-	<mx:RadioButton id="custom_rb" x="10" y="101" label="custom" groupName="location"/>
-	<mx:Text text="{ fileList.selectedPath}" x="73" y="103" width="415" fontWeight="bold"/>
-	<mx:FileSystemList id="fileList" visible="{custom_rb.selected}" directory="{ File.userDirectory}" left="10" top="128" right="10" bottom="50"/>
-	
+	<mx:Label width="350" id="status_txt" bottom="10" left="10"/>
+	<mx:Label text="package:" left="10" bottom="33"/>
+	<mx:Text text="{ fileList.selectedPath}" x="73" y="124" width="415" fontWeight="bold" enabled="false"/>
+	<mx:Text text="{ root_txt.text+'.'+base_txt.text+'.'+ StringUtil.trim(project_name_txt.text)}" fontWeight="bold" bottom="33" left="66" right="10"/>
+	<mx:FileSystemList id="fileList" visible="{custom_rb.selected}" directory="{ File.userDirectory}" left="10" top="159" right="10" bottom="56"/>
 	<mx:Script>
 		<![CDATA[
+			import mx.utils.StringUtil;
 		
 			import com.builder.model.proxies.FileProxy;
 			import com.builder.view.facades.TemplateBuilderFacade;
@@ -29,9 +32,28 @@
             }
             private function onCreateProject():void{
             	dispatchEvent(new Event(FileProxy.CREATE_PROJECT))
+            	
             }
 		]]>
 	</mx:Script>
-	<mx:Label width="350" id="status_txt" bottom="10" left="10"/>
+	<mx:HBox right="10" left="10" top="45">
+		<mx:Label text="root package"/>
+		<mx:TextInput width="76" text="com" id="root_txt" maxChars="10" restrict="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0-9"/>
+		<mx:Label text="base package"/>
+		<mx:TextInput width="76" text="builder" id="base_txt" maxChars="25" restrict="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0-9"/>
+	</mx:HBox>
+	<mx:HBox right="10" left="10" top="75" bottom="143" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+		<mx:VBox width="288" height="150%" horizontalScrollPolicy="off" verticalScrollPolicy="off">
+			<mx:RadioButton id="flex_rb" label="default FlexBuilder Folder (recommended)" groupName="location" selected="true" width="320"/>
+			<mx:RadioButton id="custom_rb" label="custom" groupName="location" enabled="false"/>
+		</mx:VBox>
+		<mx:VBox width="150" height="80">
+			<mx:Text width="146" fontWeight="bold" text="optional libraries:"/>
+			<mx:CheckBox label="CasaLib"/>
+			<mx:CheckBox label="GTweener"/>
+		</mx:VBox>
+	</mx:HBox>
+	
+	
 	
 </mx:WindowedApplication>
